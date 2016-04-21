@@ -1,0 +1,34 @@
+<ui-gmap-google-map
+    class="google-map"
+    center="map.center"
+    zoom="map.zoom"
+    dragging="map.dragging"
+    bounds="map.bounds"
+    events="map.events"
+    options="map.options"
+    pan="true"
+    control="map.control">
+    <ui-gmap-map-type
+      options="map.maptypes.consensus"
+      show="map.showConsensusMapType"
+      refresh="map.refresh"></ui-gmap-map-type>
+      <ui-gmap-map-type
+        options="map.maptypes.detail"
+        show="map.showDetailMapType"
+        refresh="map.refresh"></ui-gmap-map-type>
+    <ui-gmap-map-type
+      options="map.maptypes.refine"
+      show="map.showRefineMapType&&toggles.applyRefinement"
+      refresh="map.refresh"></ui-gmap-map-type>
+    <ui-gmap-map-type
+      options="map.maptypes.expert"
+      show="map.showRefineMapType  && !toggles.applyRefinement" refresh="map.refresh.expert"></ui-gmap-map-type>
+    <ui-gmap-map-type
+      options="map.maptypes.protect_refined"
+      show="map.showProtectMapType && toggles.applyRefinement"
+      refresh="map.refresh"></ui-gmap-map-type>
+    <ui-gmap-map-type
+      options="map.maptypes.protect_expert"
+      show="map.showProtectMapType && !toggles.applyRefinement"
+      refresh="map.refresh"></ui-gmap-map-type>
+</ui-gmap-google-map>

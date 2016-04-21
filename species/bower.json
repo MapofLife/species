@@ -1,0 +1,39 @@
+{
+  "name": "species-module",
+  "description": "Map of Life Species Pages",
+  "version": "0.0.1",
+  "homepage": "https://github.com/MapofLife/ng-mol",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular-google-maps": "~2.3.2",
+    "angular": "~1.5.0",
+    "angular-ui-select3": "ui-select#*",
+    "angular-cookies": "~1.5.0",
+    "angular-sanitize": "~1.5.0",
+    "angular-rangeslider": "~0.0.14",
+    "angular-bootstrap-checkbox": "~0.4.0",
+    "angular-loading-bar": "~0.8.0",
+    "angular-resource": "~1.5.0",
+    "angular-bootstrap": "1.0",
+    "angular-ui-router": "~0.2.18",
+    "angular-nvd3": "~1.0.5",
+    "bootstrap": "~3.3.6",
+    "jquery": "~2.2.1",
+    "angular-animate": "~1.5.2",
+    "ui-select": "angular-ui-select#^0.16.1"
+  },
+  "authors": [
+    "Jeremy Malczyk <jmalczyk@gmail.com>"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "resolutions": {
+    "angular": "~1.5.0"
+  }
+}
