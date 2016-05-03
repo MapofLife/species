@@ -45,7 +45,8 @@ angular.module('mol.controllers')
               $scope.canceller.resolve();
               $scope.canceller = $q.defer();
 
-
+              $scope.map.utfGrid={};
+              $scope.map.overlayMapTypes = [];
               if($scope.species) {
                   if($scope.mapUpdater) {
                     try{

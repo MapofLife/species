@@ -44,10 +44,11 @@ angular.module('mol', [
 .config(function($sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
   var speciesParams = ""+
-    "{scientificname}?" +
-    "regiontype&region&" +
-    "dsid&type&" +
-    "embed&noimage&noname&nodesc&noregionselect&nospeciesselect";
+    "{scientificname}?" + //taxon
+    "regiontype&region&" + //region constraint
+    "dsid&type&" + //selected data options
+    "embed&noimage&noname&nodesc&noregionselect&nospeciesselect" //embed options
+    ""
   $sceDelegateProvider.resourceUrlWhitelist([
       'self',
       'http*://localhost**',
@@ -57,7 +58,7 @@ angular.module('mol', [
   $httpProvider.defaults.useXDomain = true;
   //send cookies
   $httpProvider.defaults.withCredentials = true;
-  $urlRouterProvider.otherwise("species/");
+  $urlRouterProvider.otherwise("/overview");
 
   $stateProvider
     .state(
@@ -69,84 +70,23 @@ angular.module('mol', [
       }
     )
     .state(
-      'species.species-in-reserves',
+      'species.overview',
       {
-        title: "Species in Reserves",
-        templateUrl: 'static/views/species-in-reserves/main.html',
-        controller: 'molAssessmentCtrl',
-        url: '/pa'
-      }
-    )
-    .state(
-      'species.overview', //the description page adds wiki text, ed charts, and a map
-      {
-        title: "Species Information",
         views: {
-          "" : {templateUrl: 'static/layouts/basic.html'},
-          "content@species.overview" : {templateUrl: 'static/views/overview/content.html',
-          controller: 'molOverviewCtrl'},
-        },
-        url: '/{0}'.format(speciesParams)
-      }
-    )
-    /*.state(
-      'species.habitat-distribution', //the refine page adds the refine controls, metrics, and a map
-      {
-        title: "Range Maps",
-        views: {
-          "" : {templateUrl: 'static/layouts/species-grid.html',},
-          "left_top_1@species.habitat-distribution" : {templateUrl:'static/views/species_search.html'},
-          "right_top_1@species.habitat-distribution": {templateUrl: 'static/views/region_search.html'},
-          "left_top_2@species.habitat-distribution" : {templateUrl:'static/partials/name.html'},
-          "right_top_2@species.habitat-distribution": {templateUrl: 'static/partials/map.html'},
-          "left_top_3@species.habitat-distribution" : {templateUrl: 'static/partials/refine_controls.html'},
-          "left_bottom_1@species.habitat-distribution" : {templateUrl: 'static/partials/range_metrics.html',
-          controller: 'molRefineCtrl'}
-        },
-        url: '/range/{0}'.format(speciesParams)
-      }
-    )
-    .state(
-      'species.habitat-change', //the change page adds the refine controls, metrics, and change charts
-      {
-        title: "Habitat Change Analysis",
-        views: {
-          "" : {
-            "templateUrl":
-            "static/layouts/species-grid.html"},
-          "left_top_1@species.habitat-change" : {
-            "templateUrl": "static/partials/name.html"},
-          "left_top_2@species.habitat-change" : {
-            "templateUrl": "static/partials/refine_controls.html"},
-          "right_top_1@species.habitat-change":  {
-            "templateUrl" : "static/partials/change_charts.html",
-            "controller" : "molChangeCtrl"
+          "": {
+            templateUrl: 'static/layouts/map-left-sidebar.html',
+            controller: 'molOverviewCtrl'
           },
-          "left_top_3@species.habitat-change" : {
-            "templateUrl": 'static/partials/habitat_metrics.html'}
+          "sidebar@species.overview" :{
+            templateUrl: "static/views/overview/sidebar.html"
+          },
+          "map@species.overview" : {
+            templateUrl: "static/views/overview/map.html"
+          }
         },
-        url: '/habitat/{0}'.format(speciesParams)
+        url: '/overview/{0}'.format(speciesParams)
       }
     )
-    .state(
-      'species.reserve-coverage', //the change page adds the refine controls, metrics, and change charts
-      {
-
-        title: "Protection Status",
-        views: {
-          "" : {templateUrl: "static/layouts/species-grid.html"},
-          "left_top_1@species.reserve-coverage" : {templateUrl:'static/partials/name.html'},
-          "left_top_2@species.reserve-coverage" : { templateUrl : 'static/partials/refine_controls.html'},
-          "left_bottom_1@species.reserve-coverage" : {templateUrl: 'static/partials/range_metrics.html'},
-          "right_bottom_1@species.reserve-coverage": {
-              "templateUrl": 'static/partials/protect_metrics.html',
-              "controller" : 'molProtectCtrl'},
-          "right_top_1@species.reserve-coverage": {templateUrl: 'static/partials/map.html'}
-        },
-        url: '/protect/{0}'.format(speciesParams)
-
-      }
-    )*/
     .state(
       'species.detailed-map',
       {
@@ -162,7 +102,7 @@ angular.module('mol', [
             templateUrl: "static/views/detailed-map/map.html"
           }
         },
-        url: '/map/{0}'.format(speciesParams)
+        url: '/detail/{0}'.format(speciesParams)
       }
     );
 

@@ -75,6 +75,29 @@ footer {
   -webkit-flex: 1;
 }
 
+.layouts-map-left-sidebar .map-container {
+  display: flex;
+  display: -webkit-flex;
+  flex: 1;
+  -webkit-flex: 1;
+}
+
+.layouts-map-left-sidebar  .angular-google-map {
+      display: -webkit-flex;
+      display: flex;
+      flex: 1;
+      -webkit-flex: 1;
+      .google-map-canvas, .google-map-canvas * { .box-sizing(content-box); }
+
+      /* Optional responsive image override */
+      img { max-width: none; }
+}
+
+.layouts-map-left-sidebar .angular-google-map .angular-google-map-container {
+      -webkit-flex: 1;
+      flex: 1;
+  }
+
 .layouts-map-left-sidebar mol-loading-indicator {
   position: absolute;
   left: 50%;
