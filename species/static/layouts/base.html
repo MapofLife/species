@@ -1,5 +1,5 @@
-<div ng-cloak ng-include src="checkToggle('https://www.mol.org/partials/header-thin','embed') | trustUrl"></div>
-<div ng-cloak ng-include src="'static/views/sub-nav.html'"></div>
+<div ng-show="!$state.params.embed" ng-include="'/partials/header-thin'"></div>
+<div ng-show="!$state.params.embed" ng-include="'static/views/sub-nav.html'"></div>
 <!--<div ng-cloak ng-include src="checkToggle('static/views/search-bar.html','embed')"></div>-->
 <div ng-cloak class="layouts-base" ui-view></div>
-<div ng-cloak ng-include src="checkToggle('https://www.mol.org/partials/footer-thin','embed') | trustUrl "></div>
+<div ng-show="!$state.params.embed" ng-include="'/partials/footer-thin'"></div>

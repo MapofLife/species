@@ -12,4 +12,11 @@
         refresh="mt.refresh"
         ng-repeat="mt in map.overlayMapTypes">
     </ui-gmap-map-type>
+    <ui-gmap-window
+        show="map.infowindow.show"
+        coords="map.infowindow.coords"
+        options="map.infowindow.options"
+        templateUrl="'static/views/detailed-map/infowindow.html'"
+        templateParameter="map.infowindow.model"
+        ></ui-gmap-window>
 </ui-gmap-google-map>

@@ -210,7 +210,8 @@ angular.module('mol.controllers')
       $scope.fitBounds = function(bnds) {
         try {
            var newbnds = angular.copy($scope.getBounds(bnds));
-           if($scope.region !== undefined) {
+           //pin to region bounds if possible
+           if(Object.keys($scope.region).length) {
              newbnds.southwest.longitude = Math.max($scope.region.bnds[0]);
              newbnds.southwest.latitude = Math.max($scope.region.bnds[1]);
              newbnds.northeast.longitude = Math.min($scope.region.bnds[2]);

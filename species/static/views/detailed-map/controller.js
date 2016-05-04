@@ -1,4 +1,9 @@
 angular.module('mol.controllers')
+  .controller('molDetailWindowCtrl',
+  [ '$scope',
+    function($scope){
+
+    }])
   .controller('molDetailMapCtrl',
   	[ '$compile',
       '$window','$http','$uibModal','$scope', '$state', '$filter',
@@ -205,84 +210,64 @@ angular.module('mol.controllers')
             });
           }
 
-          //Get metdata for features on the map
-          $scope.getFeatures = function(lat,lng,zoom,scientificname) {
+        //Get metdata for features on the map
+        $scope.getFeatures = function(lat,lng,zoom,scientificname) {
 
-
-
-            $scope.addFeatureMarker(lat,lng);
-
-              return MOLServices(
-                'featuremetadata',
-                {
-                  "scientificname": scientificname,
-                  "lat": lat,
-                  "lng": lng,
-                  "zoom": zoom,
-                  "datasets":$scope.visibleDatasets,
-                  "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
-                  "max_year" : ($scope.filters.years)?$scope.year.max:5555555,
-                  "min_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.min:-5555555,
-                  "max_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.max:5555555,
-                  "scientificname": $scope.species.scientificname,
-                  "datasets": $scope.visibleDatasets,
-                  "null_years":($scope.filters.years)?$scope.year.nulls.toString():true.toString(),
-                  "default_uncertainty":20000,
-                  "point_limit": ($scope.filters.limit)?$scope.filters.points:0,
-                }
-              ).then(
-                function(results) {
-
-
-                  return results.data;
-
-                }
-              );
-            };
-
-
-    /*    $scope.$on('leafletDirectiveMap.popupopen', function(event, leafletEvent){
-
-          // Create the popup view when is opened
-          var feature = leafletEvent.leafletEvent.popup.options.feature;
-
-          var newScope = $scope.$new();
-          newScope.stream = feature;
-
-          $compile(leafletEvent.leafletEvent.popup._contentNode)(newScope);
-      })  ;*/
-
-      $scope.addFeatureMarker = function(lat, lng) {
-        $scope.leafletmap.markers = {
-           f: {
-               lat: lat,
-               lng: lng,
-               focus: true,
-               compileMessage: true,
-               icon: {
-                type: 'awesomeMarker',
-                prefix:'fa',
-                icon: 'refresh',
-                spin: true
-                }
+            MOLApi({
+              "canceller": $scope.canceller,
+              "loading": true,
+              "service" : "species/featuremetadata",
+              "version" : "0.x",
+              "creds" : true,
+              "params" : {
+                "scientificname": scientificname,
+                "lat": lat,
+                "lng": lng,
+                "zoom": zoom,
+                "datasets":$scope.visibleDatasets,
+                "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
+                "max_year" : ($scope.filters.years)?$scope.year.max:5555555,
+                "min_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.min:-5555555,
+                "max_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.max:5555555,
+                "scientificname": $scope.species.scientificname,
+                "datasets": $scope.visibleDatasets,
+                "null_years":($scope.filters.years)?$scope.year.nulls.toString():true.toString(),
+                "default_uncertainty":20000,
+                "point_limit": ($scope.filters.limit)?$scope.filters.points:0,
               }
-        };
+            }).then(
+              function(results) {
+                if(results.data[0]) {
+                angular.extend($scope.map.infowindow.model,
+                  {"searching":false, "featureResult" :results.data[0], "datasets" : $scope.datasets}
 
-       };
+                  );
+                } else {
+                      $scope.map.infowindow = {};
+                }
+                $scope.$apply();
+
+              }
+            );
+          };
 
 
-
-
-      $scope.unionBounds = function(b1,b2) {
-        var b = b1;
-        try {
-          b.southWest.lat = Math.min(b1.southWest.lat,b2.southWest.lat);
-          b.southWest.lng = Math.min(b1.southWest.lng,b2.southWest.lng);
-          b.northEast.lat = Math.max(b1.northEast.lat,b2.northEast.lat);
-          b.northEast.lng = Math.max(b1.northEast.lng,b2.northEast.lng);
-          return b;
-        } catch (e) {return b1;}
+      $scope.map.events.click = function(map, eventName, coords) {
+        $scope.map.infowindow = {
+            id: coords[0].latLng.lat()+'-'+coords[0].latLng.lng(),
+            show: true,
+            options:{animation:0},
+            coords: {
+                latitude: coords[0].latLng.lat(),
+                longitude:  coords[0].latLng.lng()
+            },
+            model: {"searching" :true},
+            templateUrl: 'static/views/detailed-map/infowindow.html'
+          }
+          $scope.$apply();
+          $scope.getFeatures(coords[0].latLng.lat(),coords[0].latLng.lng(),map.getZoom(),$scope.species.scientificname);
       }
+
 
       $scope.getLayers = function(scientificname) {
 
@@ -432,61 +417,4 @@ angular.module('mol.controllers')
             }
       });
 
-
-
-      $scope.toggleSidebar = function(state) {
-        $scope.toggles.sidebarVisible=state;
-      }
-
-      $scope.featureMetadata = function(result, lat, lng) {
-        var hasFeatures = false;
-        $scope.toggles.sidebarVisible = true;
-        $scope.toggles.featuresActive = true;
-        $scope.toggles.looking = false;
-        $scope.featuresByType = {};
-
-        angular.forEach(
-          result[0].datasets,
-          function( features,dataset_id) {
-            hasFeatures = true;
-            if(!$scope.featuresByType[$scope.datasets[dataset_id].product_type]) {
-              $scope.featuresByType[$scope.datasets[dataset_id].product_type] = {
-                "feature_ct": 0,
-                "datasets": {},
-                "title": $scope.types[$scope.datasets[dataset_id].product_type].title
-              }
-            }
-            $scope.featuresByType[$scope.datasets[dataset_id].product_type].feature_ct += features.length;
-            $scope.featuresByType[$scope.datasets[dataset_id].product_type].datasets[dataset_id] = {
-              title: $scope.datasets[dataset_id].dataset_title,
-              latitude: lat,
-              longitude: lng,
-              features : features,
-              feature_ct : features.length,
-              dataset_meta: $scope.datasets[dataset_id]
-            }
-          }
-          );
-
-          if(hasFeatures) {
-            $scope.toggles.sidebarVisible = true;
-            $scope.toggles.featuresVisible = true;
-            $scope.toggles.featuresActive = true;
-            //$scope.featureLocation = {lat }
-          } else {
-            $scope.toggles.featuresVisible = false;
-            $scope.toggles.featuresActive = false;
-            $scope.parameter = undefined;
-            $scope.featureLocation = undefined;
-          }
-
-          $http({
-            "method":"GET",
-            "url":'app/views/detailed-map/feature_metadata.html'}).success(
-            function(tmpl) {
-                $scope.infowindow.setOptions = {content:$compile(tmpl)};
-            }
-          );
-
-        }
   }]);

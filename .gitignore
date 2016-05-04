@@ -1,7 +1,7 @@
 logs/*
 !.gitkeep
-node_modules/
-static/components/*
+**/node_modules/
+**/components/*
 tmp
 .DS_Store
 *.pyc
