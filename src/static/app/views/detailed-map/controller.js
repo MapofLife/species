@@ -111,7 +111,7 @@ angular.module('mol.controllers')
               function(results) {
                 var modalInstance, metadata = results.data;
                 modalInstance = $modal.open({
-                  templateUrl: 'static/views/detailed-map/dataset_metadata_modal.html',
+                  templateUrl: 'static/app/views/detailed-map/dataset_metadata_modal.html',
                   controller: function($scope, $uibModalInstance) {
 
                       var items =[{"collapsed":false,"items":metadata}];
@@ -217,7 +217,7 @@ angular.module('mol.controllers')
               "canceller": $scope.canceller,
               "loading": true,
               "service" : "species/featuremetadata",
-              "version" : "0.x",
+              "version" : $scope.api_version,
               "creds" : true,
               "params" : {
                 "scientificname": scientificname,
@@ -238,6 +238,7 @@ angular.module('mol.controllers')
             }).then(
               function(results) {
                 if(results.data[0]) {
+                  if(!results.data[0])
                 angular.extend($scope.map.infowindow.model,
                   {"searching":false, "featureResult" :results.data[0], "datasets" : $scope.datasets}
 
@@ -262,7 +263,7 @@ angular.module('mol.controllers')
                 longitude:  coords[0].latLng.lng()
             },
             model: {"searching" :true},
-            templateUrl: 'static/views/detailed-map/infowindow.html'
+            templateUrl: 'static/app/views/detailed-map/infowindow.html'
           }
           $scope.$apply();
           $scope.getFeatures(coords[0].latLng.lat(),coords[0].latLng.lng(),map.getZoom(),$scope.species.scientificname);
@@ -275,7 +276,7 @@ angular.module('mol.controllers')
           "canceller": $scope.canceller,
           "loading": true,
           "service" : "species/layermetadata",
-          "version" : "0.x",
+          "version" : $scope.api_version,
           "creds" : true,
           "params" :   {"scientificname" : scientificname}
        }).success(

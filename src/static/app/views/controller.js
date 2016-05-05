@@ -5,6 +5,8 @@ angular.module('mol.controllers')
    		function($http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
          $location, $anchorScroll, $q,uiGmapGoogleMapApi) {
 
+      $rootScope.api_version = '0.x'
+
        //Map utilities
        function getTileUrl(c,z,p) {
            var u = null,
