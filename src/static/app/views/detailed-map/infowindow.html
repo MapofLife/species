@@ -1,0 +1,11 @@
+<div ng-controller="molDetailWindowCtrl" style="min-width:30px; min-height:30px; overflow: auto; max-height:300px">
+  <i style="margin:auto" ng-show="!parameter.featureResult" class="fa fa-refresh fa-spin fa-lg"></i>
+  <div class="panel panel-default" ng-repeat="(dataset, features) in parameter.featureResult.datasets">
+    <div class="panel-heading" ng-click="c!=c"><strong>{{parameter.datasets[dataset].dataset_title}}</strong></div>
+    <div class="list-group" ng-repeat="feature in features">
+        <li class="list-group-item" ng-repeat="(key, value) in feature.metadata">
+          <strong>{{key}}: </strong>{{value}}
+        </li>
+    </div>
+  </div>
+</div>
