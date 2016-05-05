@@ -1,0 +1,31 @@
+<div class="detail_map_sidebar">
+  <p ng-cloak ng-show="!$state.params.noname||!$state.params.noimage">
+    <div ng-cloak ng-hide="$state.params.noname" class="col-md-8">
+      <div ng-include="'static/partials/tax.html'"></div>
+    </div>
+    </div>
+    <div ng-cloak ng-hide="$state.params.noimage" class="col-md-4">
+      <species-images
+        ng-show="toggles.sidebarVisible"
+        scientificname="species.scientificname"></species-images>
+    </div>
+  </p>
+  <p ng-show="toggles.sidebarVisible">
+    <tabset class=" detail_map_layer_controls" justified="true">
+      <tab style="cursor:pointer;" heading="Sources">
+        <div ng-include="'static/views/detailed-map/datasets.html'"></div>
+        <points-histogram
+          ng-show="types.points.visible"
+          scientificname="species.scientificname"
+          years="year"
+          uncertainty="uncertainty"
+          filters="filters"
+          types="types"
+          limit="filters.points"></points-histogram>
+      </tab>
+      <tab style="cursor:pointer;" active="toggles.featuresActive" heading="Features">
+        <div ng-include="'app/partials/detail_map_features.html'"></div>
+      </tab>
+    </tabset>
+  </p>
+</div>
