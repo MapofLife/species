@@ -1,6 +1,16 @@
-# static-modules
+# The species module
 
-These modules are intended to be deployed as static applications via git submodules within the mol.org repository.
+A species information and mapping application, written for Angular 1.5.x.
 
-They can and should use globablly shared client-side resources (css, html partials, html imports / web components) 
-made available via that repo, but otherwise should handle their own state, routing, views, and communication with the MOL api.
+After cloningm install client dependencies 
+
+```
+bower update
+```
+
+Build with 
+
+```
+npm install
+grunt
+```
