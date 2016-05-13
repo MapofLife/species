@@ -12,6 +12,8 @@ angular.module('mol.controllers')
          $compile, $window, $http, $modal, $scope, $state, $filter,
           $timeout, $location, $anchorScroll, $q,  MOLApi,uiGmapGoogleMapApi) {
             /* set up defatul scop*/
+
+
             $scope.uncertainty = {
               min:0,
               max:32000,
@@ -145,7 +147,7 @@ angular.module('mol.controllers')
               function(results) {
                 var modalInstance, metadata = results.data;
                 modalInstance = $modal.open({
-                  templateUrl: 'static/partials/metadata_modal.html',
+                  templateUrl: 'static/app/partials/metadata_modal.html',
                   controller: function($scope, $uibModalInstance) {
 
                       var items =[{"collapsed":false,"items":metadata}];
@@ -237,16 +239,27 @@ angular.module('mol.controllers')
               }
             }).then(
               function(results) {
-                if(results.data[0]) {
-                  if(!results.data[0])
-                angular.extend($scope.map.infowindow.model,
-                  {"searching":false, "featureResult" :results.data[0], "datasets" : $scope.datasets}
-
-                  );
+                if(angular.isDefined(results.data[0].datasets)&&results.data[0].datasets){
+                      $scope.map.infowindow = {
+                        id: lat+'-'+lng,
+                        show: true,
+                        options:{animation:0, disableAutoPan:false},
+                        coords: {
+                          latitude: lat,
+                          longitude:  lng
+                      },
+                      model: {
+                        "searching":false,
+                        "featureResult" :results.data[0],
+                        "datasets" : $scope.datasets},
+                      templateUrl: 'static/app/views/detailed-map/infowindow.html'
+                    }
                 } else {
                       $scope.map.infowindow = {};
                 }
-                $scope.$apply();
+                if(!$scope.$$phase) {
+                   $scope.$apply();
+                 }
 
               }
             );
@@ -254,18 +267,11 @@ angular.module('mol.controllers')
 
 
       $scope.map.events.click = function(map, eventName, coords) {
-        $scope.map.infowindow = {
-            id: coords[0].latLng.lat()+'-'+coords[0].latLng.lng(),
-            show: true,
-            options:{animation:0},
-            coords: {
-                latitude: coords[0].latLng.lat(),
-                longitude:  coords[0].latLng.lng()
-            },
-            model: {"searching" :true},
-            templateUrl: 'static/app/views/detailed-map/infowindow.html'
-          }
-          $scope.$apply();
+        $scope.map.infowindow = {}
+
+          if(!$scope.$$phase) {
+               $scope.$apply();
+             }
           $scope.getFeatures(coords[0].latLng.lat(),coords[0].latLng.lng(),map.getZoom(),$scope.species.scientificname);
       }
 
@@ -288,7 +294,6 @@ angular.module('mol.controllers')
             $scope.types = {};
             $scope.datasets = {};
             $scope.selectedFeatures = {}
-            //$scope.species.bounds = null;
 
             angular.forEach(
               layers,
@@ -309,16 +314,6 @@ angular.module('mol.controllers')
                       angular.copy($scope.types[layer.product_type].bounds),
                       angular.copy(layer.bounds));
                 }
-
-                if(layer.product_type!='regionalchecklist') {
-
-                  $scope.species.bounds = $scope.unionBounds(
-                    angular.copy(layer.bounds),
-                    angular.copy($scope.species.bounds));
-
-                }
-
-
 
                 $scope.types[layer.product_type].datasets[layer.dataset_id] = {
                   "visible":layer.visible,

@@ -1,12 +1,11 @@
-<div class="detail_map_sidebar">
-  <div class="row" ng-cloak ng-show="!$state.params.noname||!$state.params.noimage">
-    <div ng-cloak ng-hide="$state.params.noname" ng-include="'static/app/partials/tax.html'">
-    </div>
-    <div ng-cloak ng-hide="$state.params.noimage" class="col-md-4">
-      <species-images
-        ng-show="toggles.sidebarVisible"
-        scientificname="species.scientificname"></species-images>
-    </div>
+<div class="overview-sidebar">
+  <div class="name" >
+      <div class="infoCommonName" ng-show="species.common">
+          {{species.common | capitalize}}
+      </div>
+      <div class="infoSciName" ng-show="species.scientificname">
+          {{species.scientificname | capitalize}}
+      </div>
   </div>
   <div class="row"><div class="col-md-12"><h5>Sources</h5></div></div>
   <div class="row">
@@ -15,7 +14,7 @@
 
     <points-histogram
 
-      ng-show="types.points.visible"
+      ng-show="types.points.visible&&!$state.params.nofilters"
       scientificname="species.scientificname"
       years="year"
       uncertainty="uncertainty"

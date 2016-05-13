@@ -49,12 +49,19 @@ footer {
 }
 .layouts-map-left-sidebar .sidebar-scroll-container {
   position: relative;
-  max-width: 320px;
-  min-width: 320px;
+  width: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  border-right: 2pt solid gray;
+  border: 0;
+  transition:all 0.7s ease;
 }
+
+.layouts-map-left-sidebar .sidebar-scroll-container.open {
+  width: 320px !important;
+    border-left: 2pt solid gray;
+
+}
+
 
 .layouts-map-left-sidebar .sidebar {
 
@@ -117,4 +124,19 @@ footer {
 .layouts-map-wrap-right .google-map .angular-google-map-container{
   width:600px;
   height:400px;
+}
+
+/* put in partials css */
+a.map-link:hover {
+  background-color:inherit;
+}
+
+.map-link img {
+  height: 26px;
+
+
+}
+
+.partials-map a:link {
+  padding: 0;
 }

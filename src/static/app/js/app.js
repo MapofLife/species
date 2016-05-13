@@ -39,7 +39,7 @@ angular.module('mol', [
     cfpLoadingBarProvider.includeSpinner = false;
     cfpLoadingBarProvider.includeBar = false;
     //cfpLoadingBarProvider.includeBar = false;
-    cfpLoadingBarProvider.latencyThreshold = 500;
+    cfpLoadingBarProvider.latencyThreshold = 100;
   }])
 .config(function($sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
@@ -47,8 +47,8 @@ angular.module('mol', [
     "{scientificname}?" + //taxon
     "regiontype&region&" + //region constraint
     "dsid&type&" + //selected data options
-    "embed&noimage&noname&nodesc&noregionselect&nospeciesselect" //embed options
-    ""
+    "embed&noimage&noname&nodesc&noregionselect&nospeciesselect&nosidebar&" + //embed options
+    "noheader&nosubnav&nofooter&norandom&nofilters";
   $sceDelegateProvider.resourceUrlWhitelist([
       'self',
       'http*://localhost**',
@@ -65,24 +65,26 @@ angular.module('mol', [
       'species', //this view contains the bones of the Species Info pages (name, pic, & search bar)
       {
         abstract: true,
-        templateUrl: 'static/app/layouts/base.html',
-        controller: 'molSpeciesCtrl'
+        views: {"": {
+            templateUrl: 'static/app/layouts/base.html',
+            controller: 'molSpeciesCtrl'}}
       }
     )
     .state(
       'species.overview',
       {
         views: {
-          "": {
+        /*  "": {
             templateUrl: 'static/app/layouts/map-left-sidebar.html',
             controller: 'molOverviewCtrl'
+          },*/
+          "sidebar@species" :{
+            templateUrl: "static/app/views/overview/sidebar.html",
+            controller: 'molOverviewCtrl'
           },
-          "sidebar@species.overview" :{
-            templateUrl: "static/app/views/overview/sidebar.html"
-          },
-          "map@species.overview" : {
-            templateUrl: "static/app/views/overview/map.html"
-          }
+          /*"map@species" : {
+            templateUrl: "static/app/partials/map.html"
+          }*/
         },
         url: '/overview/{0}'.format(speciesParams)
       }
@@ -91,16 +93,17 @@ angular.module('mol', [
       'species.detailed-map',
       {
         views: {
-          "": {
+          /*"": {
             templateUrl: 'static/app/layouts/map-left-sidebar.html',
             controller: 'molDetailMapCtrl'
+          },*/
+          "sidebar@species" :{
+            templateUrl: "static/app/views/detailed-map/sidebar.html",
+            controller: 'molDetailMapCtrl'
           },
-          "sidebar@species.detailed-map" :{
-            templateUrl: "static/app/views/detailed-map/sidebar.html"
-          },
-          "map@species.detailed-map" : {
-            templateUrl: "static/app/views/detailed-map/map.html"
-          }
+        /*  "map@species.detailed-map" : {
+            templateUrl: "static/app/partials/map.html"
+          }*/
         },
         url: '/detail/{0}'.format(speciesParams)
       }

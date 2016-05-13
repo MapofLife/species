@@ -1,11 +1,21 @@
 angular.module('mol.controllers')
   .controller('molSpeciesCtrl',
   	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout',
-     '$location','$anchorScroll','$q','uiGmapGoogleMapApi',
+     '$location','$anchorScroll','$q','uiGmapGoogleMapApi','$window',
    		function($http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
-         $location, $anchorScroll, $q,uiGmapGoogleMapApi) {
+         $location, $anchorScroll, $q,uiGmapGoogleMapApi,$window) {
 
       $rootScope.api_version = '0.x'
+
+      $scope.$watch('c',
+        function(n,v) {
+          if(n) {
+            $timeout(function() {
+              var map = $scope.map.control.getGMap();
+              google.maps.event.trigger(map,'resize');
+
+            },700)}
+        });
 
        //Map utilities
        function getTileUrl(c,z,p) {
@@ -80,11 +90,6 @@ angular.module('mol.controllers')
       //for view specific css targeting
       $rootScope.$state = $state;
 
-      $rootScope.$on('$stateChangeSuccess',
-      function() {
-
-      })
-
       $scope.region = {};
 
       $scope.map = {
@@ -94,8 +99,8 @@ angular.module('mol.controllers')
             zoom: 0,
             control: {},
             options: {
-                fullScreenControl: true,
-                fullScreenControlOptions: {},
+                fullscreenControl: true,
+                fullscreenControlOptions: {position: 'top-right'},
                 streetViewControl: false,
                 panControl: false,
                 maxZoom: 10,
@@ -158,19 +163,6 @@ angular.module('mol.controllers')
           return url;
         }
       }
-
-
-
-        //stuff we need google api for
-        /*uiGmapGoogleMapApi.then(function(maps) {
-          angular.extend($scope.map, {
-              events: {
-
-               }
-            });
-        });*/
-
-
 
 
       $scope.addOverlay = function(overlay,type) {
@@ -237,6 +229,7 @@ angular.module('mol.controllers')
 
       $scope.$watch("species.scientificname", function(newValue, oldValue) {
           if(newValue != undefined) {
+            $window.parent.postMessage({"scientificname": newValue},'*');
             $state.transitionTo(
               $state.current.name,
               {"scientificname":$scope.cleanURLName(newValue)},

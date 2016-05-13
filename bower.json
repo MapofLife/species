@@ -21,7 +21,8 @@
     "bootstrap": "~3.3.6",
     "jquery": "~2.2.1",
     "angular-animate": "~1.5.2",
-    "ui-select": "angular-ui-select#^0.16.1"
+    "ui-select": "angular-ui-select#^0.16.1",
+    "css-element-queries": "~0.3.2"
   },
   "authors": [
     "Jeremy Malczyk <jmalczyk@gmail.com>"
