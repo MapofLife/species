@@ -1,12 +1,17 @@
 <div ng-show="!$state.params.embed&&!$state.params.noheader" ng-include="'/partials/header-thin'"></div>
-<div ng-show="!$state.params.embed&&!$state.params.nosubnav" ng-include="'static/app/views/sub-nav.html'"></div>
+<div ng-include="'static/app/views/sub-nav.html'"></div>
 <!--<div ng-cloak class="layouts-base" ui-view></div>-->
 <div class="layouts-map-left-sidebar">
-  <i style="  transition:all 0.7s ease;position:absolute; right:10px; z-index: 1000;top:10px; padding:10px;"
-    ng-class="{'fa-bars':c, 'fa-close':!c}" class="fa fa-lg clickable" ng-click="c = !c;"></i>
+  <i
+     ng-class="{'fa-bars':lc, 'fa-close':!lc}" class="fa fa-lg clickable sidebar-toggle left" ng-click="lc = !lc;"></i>
+ <div ng-show="!$state.params.embed||$state.params.sidebars" ng-class="{'closed': lc}" class="sidebar-scroll-container left">
+   <div ui-view="left-sidebar" class="left"></div>
+ </div>
   <div class="map-container" ng-include="'static/app/partials/map.html'"></div><!--ui-view="map"></div>-->
-  <div ng-show="!$state.params.nosidebar" ng-class="{'open': !c}" class="sidebar-scroll-container">
-    <div ui-view="sidebar" class="sidebar"></div>
+  <i
+     ng-class="{'fa-bars':rc, 'fa-close':!rc}" class="fa fa-lg clickable sidebar-toggle right" ng-click="rc = !rc;"></i>
+  <div ng-show="!$state.params.embed||$state.params.sidebars" ng-class="{'closed': rc}" class="sidebar-scroll-container right">
+    <div ui-view="right-sidebar" class="right"></div>
   </div>
   <mol-loading-indicator></mol-loading-indicator>
 </div>

@@ -7,7 +7,7 @@ angular.module('mol.controllers')
 
       $rootScope.api_version = '0.x'
 
-      $scope.$watch('c',
+      $scope.$watch('rs',
         function(n,v) {
           if(n) {
             $timeout(function() {
@@ -16,6 +16,16 @@ angular.module('mol.controllers')
 
             },700)}
         });
+
+        $scope.$watch('ls',
+          function(n,v) {
+            if(n) {
+              $timeout(function() {
+                var map = $scope.map.control.getGMap();
+                google.maps.event.trigger(map,'resize');
+
+              },700)}
+          });
 
        //Map utilities
        function getTileUrl(c,z,p) {

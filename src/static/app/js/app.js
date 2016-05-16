@@ -74,17 +74,10 @@ angular.module('mol', [
       'species.overview',
       {
         views: {
-        /*  "": {
-            templateUrl: 'static/app/layouts/map-left-sidebar.html',
-            controller: 'molOverviewCtrl'
-          },*/
-          "sidebar@species" :{
+          "left-sidebar@species" :{
             templateUrl: "static/app/views/overview/sidebar.html",
             controller: 'molOverviewCtrl'
-          },
-          /*"map@species" : {
-            templateUrl: "static/app/partials/map.html"
-          }*/
+          }
         },
         url: '/overview/{0}'.format(speciesParams)
       }
@@ -93,17 +86,10 @@ angular.module('mol', [
       'species.detailed-map',
       {
         views: {
-          /*"": {
-            templateUrl: 'static/app/layouts/map-left-sidebar.html',
-            controller: 'molDetailMapCtrl'
-          },*/
-          "sidebar@species" :{
+          "right-sidebar@species" :{
             templateUrl: "static/app/views/detailed-map/sidebar.html",
             controller: 'molDetailMapCtrl'
-          },
-        /*  "map@species.detailed-map" : {
-            templateUrl: "static/app/partials/map.html"
-          }*/
+          }
         },
         url: '/detail/{0}'.format(speciesParams)
       }

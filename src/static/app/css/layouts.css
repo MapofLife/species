@@ -49,30 +49,59 @@ footer {
 }
 .layouts-map-left-sidebar .sidebar-scroll-container {
   position: relative;
-  width: 0;
   overflow-y: auto;
   overflow-x: hidden;
   border: 0;
+
+
+}
+
+.layouts-map-left-sidebar .sidebar-scroll-container.right {
+  border-left: 2pt solid gray;
+
+}
+.layouts-map-left-sidebar .sidebar-scroll-container.left {
+  border-right: 2pt solid gray;
+}
+
+.layouts-map-left-sidebar .sidebar-scroll-container.closed {
+  width: 0px;
   transition:all 0.7s ease;
 }
 
-.layouts-map-left-sidebar .sidebar-scroll-container.open {
-  width: 320px !important;
-    border-left: 2pt solid gray;
-
+.sidebar-toggle {
+  position:absolute;
+  z-index:  1000;
+  top:10px;
+  padding:6px;
+  margin: 8px;
+  transition:all 0.7s ease;
+  border: 0.1pt solid #555555;
+  border-radius: 1pt;
+  color: #555555;
+  background-color: white;
+}
+.sidebar-toggle.right {
+      right:10px;
+}
+.sidebar-toggle.left {
+      left:10px;
 }
 
 
 .layouts-map-left-sidebar .sidebar {
 
-  position: absolute;
   top: 0px;
   bottom: 0px;
   left: 0px;
+  right:0px;
   background-color: white;
   font-size: 10pt;
   padding: 5px;
-  width: 310px;
+  width: 320px;
+  transition:all 0.7s ease;
+  transition: opacity 1500ms;
+
 }
 
 .layouts-map-left-sidebar .map-container {

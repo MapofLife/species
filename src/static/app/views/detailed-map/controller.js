@@ -108,7 +108,8 @@ angular.module('mol.controllers')
                 "id": dataset.id
               },
               "canceller" :$scope.canceller,
-              "loading":true
+              "loading":true,
+              "version": $scope.api_version
             }).then(
               function(results) {
                 var modalInstance, metadata = results.data;
@@ -142,7 +143,9 @@ angular.module('mol.controllers')
                 "id": type.id
                },
                "canceller": $scope.canceller,
-               "loading": true
+               "loading": true,
+
+               "version": $scope.api_version
             }).then(
               function(results) {
                 var modalInstance, metadata = results.data;
@@ -281,7 +284,7 @@ angular.module('mol.controllers')
        MOLApi({
           "canceller": $scope.canceller,
           "loading": true,
-          "service" : "species/layermetadata",
+          "service" : "species/datasets",
           "version" : $scope.api_version,
           "creds" : true,
           "params" :   {"scientificname" : scientificname}
