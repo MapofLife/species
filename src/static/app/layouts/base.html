@@ -1,5 +1,6 @@
-<div ng-show="!$state.params.embed&&!$state.params.noheader" ng-include="'//mol.org/partials/header-thin'"></div>
-<div ng-include="'static/app/views/sub-nav.html'"></div>
+<div ng-show="!$state.params.embed&&!$state.params.noheader"
+ng-include="'//mol.org/partials/header-thin' | trustUrl"></div>
+<div ng-include="'static/app/views/sub-nav.html' | trustUrl"></div>
 <!--<div ng-cloak class="layouts-base" ui-view></div>-->
 <div class="layouts-map-left-sidebar">
  <div ng-swipe-left="lc=true"
@@ -26,4 +27,4 @@
   </div>
   <mol-loading-indicator></mol-loading-indicator>
 </div>
-<div ng-show="!$state.params.embed&&!$state.params.nofooter" ng-include="'//mol.org/partials/footer-thin'"></div>
+<div ng-show="!$state.params.embed&&!$state.params.nofooter" ng-include="'//mol.org/partials/footer-thin' | trustUrl"></div>
