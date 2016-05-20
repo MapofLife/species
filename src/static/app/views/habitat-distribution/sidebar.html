@@ -7,12 +7,6 @@
           {{species.scientificname | capitalize}}
       </div>
   </div>
-  <div class="text-center">
-  <mol-species-images
-    ng-show="!$state.params.noimage"
-    size="150" scientificname="species.scientificname"></mol-species-images>
-  </div>
-  <p>
-  <mol-species-description
-    scientificname="species.scientificname"></mol-species-description></p>
+  <div ng-include="'static/app/partials/refine_controls.html'"></div>
+  <div ng-include="'static/app/partials/range_metrics.html'"></div>
 </div>

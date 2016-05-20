@@ -7,6 +7,7 @@ angular.module('mol', [
   'ngSanitize',
   'ngCookies',
   'ngAnimate',
+  'ngTouch',
   'mol.api',
   'mol.filters',
   'mol.services',
@@ -58,7 +59,7 @@ angular.module('mol', [
   $httpProvider.defaults.useXDomain = true;
   //send cookies
   $httpProvider.defaults.withCredentials = true;
-  $urlRouterProvider.otherwise("/overview");
+  $urlRouterProvider.otherwise("/overview/");
 
   $stateProvider
     .state(
@@ -86,12 +87,36 @@ angular.module('mol', [
       'species.detailed-map',
       {
         views: {
-          "right-sidebar@species" :{
+          "left-sidebar@species" :{
             templateUrl: "static/app/views/detailed-map/sidebar.html",
             controller: 'molDetailMapCtrl'
           }
         },
         url: '/detail/{0}'.format(speciesParams)
+      }
+    )
+    .state(
+      'species.habitat-distribution',
+      {
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/habitat-distribution/sidebar.html",
+            controller: 'molHabitatDistributionCtrl'
+          }
+        },
+        url: '/range/{0}'.format(speciesParams)
+      }
+    )
+    .state(
+      'species.reserve-coverage',
+      {
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/reserve-coverage/sidebar.html",
+            controller: 'molReserveCoverageCtrl'
+          }
+        },
+        url: '/protect/{0}'.format(speciesParams)
       }
     );
 

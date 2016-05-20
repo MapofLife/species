@@ -1,5 +1,5 @@
 angular.module('mol.controllers')
- .controller('molRefineCtrl',
+ .controller('molHabitatDistributionCtrl',
     ['$scope', '$q', '$timeout','GetRefinedRange', function($scope, $q, $timeout, GetRefinedRange) {
       $scope.call_ver = 0;
 
@@ -15,7 +15,7 @@ angular.module('mol.controllers')
         if($scope.prefs) {
         $scope.species.refine = {};
         $scope.cancelAll();
-        
+
 
         $scope.promises.push(GetRefinedRange($scope.prefs.refined, canceller).query(
             function(response) {

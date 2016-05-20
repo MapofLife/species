@@ -7,7 +7,7 @@ angular.module('mol.controllers')
 
       $rootScope.api_version = '0.x'
 
-      $scope.$watch('rs',
+      $scope.$watch('rc',
         function(n,v) {
           if(n) {
             $timeout(function() {
@@ -17,7 +17,7 @@ angular.module('mol.controllers')
             },700)}
         });
 
-        $scope.$watch('ls',
+        $scope.$watch('lc',
           function(n,v) {
             if(n) {
               $timeout(function() {
@@ -109,14 +109,12 @@ angular.module('mol.controllers')
             zoom: 0,
             control: {},
             options: {
-                fullscreenControl: true,
-                fullscreenControlOptions: {position: 'top-right'},
                 streetViewControl: false,
                 panControl: false,
                 maxZoom: 10,
                 minZoom: 1,
                 styles: styles,
-                mapTypeControlOptions: {}
+                mapTypeControlOptions: {position: 5}
             },
             utfGrid: {},
             overlayMapTypes: [],
