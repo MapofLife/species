@@ -121,7 +121,7 @@ angular.module('mol', [
     );
 
     //Gets rid of the # in the querystring. Wont work on IE
-    $locationProvider.html5Mode(true);
+    //$locationProvider.html5Mode(true);
 
 
 });
