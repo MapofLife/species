@@ -1,0 +1,19 @@
+<div class="modal-header">
+    <i class="fa fa-close close" ng-click="close()"></i>
+    <h3 class="modal-title">{{modal.title}}</h3>
+</div>
+<div class="modal-body">
+  <div class="panel panel-default" ng-repeat="item in modal.items">
+      <div ng-show="modal.items.length>1" class="panel-heading metadata_heading"
+        ng-click="modal.selectedItem = $index;">{{item.title}}</div>
+      <div ng-show = "modal.selectedItem === $index || modal.items.length ==1"
+          ng-repeat="metadata in item.items">
+        <!--<li class="list-group-item">
+          <strong><h4>{{metadata.section}}</h4></strong>-->
+        <li ng-show="entry.label && entry.value" class="list-group-item"   ng-repeat="entry in metadata.children">
+          <strong>{{entry.label}}:</strong>
+          <span ng-bind-html="entry.value"></span>
+        </li>
+      </div>
+  </div>
+</div>
