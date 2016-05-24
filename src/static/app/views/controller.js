@@ -7,11 +7,7 @@ angular.module('mol.controllers')
 
       $rootScope.api_version = '0.x'
 
-<<<<<<< HEAD
-      $scope.$watch('rs',
-=======
       $scope.$watch('rc',
->>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
         function(n,v) {
           if(n) {
             $timeout(function() {
@@ -20,12 +16,7 @@ angular.module('mol.controllers')
 
             },700)}
         });
-
-<<<<<<< HEAD
-        $scope.$watch('ls',
-=======
         $scope.$watch('lc',
->>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
           function(n,v) {
             if(n) {
               $timeout(function() {
@@ -117,21 +108,14 @@ angular.module('mol.controllers')
             zoom: 0,
             control: {},
             options: {
-<<<<<<< HEAD
                 fullscreenControl: true,
-                fullscreenControlOptions: {position: 'top-right'},
-=======
->>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
+                fullscreenControlOptions: {position: 3},
                 streetViewControl: false,
                 panControl: false,
                 maxZoom: 10,
                 minZoom: 1,
                 styles: styles,
-<<<<<<< HEAD
-                mapTypeControlOptions: {}
-=======
                 mapTypeControlOptions: {position: 5}
->>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
             },
             utfGrid: {},
             overlayMapTypes: [],
@@ -277,5 +261,4 @@ angular.module('mol.controllers')
           }
       });
 
-
-  }]);
+  }])
