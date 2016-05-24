@@ -7,6 +7,7 @@ angular.module('mol.controllers')
 
       $rootScope.api_version = '0.x'
 
+      $scope.canceller = $q.defer();
       $scope.$watch('rc',
         function(n,v) {
           if(n) {
@@ -260,5 +261,4 @@ angular.module('mol.controllers')
           }
       });
 
-
-  }]);
+  }])

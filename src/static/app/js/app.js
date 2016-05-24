@@ -108,11 +108,11 @@ angular.module('mol', [
       }
     )
     .state(
-      'species.reserve-coverage',
+      'species.habitat-distribution.reserve-coverage',
       {
         views: {
-          "left-sidebar@species" :{
-            templateUrl: "static/app/views/reserve-coverage/sidebar.html",
+          "protect-metrics@species.habitat-distribution" :{
+            templateUrl: "static/app/views/reserve-coverage/reserve-coverage.html",
             controller: 'molReserveCoverageCtrl'
           }
         },

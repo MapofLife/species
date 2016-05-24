@@ -1,37 +1,49 @@
 angular.module('mol.controllers')
  .controller('molHabitatDistributionCtrl',
-    ['$scope', '$q', '$timeout','GetRefinedRange', function($scope, $q, $timeout, GetRefinedRange) {
-      $scope.call_ver = 0;
+    ['$scope', '$q', '$timeout','$http','$filter',
+    function($scope, $q, $timeout, $http, $filter) {
 
-    var canceller = $q.defer();
-     $scope.err_ct = 0;
-     $scope.$watch("prefs", function(newValue, oldValue) {
+     $scope.$watch("species.prefs", function(newValue, oldValue) {
         if(newValue != undefined) {
           $scope.updateRefineModel();
         }
      });
 
+     $scope.toggles = {
+       refine : true
+     }
+
+     $scope.refineCanceller = $q.defer();
+
+     ///for habitat refinement
      $scope.updateRefineModel = function () {
-        if($scope.prefs) {
-        $scope.species.refine = {};
-        $scope.cancelAll();
-
-
-        $scope.promises.push(GetRefinedRange($scope.prefs.refined, canceller).query(
-            function(response) {
-              if(response) {
-                $scope.species.refine = response;
+        if($scope.species.prefs) {
+          $scope.species.refine = {};
+          $scope.refineCanceller.resolve();
+          $scope.refineCanceller = $q.defer();
+          $http({
+            method: 'GET',
+            url: '//species.mol.org/api/refine',
+            withCredentials: false,
+            params: $filter('molHabitatPrefs')($scope.species.prefs),
+            timeout: $scope.refineCanceller}).success(
+              function(response) {
+                if(response) {
+                  $scope.species.refine = response;
+                }
               }
-            },
-            function(err) {
-               /*if ($scope.checkParams(err)) {
-                   $scope.err_ct++;
-                   $timeout($scope.updateRefineModel, 1000 * Math.pow(2, $scope.err_ct));
-                   console.log(err);
-               }*/
-            }).$promise);
-        $scope.runAll();
-      }
+            );
+       }
     }
 
-    }]);
+    }])
+    .filter('molHabitatPrefs', function ($sce) {
+        return function(prefs) {
+          var p = angular.copy(prefs);
+          p.habitats[2] = p.habitats[3] = p.habitats[4] = p.habitats[5] = p.habitats[1];
+          return angular.extend(
+            p, {
+              habitats: p.habitats.map(function(h, i) {if(h) return i}).filter(function(i){return i}).join(',')});
+        };
+      });;
+;

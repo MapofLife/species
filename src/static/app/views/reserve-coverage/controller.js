@@ -1,14 +1,53 @@
 angular.module('mol.controllers')
  .controller('molReserveCoverageCtrl',
-    ['$scope', '$rootScope','$window','$q', '$timeout', '$filter',
-      function($scope, $rootScope, $window, $q, $timeout, $filter) {
+    ['$scope', '$rootScope','$window','$q', '$timeout', '$filter','$http',
+      function($scope, $rootScope, $window, $q, $timeout, $filter, $http) {
 
 
+      $scope.reserveCanceller = $q.defer();
 
-      $scope.call_ver = 0;
       $scope.threshold = {min:10,max:50000};
 
       //$scope.refined = true;
+
+
+      $scope.$watch(
+        "species.prefs",
+        function(newValue, oldValue) {
+          if(newValue){
+            $scope.updateReserveModel();
+          }
+    });
+
+    $scope.getReserveStats = function(prefs) {
+      return $http({
+        method: 'GET',
+        url: '//species.mol.org/api/protect',
+        withCredentials: false,
+        params: prefs,
+        timeout: $scope.reserveCanceller})
+     }
+
+    $scope.updateReserveModel = function() {
+      $scope.getReserveStats(angular.extend(
+        $filter('molHabitatPrefs')($scope.species.prefs),
+        {threshold:0})).then(
+          function(response) {
+            $scope.species.protect.refined.totals = response.totals;
+            $scope.species.protect.refined.maps = response.maps;
+          }
+        );
+      $scope.getReserveStats(angular.extend(
+        $filter('molHabitatPrefs')($scope.species.prefs),
+        {threshold:0, use_f:false,use_e:false,use_h:false})).then(
+          function(response) {
+            $scope.species.protect.unrefined.totals = response.totals;
+            $scope.species.protect.unrefined.maps = response.maps;
+          }
+        );
+    }
+  
+
 
       $scope.downloadCSV = function() {
         var params = $scope.prefs.refined,
@@ -18,39 +57,12 @@ angular.module('mol.controllers')
           params_arr.push('{0}={1}'.format(k,v));
          })
 
-       $window.open('https://api.mol.org/'+$scope.api_version+'/species/suitability/protect?{0}'.format(params_arr.join('&')));
+       $window.open('https://species.mol.org/api/protect?{0}'.format(params_arr.join('&')));
 
       }
+
       $scope.updateThresholds = function () {
-        var unrefined_params = angular.copy($scope.prefs.unrefined),
-            refined_params = angular.copy($scope.prefs.refined);
 
-        unrefined_params["threshold"]=angular.copy($scope.threshold.min);
-        refined_params["threshold"]=angular.copy($scope.threshold.min);
-
-        $scope.promises.push(
-          GetProtectedAreas(refined_params).query(
-            function(response) {
-                if(response) {
-                  $scope.species.protect.refined.totals_t = response.totals;
-                  if(response.maps) {
-                    $scope.species.protect.refined.maps = response.maps;
-                  }
-                }
-              }).$promise);
-
-        $scope.promises.push(
-          GetProtectedAreas(unrefined_params).query(
-            function(response) {
-              if(response) {
-                $scope.species.protect.unrefined.totals_t = response.totals;
-                if(response.maps) {
-                  $scope.species.protect.unrefined.maps = response.maps;
-                }
-              }
-            }).$promise);
-
-         $scope.runAll()
       }
 
 
@@ -134,11 +146,5 @@ angular.module('mol.controllers')
         }
       }
 
-        $scope.$watch(
-          "prefs",
-          function(newValue, oldValue) {
-            if(newValue){
-              $scope.getProtectedAreas();
-            }
-          });
+
     }]);
