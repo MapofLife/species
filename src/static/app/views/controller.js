@@ -7,7 +7,6 @@ angular.module('mol.controllers')
 
       $rootScope.api_version = '0.x'
 
-      $scope.canceller = $q.defer();
       $scope.$watch('rc',
         function(n,v) {
           if(n) {
@@ -17,7 +16,6 @@ angular.module('mol.controllers')
 
             },700)}
         });
-
         $scope.$watch('lc',
           function(n,v) {
             if(n) {
@@ -110,6 +108,8 @@ angular.module('mol.controllers')
             zoom: 0,
             control: {},
             options: {
+                fullscreenControl: true,
+                fullscreenControlOptions: {position: 3},
                 streetViewControl: false,
                 panControl: false,
                 maxZoom: 10,

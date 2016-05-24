@@ -1,8 +1,8 @@
 angular.module('mol.controllers')
+
  .controller('molReserveCoverageCtrl',
     ['$scope', '$rootScope','$window','$q', '$timeout', '$filter','$http',
       function($scope, $rootScope, $window, $q, $timeout, $filter, $http) {
-
 
       $scope.reserveCanceller = $q.defer();
 
@@ -46,7 +46,7 @@ angular.module('mol.controllers')
           }
         );
     }
-  
+
 
 
       $scope.downloadCSV = function() {
@@ -57,9 +57,11 @@ angular.module('mol.controllers')
           params_arr.push('{0}={1}'.format(k,v));
          })
 
+
        $window.open('https://species.mol.org/api/protect?{0}'.format(params_arr.join('&')));
 
       }
+
 
       $scope.updateThresholds = function () {
 

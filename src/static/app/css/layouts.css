@@ -46,8 +46,17 @@ footer {
   display: flex;
   position: relative;
   align-items: stretch;
-  transition: all 0.7s ease;
 }
+
+.layouts-map-left-sidebar .sidebar-scroll-container {
+  position: relative;
+  max-width: 90%;
+  border: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
 .layouts-map-left-sidebar .sidebar-scroll-container {
   position: relative;
   max-width: 90%;
@@ -57,19 +66,11 @@ footer {
   transition:all 0.7s ease;
 }
 
-.layouts-map-left-sidebar .sidebar-scroll-container.right {
-
-
-}
-.layouts-map-left-sidebar .sidebar-scroll-container.left {
-
-}
-
 .layouts-map-left-sidebar .closed {
   max-width:0;
   padding: 0;
   overflow: hidden;
-
+  transition:all 0.7s ease;
 }
 
 .layouts-map-left-sidebar .sidebar-toggle.right.toggle-closed  {
@@ -85,8 +86,6 @@ footer {
   height:40px;
   margin: auto;
   padding:10px;
-  margin: auto;
-  transition: all 0.7s ease;
   color: #555555;
   background-color: white;
   border-bottom: 1pt solid grey;
@@ -100,7 +99,6 @@ footer {
 
 }
 .sidebar-toggle.left {
-  /*left: 0px;*/
   border-right: 1pt solid grey;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
@@ -115,16 +113,14 @@ footer {
   right:0px;
   background-color: white;
   font-size: 10pt;
+  max-width: 100%;
   padding: 15px;
   min-width: 290px;
   width: 600px;
   max-width: 100%;
-  transition:all 0.7s ease;
+
 
 }
-
-
-
 
 .layouts-map-left-sidebar .map-container {
   display: flex;
@@ -153,9 +149,9 @@ footer {
 
 .layouts-map-left-sidebar .angular-google-map .angular-google-map-container {
       -webkit-flex: 1;
-      flex: 1;
       border-right: 0.5pt solid grey;
       border-left: 0.5pt solid grey;
+
   }
 
 .layouts-map-left-sidebar mol-loading-indicator {

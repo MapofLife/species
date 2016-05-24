@@ -3,6 +3,7 @@ angular.module('mol.controllers')
     ['$scope', '$q', '$timeout','$http','$filter',
     function($scope, $q, $timeout, $http, $filter) {
 
+
      $scope.$watch("species.prefs", function(newValue, oldValue) {
         if(newValue != undefined) {
           $scope.updateRefineModel();

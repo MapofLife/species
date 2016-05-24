@@ -1,5 +1,6 @@
-<div ng-show="!$state.params.embed&&!$state.params.noheader" ng-include="'/partials/header-thin'"></div>
-<div ng-include="'static/app/views/sub-nav.html'"></div>
+
+<div ng-show="!$state.params.embed&&!$state.params.noheader" ng-include="'//mol.org/partials/header-thin' | trustUrl"></div>
+<div ng-show="!$state.params.embed&&!$state.params.noheader" ng-include="'static/app/views/sub-nav.html' | trustUrl"></div>
 <!--<div ng-cloak class="layouts-base" ui-view></div>-->
 <div class="layouts-map-left-sidebar">
  <div ng-swipe-left="lc=true"
@@ -10,7 +11,6 @@
     ng-class="{'fa-chevron-right':lc, 'fa-chevron-left':!lc}"
     class="fa fa-lg clickable sidebar-toggle left"
     ng-click="lc = !lc;"
-
     uib-tooltip="{{(lc)?'Show sidebar' : 'Hide sidebar'}}"
     tooltip-placement="right"></i>
     <i ng-show="$state.current.views['right-sidebar@species']"
@@ -26,4 +26,4 @@
   </div>
   <mol-loading-indicator></mol-loading-indicator>
 </div>
-<div ng-show="!$state.params.embed&&!$state.params.nofooter" ng-include="'/partials/footer-thin'"></div>
+<div ng-show="!$state.params.embed&&!$state.params.nofooter" ng-include="'//mol.org/partials/footer-thin' | trustUrl"></div>
