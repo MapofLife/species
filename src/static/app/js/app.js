@@ -7,6 +7,10 @@ angular.module('mol', [
   'ngSanitize',
   'ngCookies',
   'ngAnimate',
+<<<<<<< HEAD
+=======
+  'ngTouch',
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
   'mol.api',
   'mol.filters',
   'mol.services',
@@ -58,7 +62,11 @@ angular.module('mol', [
   $httpProvider.defaults.useXDomain = true;
   //send cookies
   $httpProvider.defaults.withCredentials = true;
+<<<<<<< HEAD
   $urlRouterProvider.otherwise("/overview");
+=======
+  $urlRouterProvider.otherwise("/overview/");
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
 
   $stateProvider
     .state(
@@ -86,13 +94,44 @@ angular.module('mol', [
       'species.detailed-map',
       {
         views: {
+<<<<<<< HEAD
           "right-sidebar@species" :{
+=======
+          "left-sidebar@species" :{
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
             templateUrl: "static/app/views/detailed-map/sidebar.html",
             controller: 'molDetailMapCtrl'
           }
         },
         url: '/detail/{0}'.format(speciesParams)
       }
+<<<<<<< HEAD
+=======
+    )
+    .state(
+      'species.habitat-distribution',
+      {
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/habitat-distribution/sidebar.html",
+            controller: 'molHabitatDistributionCtrl'
+          }
+        },
+        url: '/range/{0}'.format(speciesParams)
+      }
+    )
+    .state(
+      'species.reserve-coverage',
+      {
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/reserve-coverage/sidebar.html",
+            controller: 'molReserveCoverageCtrl'
+          }
+        },
+        url: '/protect/{0}'.format(speciesParams)
+      }
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
     );
 
     //Gets rid of the # in the querystring. Wont work on IE

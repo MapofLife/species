@@ -1,7 +1,13 @@
 angular.module('mol.controllers')
+<<<<<<< HEAD
  .controller('molProtectCtrl',
     ['$scope', '$rootScope','$window','$q', '$timeout', '$filter','GetProtectedAreas', 'GetRefinedRange',
       function($scope, $rootScope, $window, $q, $timeout, $filter, GetProtectedAreas, GetRefinedRange) {
+=======
+ .controller('molReserveCoverageCtrl',
+    ['$scope', '$rootScope','$window','$q', '$timeout', '$filter',
+      function($scope, $rootScope, $window, $q, $timeout, $filter) {
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
 
 
 
@@ -18,7 +24,11 @@ angular.module('mol.controllers')
           params_arr.push('{0}={1}'.format(k,v));
          })
 
+<<<<<<< HEAD
        $window.open('/api/protect?{0}'.format(params_arr.join('&')));
+=======
+       $window.open('https://api.mol.org/'+$scope.api_version+'/species/suitability/protect?{0}'.format(params_arr.join('&')));
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
 
       }
       $scope.updateThresholds = function () {
@@ -27,7 +37,11 @@ angular.module('mol.controllers')
 
         unrefined_params["threshold"]=angular.copy($scope.threshold.min);
         refined_params["threshold"]=angular.copy($scope.threshold.min);
+<<<<<<< HEAD
       
+=======
+
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
         $scope.promises.push(
           GetProtectedAreas(refined_params).query(
             function(response) {

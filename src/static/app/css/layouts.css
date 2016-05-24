@@ -46,6 +46,7 @@ footer {
   display: flex;
   position: relative;
   align-items: stretch;
+<<<<<<< HEAD
 }
 .layouts-map-left-sidebar .sidebar-scroll-container {
   position: relative;
@@ -67,11 +68,42 @@ footer {
 .layouts-map-left-sidebar .sidebar-scroll-container.closed {
   width: 0px;
   transition:all 0.7s ease;
+=======
+  transition: all 0.7s ease;
+}
+.layouts-map-left-sidebar .sidebar-scroll-container {
+  position: relative;
+  max-width: 90%;
+  border: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  transition:all 0.7s ease;
+}
+
+.layouts-map-left-sidebar .sidebar-scroll-container.right {
+
+
+}
+.layouts-map-left-sidebar .sidebar-scroll-container.left {
+
+}
+
+.layouts-map-left-sidebar .closed {
+  max-width:0;
+  padding: 0;
+  overflow: hidden;
+
+}
+
+.layouts-map-left-sidebar .sidebar-toggle.right.toggle-closed  {
+  right: 0px;
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
 }
 
 .sidebar-toggle {
   position:absolute;
   z-index:  1000;
+<<<<<<< HEAD
   top:10px;
   padding:6px;
   margin: 8px;
@@ -86,6 +118,33 @@ footer {
 }
 .sidebar-toggle.left {
       left:10px;
+=======
+  top: 50%;
+  bottom: 50%;
+  width: 40px;
+  height:40px;
+  margin: auto;
+  padding:10px;
+  margin: auto;
+  transition: all 0.7s ease;
+  color: #555555;
+  background-color: white;
+  border-bottom: 1pt solid grey;
+  border-top: 1pt solid grey;
+}
+.sidebar-toggle.right {
+  right: 290px;
+  border-left: 1pt solid grey;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+}
+.sidebar-toggle.left {
+  /*left: 0px;*/
+  border-right: 1pt solid grey;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
 }
 
 
@@ -97,6 +156,7 @@ footer {
   right:0px;
   background-color: white;
   font-size: 10pt;
+<<<<<<< HEAD
   padding: 5px;
   width: 320px;
   transition:all 0.7s ease;
@@ -104,6 +164,19 @@ footer {
 
 }
 
+=======
+  padding: 15px;
+  min-width: 290px;
+  width: 600px;
+  max-width: 100%;
+  transition:all 0.7s ease;
+
+}
+
+
+
+
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
 .layouts-map-left-sidebar .map-container {
   display: flex;
   display: -webkit-flex;
@@ -132,6 +205,11 @@ footer {
 .layouts-map-left-sidebar .angular-google-map .angular-google-map-container {
       -webkit-flex: 1;
       flex: 1;
+<<<<<<< HEAD
+=======
+      border-right: 0.5pt solid grey;
+      border-left: 0.5pt solid grey;
+>>>>>>> ccb50a42c8ed4f40a10eb505b500e3df1089ed3c
   }
 
 .layouts-map-left-sidebar mol-loading-indicator {
