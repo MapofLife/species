@@ -18,11 +18,12 @@
               <li ui-sref-active="active"
                  ui-sref="species.detailed-map($state.params)"
                  ><a href="#">Detailed Map</a></li>
-               <li ui-sref-active-eq="active"
+
+               <li ng-show="species.prefs.ee_id" ui-sref-active-eq="active"
                   ui-sref="species.habitat-distribution($state.params)"
                 ><a href="#">Habitat Distribution</a></li>
 
-               <li ui-sref-active-eq="active"
+               <li  ng-show="species.prefs.ee_id" ui-sref-active-eq="active"
                   ui-sref="species.habitat-distribution.reserve-coverage($state.params)"
                   ><a href="#">Reserve Coverage</a></li>
             </ul>
