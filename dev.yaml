@@ -1,0 +1,9 @@
+
+handlers:
+- url: /species/static
+  static_dir: static-modules/species/src/static
+
+- url: /species.*
+  static_files: static-modules/species/src/index.html
+  upload: static-modules/species/src/index.html
+  expiration: "15m"
