@@ -11,7 +11,6 @@ angular.module('mol', [
   'mol.api',
   'mol.filters',
   'mol.services',
-  'mol.directives',
   'mol.species-search',
   'mol.species-description',
   'mol.location-search',
@@ -118,6 +117,18 @@ angular.module('mol', [
           }
         },
         url: '^/protect/{0}'.format(speciesParams)
+      }
+    )
+    .state(
+      'pa',
+      {
+        views: {
+          "protect-metrics@species.habitat-distribution" :{
+            templateUrl: "static/app/views/reserve-coverage/reserve-coverage.html",
+            controller: 'molReserveCoverageCtrl'
+          }
+        },
+        url: '^/pa'
       }
     );
     //Gets rid of the # in the querystring. Wont work on IE

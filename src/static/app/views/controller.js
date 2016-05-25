@@ -1,11 +1,13 @@
 angular.module('mol.controllers')
   .controller('molSpeciesCtrl',
   	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout',
-     '$location','$anchorScroll','$q','uiGmapGoogleMapApi','$window',
+     '$location','$anchorScroll','$q','uiGmapGoogleMapApi','$window', 'molSpeciesTooltips',
    		function($http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
-         $location, $anchorScroll, $q,uiGmapGoogleMapApi,$window) {
+         $location, $anchorScroll, $q,uiGmapGoogleMapApi,$window, molSpeciesTooltips) {
 
       $rootScope.api_version = '0.x'
+
+      angular.extend($scope, {"tt": molSpeciesTooltips});
 
       $scope.$watch('rc',
         function(n,v) {
