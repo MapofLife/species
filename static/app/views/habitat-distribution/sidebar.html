@@ -7,6 +7,9 @@
           {{species.scientificname | capitalize}}
       </div>
   </div>
-  <div ng-include="'static/app/partials/refine_controls.html'"></div>
-  <div ng-include="'static/app/partials/range_metrics.html'"></div>
+  <div ng-include="'static/app/views/habitat-distribution/controls.html'"></div>
+  <div ng-include="'static/app/views/habitat-distribution/range-metrics.html'"></div>
+
+  <div ui-view="protect-metrics"></div>
+
 </div>
