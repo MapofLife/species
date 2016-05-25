@@ -18,13 +18,31 @@ angular.module('mol.controllers')
         });
         $scope.$watch('lc',
           function(n,v) {
-            if(n) {
-              $timeout(function() {
-                var map = $scope.map.control.getGMap();
-                google.maps.event.trigger(map,'resize');
+            if(n!=v) {
+              uiGmapGoogleMapApi.then(
+                function(maps) {
+                  var map = $scope.map.control.getGMap(),
+                      center = map.getCenter();
+                    for(var i=0;i<=700;i+=4) {
+                    $timeout(function() {
+                        google.maps.event.trigger(map,'resize');
+                        map.panTo(center);
 
-              },700)}
+                    },i)}
+                })
+            }
           });
+          uiGmapGoogleMapApi.then(
+            function(maps) {
+          google.maps.event.addDomListener($window, "resize", function() {
+              var map = $scope.map.control.getGMap(),
+                c = map.getCenter();
+                $timeout(function() {
+                    google.maps.event.trigger(map,'resize');
+                    map.panTo(center);
+
+                },1000);
+          });})
 
        //Map utilities
        function getTileUrl(c,z,p) {
@@ -120,6 +138,9 @@ angular.module('mol.controllers')
             utfGrid: {},
             overlayMapTypes: [],
             events: {
+              click : function(map, eventName, coords) {
+
+              },
               mousemove: function(map, eventName, event) {
                var i, key, grid  = $scope.map.utfGrid,
                    value, zoom = map.getZoom(),
@@ -167,35 +188,29 @@ angular.module('mol.controllers')
         if(name) {return name.replace(/ /g, '_');}
       }
 
-      $scope.checkToggle = function(url,toggle) {
-        if(!$state.params[toggle]) {
-          return url;
-        }
+
+      $scope.clearOverlays = function() {
+          $scope.map.utfgrid={};
+          $scope.map.overlayMapTypes = [];
       }
 
-
-      $scope.addOverlay = function(overlay,type) {
+      $scope.setOverlay = function(overlay,index) {
           if($scope.map) {
-            $scope.map.overlayMapTypes.push(
-                {
-                  show:true,
-                  getTile : getTile,
-                  tileSize: new google.maps.Size(256, 256),
-                  name: overlay.type,
-                  overlay: overlay,
-                  id: type,
-                  index: Math.round(Math.random()*1000),
-                  refresh: true,
-                  opacity: overlay.opacity,
-                  maxZoom: 10
-              }
-            );//overlayMapType.push
+            $scope.map.overlayMapTypes[index]= {
+                show:true,
+                getTile : getTile,
+                tileSize: new google.maps.Size(256, 256),
+                name: overlay.type,
+                overlay: overlay,
+                index: Math.round(Math.random()*1000),
+                refresh: true,
+                opacity: overlay.opacity,
+                maxZoom: 10
+            }
           }
       }
 
-      $scope.updateMap = function() {
-        $scope.map.overlayMapType.refresh!=$scope.map.overlayMapType.refresh;
-      }
+
 
       $scope.getBounds = function(bnds) {
         var nbnds = {southwest: {
@@ -249,9 +264,11 @@ angular.module('mol.controllers')
 
       $scope.$watch("species.bounds", function(newValue, oldValue) {
           if(newValue != undefined) {
-            $scope.fitBounds(newValue);
+            $timeout(function () {
+              $scope.fitBounds(newValue);
+            }, 500);
           }
-      });
+      },true);
 
       $scope.$watch("region.bnds", function(newValue, oldValue) {
           if(newValue != undefined) {

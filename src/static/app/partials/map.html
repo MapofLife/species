@@ -1,7 +1,7 @@
 
-<script type="text/ng-template" id="logo.tpl.html">
+<script type="text/ng-template" id="logo.tpl.html" ng-controller="molSpeciesCtrl">
   <a style="background-color:none;" class="map-link"
-    ng-href="https://species.mol.org/species/{{$root.$state.params.scientificname}}"
+    ng-href="https://mol.org/species/{{$root.$state.params.scientificname}}"
       target="_blank">
     <img src="static/app/img/logo.png">
   </a>
@@ -15,7 +15,6 @@
     options="map.options"
     control="map.control"
     pan="true">
-
     <ui-gmap-map-type
         options="mt"
         show="mt.show"

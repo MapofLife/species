@@ -69,6 +69,7 @@ angular.module('mol', [
         views: {"": {
             templateUrl: 'static/app/layouts/base.html',
             controller: 'molSpeciesCtrl'}}
+
       }
     )
     .state(
@@ -80,7 +81,7 @@ angular.module('mol', [
             controller: 'molOverviewCtrl'
           }
         },
-        url: '/overview/{0}'.format(speciesParams)
+        url: '/{0}'.format(speciesParams)
       }
     )
     .state(
@@ -92,7 +93,7 @@ angular.module('mol', [
             controller: 'molDetailMapCtrl'
           }
         },
-        url: '/detail/{0}'.format(speciesParams)
+        url: '/map/{0}'.format(speciesParams)
       }
     )
     .state(
@@ -116,12 +117,10 @@ angular.module('mol', [
             controller: 'molReserveCoverageCtrl'
           }
         },
-        url: '/protect/{0}'.format(speciesParams)
+        url: '^/protect/{0}'.format(speciesParams)
       }
     );
-
     //Gets rid of the # in the querystring. Wont work on IE
     $locationProvider.html5Mode(true);
-
 
 });

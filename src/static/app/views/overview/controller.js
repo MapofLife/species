@@ -9,12 +9,12 @@ angular.module('mol.controllers')
             $scope.mapUpdater  = undefined;
             $scope.canceller = $q.defer()
             $scope.map.options.scrollwheel = false;
-
+            $scope.clearOverlays();
               $scope.$watch(
                 'species.scientificname',
                 function(name) {
                   if(name) {
-                      $scope.map.overlayMapTypes = [];
+
                       if($scope.mapUpdater) {
                         try{
                           $timeout.cancel($scope.mapUpdater);
@@ -30,7 +30,7 @@ angular.module('mol.controllers')
                             if($scope.species && result.layergroupid) {
 
                               $scope.tilesloaded=false;
-                              $scope.addOverlay({
+                              $scope.setOverlay({
                                   tile_url: ""+
                                     "https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
                                       .format(result.cdn_url.https,
@@ -46,7 +46,7 @@ angular.module('mol.controllers')
                                   name: 'overview',
                                   opacity: 0.8,
                                   type: 'overview'
-                              },'overview');
+                              },0);
 
                             }});},500);
                     }

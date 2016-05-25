@@ -34,26 +34,26 @@ angular.module('mol.controllers')
 
             $scope.$watch('uncertainty',function(newValue,oldValue){
               if(newValue){
-                $scope.updateMap();}
+                $scope.updateDetailMap();}
             },true);
 
             $scope.$watch('year',function(newValue,oldValue){
               if(newValue){
-                $scope.updateMap();}
+                $scope.updateDetailMap();}
             },true);
 
             $scope.$watch('filters',function(newValue,oldValue){
               if(newValue){
-                $scope.updateMap();}
+                $scope.updateDetailMap();}
             },true);
 
-            $scope.updateMap = function() {
+            $scope.updateDetailMap = function() {
               $scope.stale = false;
               $scope.canceller.resolve();
               $scope.canceller = $q.defer();
 
-              $scope.map.utfGrid={};
-              $scope.map.overlayMapTypes = [];
+
+              $scope.clearOverlays();
               if($scope.species) {
                   if($scope.mapUpdater) {
                     try{
@@ -78,7 +78,7 @@ angular.module('mol.controllers')
                         if($scope.species && result.layergroupid) {
 
                           $scope.tilesloaded=false;
-                          $scope.addOverlay({
+                          $scope.setOverlay({
                               tile_url: ""+
                                 "https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
                                   .format(result.cdn_url.https,
@@ -94,7 +94,7 @@ angular.module('mol.controllers')
                               name: 'detail',
                               opacity: 0.8,
                               type: 'detail'
-                          },'detail');
+                          },0);
 
                         }});},500);}
 
@@ -279,6 +279,8 @@ angular.module('mol.controllers')
       }
 
 
+
+
       $scope.getLayers = function(scientificname) {
 
        MOLApi({
@@ -335,7 +337,7 @@ angular.module('mol.controllers')
                 }
 
                 $scope.datasets[layer.dataset_id] = layer;
-                $scope.updateMap();
+                $scope.updateDetailMap();
               }
 
             );
@@ -353,7 +355,7 @@ angular.module('mol.controllers')
         function(newValue,oldValue) {
           if(newValue) {
             $scope.updateLayers();
-            $scope.updateMap();
+            $scope.updateDetailMap();
           }
         },
         true

@@ -8,16 +8,25 @@ angular.module('mol.controllers')
 
       $scope.threshold = {min:10,max:50000};
 
-      //$scope.refined = true;
 
 
       $scope.$watch(
         "species.prefs",
-        function(newValue, oldValue) {
-          if(newValue){
+        function(n, o) {
+          if(!angular.equals(n,o)){
             $scope.updateReserveModel();
           }
-    });
+      },true);
+
+
+      $scope.$watch(
+        "toggles.refine",
+        function(n,o) {
+          if(n!=o) {
+            $scope.updateReserveMaps();
+          }
+      });
+
 
     $scope.getReserveStats = function(prefs) {
       return $http({
@@ -28,26 +37,55 @@ angular.module('mol.controllers')
         timeout: $scope.reserveCanceller})
      }
 
-    $scope.updateReserveModel = function() {
-      $scope.getReserveStats(angular.extend(
-        $filter('molHabitatPrefs')($scope.species.prefs),
-        {threshold:0})).then(
-          function(response) {
-            $scope.species.protect.refined.totals = response.totals;
-            $scope.species.protect.refined.maps = response.maps;
-          }
-        );
-      $scope.getReserveStats(angular.extend(
-        $filter('molHabitatPrefs')($scope.species.prefs),
-        {threshold:0, use_f:false,use_e:false,use_h:false})).then(
-          function(response) {
-            $scope.species.protect.unrefined.totals = response.totals;
-            $scope.species.protect.unrefined.maps = response.maps;
-          }
-        );
-    }
 
 
+     $scope.reserveUpdater = null;
+
+     $scope.reserveCanceller = $q.defer();
+
+
+      $scope.updateReserveModel = function() {
+        if($scope.protectUpdater) {
+          try{
+            $timeout.cancel($scope.protectUpdater);
+          } catch(e){}};
+
+          $scope.reserveCanceller.resolve();
+          $scope.reserveCanceller = $q.defer();
+          $scope.protectUpdater = $timeout(function() {
+          $scope.species.protect = {refined:{}, unrefined:{}}
+          $scope.getReserveStats(angular.extend(
+            $filter('molHabitatPrefs')($scope.species.prefs),
+            {threshold:0})).then(
+              function(response) {
+                $scope.species.protect.refined.totals = response.data.totals;
+                $scope.addSpeciesURL(response.data.maps);
+                $scope.species.protect.refined.maps = response.data.maps;
+              }
+            );
+          $scope.getReserveStats(angular.extend(
+            $filter('molHabitatPrefs')($scope.species.prefs),
+            {threshold:0, use_f:false,use_e:false,use_h:false})).then(
+              function(response) {
+                $scope.species.protect.unrefined.totals = response.data.totals;
+                $scope.addSpeciesURL(response.data.maps);
+                $scope.species.protect.unrefined.maps = response.data.maps;
+              }
+            );
+          $scope.updateThresholds();
+        },1000);
+      }
+
+      $scope.updateReserveMaps = function() {
+        //add a reserve map
+        if($scope.species&&$scope.species.protect&&$scope.species.protect.refined) {
+        $scope.setOverlay(
+          ($scope.toggles.refine) ?
+            $scope.species.protect.refined.maps[0]:
+              $scope.species.protect.unrefined.maps[0],
+          1
+        );}
+      }
 
       $scope.downloadCSV = function() {
         var params = $scope.prefs.refined,
@@ -64,18 +102,37 @@ angular.module('mol.controllers')
 
 
       $scope.updateThresholds = function () {
+        $scope.getReserveStats(angular.extend(
+          $filter('molHabitatPrefs')($scope.species.prefs),
+          {threshold:$scope.threshold.min})).then(
+            function(response) {
+              $scope.species.protect.refined.totals_t = response.data.totals;
+              $scope.addSpeciesURL(response.data.maps);
+              $scope.species.protect.refined.maps = response.data.maps;
+              $scope.getReserveStats(angular.extend(
+                $filter('molHabitatPrefs')($scope.species.prefs),
+                {threshold:$scope.threshold.min, use_f:false,use_e:false,use_h:false})).then(
+                  function(response) {
+                    $scope.species.protect.unrefined.totals_t = response.data.totals;
+                    $scope.addSpeciesURL(response.data.maps);
+                    $scope.species.protect.unrefined.maps = response.data.maps;
+                    $scope.updateReserveMaps();
+                  }
+                );
+            }
+          );
 
       }
 
 
       $scope.getTargetArea = function(rs) {
-            if( rs <= 1000) {
-                return rs;
-            } else if (rs >= 250000) {
-                return 0.1*rs;
-            } else {
-                return rs*(212.6 - 37.542*Math.log10(rs))/100;
-            }
+          if( rs <= 1000) {
+              return rs;
+          } else if (rs >= 250000) {
+              return 0.1*rs;
+          } else {
+              return rs*(212.6 - 37.542*Math.log10(rs))/100;
+          }
       }
 
 
@@ -91,62 +148,27 @@ angular.module('mol.controllers')
           }
       };
 
-      $scope.getProtectedAreas = function () {
-        if($scope.prefs) {
-          var promises = [],
-          unrefined_params = angular.copy($scope.prefs.unrefined),
-          refined_params = angular.copy($scope.prefs.refined);
-
-        $scope.cancelAll();
-
-        unrefined_params["mode"]='unrefined';
-        refined_params["mode"]='refined';
-
-        $scope.species.protect.refined = {totals: {}, maps:[], totals_t:{}};
-        $scope.species.protect.unrefined = {totals: {}, maps:[], totals_t:{}};
-
-
-        $scope.status = {};
-
-        if ($scope.species != undefined) {
-            $scope.species.refine = null;
-            $scope.species.protect = null;
-
-          $scope.species.protect = {"refined":{}, "unrefined":{}};
-          $scope.species.refine = {};
-        }
-
-
-
-        $scope.promises.push(
-          GetProtectedAreas($scope.prefs.refined).query(
-            function(response) {
-                if(response) {
-                  $scope.species.protect.refined.totals = response.totals;
+      //Get metdata for features on the map
+      $scope.getFeatures = function(lat,lng,zoom,scientificname) {
+          $scope.map.infowindow = {
+                    id: lat+'-'+lng,
+                    show: true,
+                    options:{animation:0, disableAutoPan:false},
+                    coords: {
+                      latitude: lat,
+                      longitude:  lng
+                  },
+                  model: {
+                    "searching":false,
+                    "featureResult" :[],
+                    "datasets" : $scope.datasets},
+                  templateUrl: 'static/app/views/reserve-coverage/infowindow.html'
                 }
-              }).$promise);
 
-        $scope.promises.push(
-          GetProtectedAreas($scope.prefs.unrefined).query(
-            function(response) {
-              if(response) {
-                $scope.species.protect.unrefined.totals = response.totals;
+            if(!$scope.$$phase) {
+               $scope.$apply();
+             }
 
-              }
-            }).$promise);
-
-        $scope.promises.push(
-          GetRefinedRange($scope.prefs.refined).query(
-            function(response) {
-              if(response) {
-                $scope.species.refine = response;
-
-              }
-            }).$promise);
-
-        $scope.updateThresholds();
         }
-      }
-
 
     }]);
