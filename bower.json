@@ -5,7 +5,8 @@
   "homepage": "https://github.com/MapofLife/ng-mol",
   "license": "MIT",
   "private": true,
-  "dependencies": {
+  "devDependencies": {
+    "angular": "~1.5.0",
     "angular-google-maps": "~2.3.2",
     "angular": "~1.5.0",
     "angular-ui-select3": "ui-select#*",
@@ -33,8 +34,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "resolutions": {
-    "angular": "~1.5.0"
-  }
+  ]
 }
