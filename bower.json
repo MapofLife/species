@@ -1,5 +1,5 @@
 {
-  "name": "species-module",
+  "name": "species",
   "description": "Map of Life Species Pages",
   "version": "0.0.1",
   "homepage": "https://github.com/MapofLife/ng-mol",
@@ -8,7 +8,6 @@
   "devDependencies": {
     "angular": "~1.5.0",
     "angular-google-maps": "~2.3.2",
-    "angular": "~1.5.0",
     "angular-ui-select3": "ui-select#*",
     "angular-cookies": "~1.5.0",
     "angular-sanitize": "~1.5.0",
@@ -34,5 +33,8 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "resolutions": {
+    "angular": "~1.5.0"
+  }
 }

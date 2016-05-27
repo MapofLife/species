@@ -65,10 +65,25 @@ angular.module('mol', [
       'species', //this view contains the bones of the Species Info pages (name, pic, & search bar)
       {
         abstract: true,
-        views: {"": {
-            templateUrl: 'static/app/layouts/base.html',
-            controller: 'molSpeciesCtrl'}}
+        views: {
+          "": {
+            templateUrl: 'static/app/layouts/base-static.html',
+            controller: 'molSpeciesCtrl'},
+          "@species" : {
+            templateUrl: 'static/app/layouts/map-with-sidebars.html'
+          }
+        }
 
+      }
+    )
+    .state(
+      'pa',
+      {
+        views: {
+          "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
+          "@pa" : {templateUrl: "static/app/views/species-in-reserves/main.html"}
+        },
+        url: '/pa'
       }
     )
     .state(
@@ -117,18 +132,6 @@ angular.module('mol', [
           }
         },
         url: '^/protect/{0}'.format(speciesParams)
-      }
-    )
-    .state(
-      'pa',
-      {
-        views: {
-          "protect-metrics@species.habitat-distribution" :{
-            templateUrl: "static/app/views/reserve-coverage/reserve-coverage.html",
-            controller: 'molReserveCoverageCtrl'
-          }
-        },
-        url: '^/pa'
       }
     );
     //Gets rid of the # in the querystring. Wont work on IE

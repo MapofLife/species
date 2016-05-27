@@ -26,6 +26,11 @@ footer {
   overflow-y:auto;
 }
 
+.layouts-base.content {
+  margin: 0;
+  padding: 0;
+}
+
 
 .layouts-base .google-map-canvas, .google-map-canvas * { .box-sizing(content-box); }
 
@@ -39,7 +44,7 @@ footer {
 
 /* map with lefthand sidebar */
 
-.layouts-map-left-sidebar {
+.layouts-map-with-sidebars {
   -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
   display: -webkit-flex;
@@ -48,7 +53,7 @@ footer {
   align-items: stretch;
 }
 
-.layouts-map-left-sidebar .sidebar-scroll-container {
+.layouts-map-with-sidebars .sidebar-scroll-container {
   position: relative;
   max-width: 90%;
   border: 0;
@@ -57,7 +62,7 @@ footer {
 }
 
 
-.layouts-map-left-sidebar .sidebar-scroll-container {
+.layouts-map-with-sidebars .sidebar-scroll-container {
   position: relative;
   max-width: 90%;
   border: 0;
@@ -66,14 +71,14 @@ footer {
   transition:all 0.7s ease;
 }
 
-.layouts-map-left-sidebar .closed {
+.layouts-map-with-sidebars .closed {
   max-width:0;
   padding: 0;
   overflow: hidden;
   transition:all 0.7s ease;
 }
 
-.layouts-map-left-sidebar .sidebar-toggle.right.toggle-closed  {
+.layouts-map-with-sidebars .sidebar-toggle.right.toggle-closed  {
   right: 0px;
 }
 
@@ -105,7 +110,7 @@ footer {
 }
 
 
-.layouts-map-left-sidebar .sidebar {
+.layouts-map-with-sidebars .sidebar {
 
   top: 0px;
   bottom: 0px;
@@ -122,21 +127,21 @@ footer {
 
 }
 
-.layouts-map-left-sidebar .map-container {
+.layouts-map-with-sidebars .map-container {
   display: flex;
   display: -webkit-flex;
   flex: 1;
   -webkit-flex: 1;
 }
 
-.layouts-map-left-sidebar .map-container {
+.layouts-map-with-sidebars .map-container {
   display: flex;
   display: -webkit-flex;
   flex: 1;
   -webkit-flex: 1;
 }
 
-.layouts-map-left-sidebar  .angular-google-map {
+.layouts-map-with-sidebars  .angular-google-map {
       display: -webkit-flex;
       display: flex;
       flex: 1;
@@ -147,14 +152,14 @@ footer {
       img { max-width: none; }
 }
 
-.layouts-map-left-sidebar .angular-google-map .angular-google-map-container {
+.layouts-map-with-sidebars .angular-google-map .angular-google-map-container {
       -webkit-flex: 1;
       border-right: 0.5pt solid grey;
       border-left: 0.5pt solid grey;
 
   }
 
-.layouts-map-left-sidebar mol-loading-indicator {
+.layouts-map-with-sidebars mol-loading-indicator {
   position: absolute;
   left: 50%;
   top; 10px;
