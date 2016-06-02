@@ -58,7 +58,7 @@ angular.module('mol', [
     ]);
   $httpProvider.defaults.useXDomain = true;
   //send cookies
-  $httpProvider.defaults.withCredentials = false;
+  $httpProvider.defaults.withCredentials = true;
   $urlRouterProvider.otherwise("/overview/");
 
   $stateProvider

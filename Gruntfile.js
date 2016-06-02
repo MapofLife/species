@@ -50,15 +50,44 @@ module.exports = function(grunt) {
           spawn: false,
         },
       }
-    }
+    },
+    buildcontrol: {
+     options: {
+       dir: 'dist',
+       commit: true,
+       push: true,
+       message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
+     },
+     pages: {
+       options: {
+         remote: 'git@github.com:example_user/example_webapp.git',
+         branch: 'gh-pages'
+       }
+     },
+     /*heroku: {
+       options: {
+         remote: 'git@heroku.com:example-heroku-webapp-1988.git',
+         branch: 'master',
+         tag: pkg.version
+       }
+     },*/
+     local: {
+       options: {
+         remote: '../',
+         branch: 'build'
+       }
+     }
+   }
   });
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-dom-munger');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-build-control');
 
   // Default task(s).
   grunt.registerTask('default', ['dom_munger','uglify','cssmin','copy']);
+  grunt.registerTask('deploy', ['dom_munger','uglify','cssmin','copy', 'buildcontrol:pages']);
 
 };
