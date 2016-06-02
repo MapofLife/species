@@ -5,7 +5,11 @@ angular.module('mol.controllers')
    		function($http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
          $location, $anchorScroll, $q,uiGmapGoogleMapApi,$window, molSpeciesTooltips) {
 
-      $rootScope.api_version = '0.x'
+      $rootScope = $scope; //important for map
+
+      //for view specific css targeting
+      $rootScope.$state = $state;
+
 
       angular.extend($scope, {"tt": molSpeciesTooltips});
 
@@ -13,7 +17,7 @@ angular.module('mol.controllers')
         function(n,v) {
           if(n) {
             $timeout(function() {
-              var map = $scope.map.control.getGMap();
+              var map = $scope.$parent.map.control.getGMap();
               google.maps.event.trigger(map,'resize');
 
             },700)}
@@ -21,9 +25,9 @@ angular.module('mol.controllers')
         $scope.$watch('lc',
           function(n,v) {
             if(n!=v) {
-              uiGmapGoogleMapApi.then(
-                function(maps) {
-                  var map = $scope.map.control.getGMap(),
+              //uiGmapGoogleMapApi.then(
+              //  function(maps) {
+                  var map = $scope.$parent.map.control.getGMap(),
                       center = map.getCenter();
                     for(var i=0;i<=700;i+=4) {
                     $timeout(function() {
@@ -31,19 +35,19 @@ angular.module('mol.controllers')
                         map.panTo(center);
 
                     },i)}
-                })
+                //})
             }
           });
           uiGmapGoogleMapApi.then(
             function(maps) {
           google.maps.event.addDomListener($window, "resize", function() {
               var map = $scope.map.control.getGMap(),
-                c = map.getCenter();
-                $timeout(function() {
+                center = map.getCenter();
+                //$timeout(function() {
                     google.maps.event.trigger(map,'resize');
-                    map.panTo(center);
+                    map.setCenter(center);
 
-                },1000);
+                //},10);
           });})
 
        //Map utilities
@@ -116,8 +120,7 @@ angular.module('mol.controllers')
 
       /* wait until gmaps is ready */
 
-      //for view specific css targeting
-      $rootScope.$state = $state;
+
 
       $scope.region = {};
 
@@ -139,10 +142,17 @@ angular.module('mol.controllers')
             },
             utfGrid: {},
             overlayMapTypes: [],
+            getFeatures: undefined,
             events: {
               click : function(map, eventName, coords) {
+                $scope.map.infowindow = {}
 
+                  if(!$scope.$$phase) {
+                       $scope.$apply();
+                     }
+                  $scope.map.getFeatures(coords[0].latLng.lat(),coords[0].latLng.lng(),map.getZoom(),$scope.species.scientificname);
               },
+
               mousemove: function(map, eventName, event) {
                var i, key, grid  = $scope.map.utfGrid,
                    value, zoom = map.getZoom(),

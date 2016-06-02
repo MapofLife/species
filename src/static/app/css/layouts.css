@@ -9,6 +9,10 @@ body {
   width:100%;;
 }
 
+header {
+  overflow: inherit;
+}
+
 footer {
   display: block;
   position: inherit;
@@ -154,6 +158,7 @@ footer {
 
 .layouts-map-with-sidebars .angular-google-map .angular-google-map-container {
       -webkit-flex: 1;
+      flex: 1;
       border-right: 0.5pt solid grey;
       border-left: 0.5pt solid grey;
 

@@ -26,7 +26,17 @@ angular.module('mol.controllers')
             $scope.updateReserveMaps();
           }
       });
+      $scope.$on("$destroy", function(){
+        $scope.map.overlayMapTypes.splice(1);
+      });
+     $scope.$on("$viewContentLoaded", function(){
+          if(!$scope.species.protect) {
+            $scope.updateReserveModel();
+          } else {
+            $scope.updateReserveMaps();
+          }
 
+      });
 
     $scope.getReserveStats = function(prefs) {
       return $http({
@@ -149,7 +159,7 @@ angular.module('mol.controllers')
       };
 
       //Get metdata for features on the map
-      $scope.getFeatures = function(lat,lng,zoom,scientificname) {
+      $scope.map.getFeatures = function(lat,lng,zoom,scientificname) {
           $scope.map.infowindow = {
                     id: lat+'-'+lng,
                     show: true,
@@ -170,5 +180,5 @@ angular.module('mol.controllers')
              }
 
         }
-
+          $scope.updateReserveModel();
     }]);

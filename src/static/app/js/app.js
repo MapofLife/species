@@ -53,11 +53,12 @@ angular.module('mol', [
       'self',
       'http*://localhost**',
       'http*://*mol.org/**',
-      'http*://api.mol.org/**'
+      'http*://api.mol.org/**',
+      'http://cdn.mol.org/**',
     ]);
   $httpProvider.defaults.useXDomain = true;
   //send cookies
-  $httpProvider.defaults.withCredentials = true;
+  $httpProvider.defaults.withCredentials = false;
   $urlRouterProvider.otherwise("/overview/");
 
   $stateProvider

@@ -5,12 +5,12 @@ angular.module('mol.controllers')
 
     }])
   .controller('molDetailMapCtrl',
-  	[ '$compile',
-      '$window','$http','$uibModal','$scope', '$state', '$filter',
-      '$timeout','$location','$anchorScroll','$q','MOLApi','uiGmapGoogleMapApi',
+  	[  '$compile',
+      '$window','$http','$uibModal','$scope','$state', '$filter',
+      '$timeout','$location','$anchorScroll','$q','MOLApi','molApiVersion','uiGmapGoogleMapApi',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $location, $anchorScroll, $q,  MOLApi,uiGmapGoogleMapApi) {
+          $timeout, $location, $anchorScroll, $q,  MOLApi,molApiVersion,uiGmapGoogleMapApi) {
             /* set up defatul scop*/
 
 
@@ -109,7 +109,7 @@ angular.module('mol.controllers')
               },
               "canceller" :$scope.canceller,
               "loading":true,
-              "version": $scope.api_version
+              "version": molApiVersion
             }).then(
               function(results) {
                 var modalInstance, metadata = results.data;
@@ -145,7 +145,7 @@ angular.module('mol.controllers')
                "canceller": $scope.canceller,
                "loading": true,
 
-               "version": $scope.api_version
+               "version": molApiVersion
             }).then(
               function(results) {
                 var modalInstance, metadata = results.data;
@@ -216,13 +216,13 @@ angular.module('mol.controllers')
           }
 
         //Get metdata for features on the map
-        $scope.getFeatures = function(lat,lng,zoom,scientificname) {
+        $scope.map.getFeatures = function(lat,lng,zoom,scientificname) {
 
             MOLApi({
               "canceller": $scope.canceller,
               "loading": true,
               "service" : "species/featuremetadata",
-              "version" : $scope.api_version,
+              "version" : molApiVersion,
               "creds" : true,
               "params" : {
                 "scientificname": scientificname,
@@ -269,25 +269,13 @@ angular.module('mol.controllers')
           };
 
 
-      $scope.map.events.click = function(map, eventName, coords) {
-        $scope.map.infowindow = {}
-
-          if(!$scope.$$phase) {
-               $scope.$apply();
-             }
-          $scope.getFeatures(coords[0].latLng.lat(),coords[0].latLng.lng(),map.getZoom(),$scope.species.scientificname);
-      }
-
-
-
-
       $scope.getLayers = function(scientificname) {
 
        MOLApi({
           "canceller": $scope.canceller,
           "loading": true,
           "service" : "species/datasets",
-          "version" : $scope.api_version,
+          "version" : molApiVersion,
           "creds" : true,
           "params" :   {"scientificname" : scientificname}
        }).success(

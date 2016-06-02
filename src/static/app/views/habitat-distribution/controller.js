@@ -20,14 +20,14 @@ angular.module('mol.controllers')
        refine : true
      }
 
-     $scope.map.events.click = function(map, eventName, coords) {
-       $scope.map.infowindow = {}
+     $scope.$on("$viewContentLoaded", function(){
+       if(!$scope.species.refine.maps) {
+         $scope.updateRefineModel();
+       } else {
+         $scope.updateHabitatMaps();
+       }
+     });
 
-         if(!$scope.$$phase) {
-              $scope.$apply();
-            }
-         $scope.getFeatures(coords[0].latLng.lat(),coords[0].latLng.lng(),map.getZoom(),$scope.species.scientificname);
-     }
 
      $scope.refineUpdater = null;
 
@@ -68,6 +68,7 @@ angular.module('mol.controllers')
 
         //add a reserve map
         if($scope.species&&$scope.species.refine&&$scope.species.refine.maps) {
+
         $scope.setOverlay(
           ($scope.toggles.refine) ?
             $scope.species.refine.maps.refined:
@@ -87,6 +88,7 @@ angular.module('mol.controllers')
       );
 
     }
+
 
     }])
     .filter('molHabitatPrefs', function ($sce) {

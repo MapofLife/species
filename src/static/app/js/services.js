@@ -6,6 +6,13 @@
 // Service to get Species Info from CartoDB
 var molServices = angular.module('mol.services', []);
 molServices.factory(
+	'molApiVersion', [
+		function() {
+	     return "1.0"
+ 	  }
+  ]
+);
+	molServices.factory(
 	'molSpeciesTooltips',
 	[function() {
 	 return {        /** start of tooltips **/

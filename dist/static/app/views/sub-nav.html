@@ -21,10 +21,12 @@
 
                <li ng-show="species.prefs.ee_id" ui-sref-active-eq="active"
                   ui-sref="species.habitat-distribution($state.params)"
+                    ui-sref-opts="{reload: 'species.habitat-distribution'}"
                 ><a href="#">Habitat Distribution</a></li>
 
                <li  ng-show="species.prefs.ee_id" ui-sref-active-eq="active"
                   ui-sref="species.habitat-distribution.reserve-coverage($state.params)"
+                  ui-sref-opts="{reload: 'species.habitat-distribution'}"
                   ><a href="#">Reserve Coverage</a></li>
             </ul>
             <ul class="nav navbar-nav visible-xxxs visible-xxs">
