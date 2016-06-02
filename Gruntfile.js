@@ -64,19 +64,6 @@ module.exports = function(grunt) {
          remote: pkg.repository,
          branch: 'gh-pages'
        }
-     },
-     /*heroku: {
-       options: {
-         remote: 'git@heroku.com:example-heroku-webapp-1988.git',
-         branch: 'master',
-         tag: pkg.version
-       }
-     },*/
-     local: {
-       options: {
-         remote: '../',
-         branch: 'build'
-       }
      }
    }
   });
@@ -88,7 +75,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-build-control');
 
   // Default task(s).
-  grunt.registerTask('default', ['dom_munger','uglify','cssmin','copy']);
+  grunt.registerTask('build', ['dom_munger','uglify','cssmin','copy']);
   grunt.registerTask('deploy', ['buildcontrol:pages']);
 
 };
