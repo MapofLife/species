@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "description": "An application for mapping species distributions",
-  "repository": "https://github.com/MapofLife/species-module",
+  "repository": "git@github.com/MapofLife/species.git",
   "license": "MIT",
   "directory": "static/components/",
   "devDependencies": {

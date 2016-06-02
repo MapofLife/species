@@ -1,9 +1,9 @@
 
 module.exports = function(grunt) {
-
+  var pkg = grunt.file.readJSON('package.json');
   // Project configuration.
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
+    pkg: pkg,
     dom_munger: {
       main: {
         options: {
@@ -60,7 +60,7 @@ module.exports = function(grunt) {
      },
      pages: {
        options: {
-         remote: 'git@github.com:MapofLife/species.git',
+         remote: pkg.repository,
          branch: 'gh-pages'
        }
      },
