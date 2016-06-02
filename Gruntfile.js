@@ -38,6 +38,7 @@ module.exports = function(grunt) {
       main: {
         files: [
           // includes files within path
+          { expand:true, nonull: true, cwd: 'src', src: ['*.html'], dest: 'dist/'},
           { expand:true, nonull: true, cwd: 'src', src: ['static/app/**/*.{html,png,jpg}'], dest: 'dist/'}
         ],
       },
@@ -88,6 +89,6 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('default', ['dom_munger','uglify','cssmin','copy']);
-  grunt.registerTask('deploy', ['dom_munger','uglify','cssmin','copy', 'buildcontrol:pages']);
+  grunt.registerTask('deploy', ['buildcontrol:pages']);
 
 };
