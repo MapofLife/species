@@ -52,7 +52,6 @@ angular.module('mol.controllers')
               $scope.canceller.resolve();
               $scope.canceller = $q.defer();
 
-
               $scope.clearOverlays();
               if($scope.species) {
                   if($scope.mapUpdater) {
