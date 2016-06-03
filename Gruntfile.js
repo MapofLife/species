@@ -17,7 +17,7 @@ module.exports = function(grunt) {
             append: [
               {selector:'head',html:'<link href="static/app.min.css" rel="stylesheet">'},
               {selector:'head',html:'<script src="static/app.min.js"></script>'},
-              {selector:'head',html:'<base href="//mapoflife.github.io/' + pkg.base + '"/>'},
+              {selector:'head',html:'<base href="//mapoflife.github.io/' + pkg.base + '"/>'}
             ]
         },
         src: 'src/index.html',
@@ -41,7 +41,7 @@ module.exports = function(grunt) {
       main: {
         files: [
           // includes files within path
-          { expand:true, nonull: true, cwd: 'src', src: ['*.html'], dest: 'dist/'},
+          { expand:true, nonull: true, cwd: 'src', src: ['404.html','200.html'], dest: 'dist/'},
           { expand:true, nonull: true, cwd: 'src', src: ['static/app/**/*.{html,png,jpg}'], dest: 'dist/'}
         ],
       },
