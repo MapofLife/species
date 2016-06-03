@@ -18,16 +18,29 @@ cd /path/to/my/workspace/species
 bower link mol-ui-components
 ```
 
-Then build with...
+Install all local dev dependencies
 
 ```
 npm install
-grunt
 ```
 
-That should leave you with a working development client at /src/index.html and a compiled production client at /dist/index.html
+Run the development server using
+
+```
+grunt serve
+```
+
+That will serve the application at the given base configured in package.json (here http://localhost:9001/species/)
+
+Build and deploy to gh-pages using
+
+```
+grunt build
+git commit -m 'Updating dist'
+grunt deploy
+```
 
 Both of these rely on css hosted at //mol.org/ for the MOL theme.
 
-All routes in the app are relative to /{module_name}/ and handled by ui-router client side configurations. 
+All routes in the app are relative to /{pkg.base}/ are and handled by ui-router client side configurations. 
 
