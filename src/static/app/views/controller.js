@@ -129,7 +129,7 @@ angular.module('mol.controllers')
                 streetViewControl: false,
                 panControl: false,
                 maxZoom: 10,
-                minZoom: 1,
+                minZoom: 3,
                 styles: styles,
                 mapTypeControlOptions: {position: 5}
             },
