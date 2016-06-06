@@ -54,8 +54,7 @@ angular.module('mol', [
       'http*://localhost**',
       'http*://*mol.org/**',
       'http*://api.mol.org/**',
-      'http*://mapoflife.github.io/**',
-      'http://cdn.mol.org/**',
+      'http*://mapoflife.github.io/**'
     ]);
   $httpProvider.defaults.useXDomain = true;
   //send cookies

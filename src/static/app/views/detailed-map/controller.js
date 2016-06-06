@@ -79,12 +79,12 @@ angular.module('mol.controllers')
                           $scope.tilesloaded=false;
                           $scope.setOverlay({
                               tile_url: ""+
-                                "//{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
+                                "https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
                                   .format(result.cdn_url.https,
 
                                     result.layergroupid),
                               grid_url: ""+
-                                "//{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
+                                "https://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
                                   .format(
                                     result.cdn_url.https,
                                     result.layergroupid),

@@ -25,30 +25,23 @@ angular.module('mol.controllers')
         $scope.$watch('lc',
           function(n,v) {
             if(n!=v) {
-              //uiGmapGoogleMapApi.then(
-              //  function(maps) {
-                  var map = $scope.$parent.map.control.getGMap(),
-                      center = map.getCenter();
+              uiGmapGoogleMapApi.then(
+                function(maps) {
+                  try {
+                    var map = $scope.$parent.map.control.getGMap(),
+                        center = map.getCenter();
                     for(var i=0;i<=700;i+=4) {
-                    $timeout(function() {
-                        google.maps.event.trigger(map,'resize');
-                        map.panTo(center);
+                        $timeout(function() {
+                            google.maps.event.trigger(map,'resize');
+                            map.panTo(center);
+                        },i);
+                    }
+                  } catch (e) {}
+                });
 
-                    },i)}
-                //})
-            }
+              }
           });
-          uiGmapGoogleMapApi.then(
-            function(maps) {
-          google.maps.event.addDomListener($window, "resize", function() {
-              var map = $scope.map.control.getGMap(),
-                center = map.getCenter();
-                //$timeout(function() {
-                    google.maps.event.trigger(map,'resize');
-                    map.setCenter(center);
 
-                //},10);
-          });})
 
        //Map utilities
        function getTileUrl(c,z,p) {
@@ -131,8 +124,8 @@ angular.module('mol.controllers')
             zoom: 0,
             control: {},
             options: {
-                fullscreenControl: true,
-                fullscreenControlOptions: {position: 3},
+                //fullscreenControl: true,
+                //fullscreenControlOptions: {position: 3},
                 streetViewControl: false,
                 panControl: false,
                 maxZoom: 10,
@@ -289,5 +282,6 @@ angular.module('mol.controllers')
             $scope.fitBounds(bnds);
           }
       });
+
 
   }])

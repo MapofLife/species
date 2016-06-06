@@ -57,12 +57,15 @@ module.exports = function(grunt) {
      options: {
        dir: 'dist',
        commit: true,
+       branch: 'gh-pages',
+
        push: true,
        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
      },
      pages: {
        options: {
          remote: pkg.repository,
+         force:true,
          branch: 'gh-pages'
        }
      }
