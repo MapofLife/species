@@ -1,5 +1,5 @@
 <div class="layouts-map-with-sidebars">
- <div ng-swipe-left="lc=true"
+ <div ng-swipe-left="lc=true" ng-swipe-disable-mouse 
       ng-show="!$state.params.embed||$state.params.sidebars" ng-class="{'closed': lc}" class="sidebar-scroll-container left">
    <div ui-view="left-sidebar" class="left" ></div>
  </div>
@@ -17,7 +17,7 @@
        tooltip-placement="left"
        ng-click="rc = !rc;"></i>
   <div class="map-container" ng-include="'static/app/partials/map.html'"></div><!--ui-view="map"></div>-->
-  <div ng-swipe-right="rc=true" ng-show="!$state.params.embed||$state.params.sidebars" ng-class="{'closed': rc}" class="sidebar-scroll-container right">
+  <div ng-swipe-right="rc=true" ng-swipe-disable-mouse ng-show="!$state.params.embed||$state.params.sidebars" ng-class="{'closed': rc}" class="sidebar-scroll-container right">
     <div ui-view="right-sidebar"  class="right"></div>
   </div>
   <mol-loading-indicator></mol-loading-indicator>

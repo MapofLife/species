@@ -2,10 +2,10 @@ angular.module('mol.controllers')
   .controller('molOverviewCtrl',
   	[ '$compile',
       '$window','$http','$uibModal','$scope', '$state', '$filter',
-      '$timeout','$location','$anchorScroll','$q','MOLApi','uiGmapGoogleMapApi',
+      '$timeout','$location','$anchorScroll','$q','molApi','uiGmapGoogleMapApi',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $location, $anchorScroll, $q,  MOLApi,uiGmapGoogleMapApi) {
+          $timeout, $location, $anchorScroll, $q,  molApi,uiGmapGoogleMapApi) {
             $scope.mapUpdater  = undefined;
             $scope.canceller = $q.defer()
             $scope.map.options.scrollwheel = false;

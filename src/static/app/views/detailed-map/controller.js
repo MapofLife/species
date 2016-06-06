@@ -7,10 +7,10 @@ angular.module('mol.controllers')
   .controller('molDetailMapCtrl',
   	[  '$compile',
       '$window','$http','$uibModal','$scope','$state', '$filter',
-      '$timeout','$location','$anchorScroll','$q','MOLApi','molApiVersion','uiGmapGoogleMapApi',
+      '$timeout','$location','$anchorScroll','$q','molApi','molApiVersion','uiGmapGoogleMapApi',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $location, $anchorScroll, $q,  MOLApi,molApiVersion,uiGmapGoogleMapApi) {
+          $timeout, $location, $anchorScroll, $q,  molApi,molApiVersion,uiGmapGoogleMapApi) {
             /* set up defatul scop*/
 
 
@@ -101,7 +101,7 @@ angular.module('mol.controllers')
 
           $scope.datasetMetadata = function(dataset) {
 
-             MOLApi({
+             molApi({
               "service" : "datasets/metadata",
               "params" : {
                 "id": dataset.id
@@ -136,7 +136,7 @@ angular.module('mol.controllers')
 
           $scope.typeMetadata = function(type) {
 
-             MOLApi({
+             molApi({
               "service" : "datasets/type",
               "params" : {
                 "id": type.id
@@ -217,7 +217,7 @@ angular.module('mol.controllers')
         //Get metdata for features on the map
         $scope.map.getFeatures = function(lat,lng,zoom,scientificname) {
 
-            MOLApi({
+            molApi({
               "canceller": $scope.canceller,
               "loading": true,
               "service" : "species/featuremetadata",
@@ -270,7 +270,7 @@ angular.module('mol.controllers')
 
       $scope.getLayers = function(scientificname) {
 
-       MOLApi({
+       molApi({
           "canceller": $scope.canceller,
           "loading": true,
           "service" : "species/datasets",
