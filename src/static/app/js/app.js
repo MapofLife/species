@@ -54,6 +54,7 @@ angular.module('mol', [
       'http*://localhost**',
       'http*://*mol.org/**',
       'http*://api.mol.org/**',
+      'http*://mapoflife.github.io/**',
       'http://cdn.mol.org/**',
     ]);
   $httpProvider.defaults.useXDomain = true;
