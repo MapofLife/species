@@ -21,6 +21,7 @@ angular.module('mol.controllers')
      }
 
      $scope.$on("$viewContentLoaded", function(){
+       $scope.map.clearOverlays();
        if($scope.species&&!$scope.species.refine.maps) {
          $scope.updateRefineModel();
        } else {
@@ -90,7 +91,11 @@ angular.module('mol.controllers')
       );
 
     }
-
+    $scope.map.getInfoWindowModel = function(map, eventName, coords,data) {
+       var deferred = $q.defer();
+        deferred.resolve({show:false});
+       return deferred.promise;
+    }
 
     }])
     .filter('molHabitatPrefs', function ($sce) {

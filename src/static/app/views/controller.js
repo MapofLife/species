@@ -21,7 +21,7 @@ angular.module('mol.controllers')
       $scope.$watch('lc', function(n,v) {
           if(n!=v) {$scope.map.resize()};
       });
-        
+
       //Map utilities --> maybe put in a service?
 
       /* wait until gmaps is ready */
@@ -30,7 +30,9 @@ angular.module('mol.controllers')
 
       $scope.region = {};
 
-      $scope.map = new molUiMap($scope);
+      $scope.map = {control : {}};
+
+      $scope.map =  angular.extend($scope.map,new molUiMap($scope));
 
 
       $scope.cleanURLName = function (name) {
