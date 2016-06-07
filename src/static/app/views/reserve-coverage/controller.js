@@ -30,7 +30,7 @@ angular.module('mol.controllers')
         $scope.map.overlayMapTypes.splice(1);
       });
      $scope.$on("$viewContentLoaded", function(){
-          if(!$scope.species.protect) {
+          if($scope.species&&!$scope.species.protect) {
             $scope.updateReserveModel();
           } else {
             $scope.updateReserveMaps();
@@ -46,6 +46,7 @@ angular.module('mol.controllers')
         params: prefs,
         timeout: $scope.reserveCanceller})
      }
+
 
 
 
@@ -89,7 +90,7 @@ angular.module('mol.controllers')
       $scope.updateReserveMaps = function() {
         //add a reserve map
         if($scope.species&&$scope.species.protect&&$scope.species.protect.refined) {
-        $scope.setOverlay(
+        $scope.map.setOverlay(
           ($scope.toggles.refine) ?
             $scope.species.protect.refined.maps[0]:
               $scope.species.protect.unrefined.maps[0],
@@ -159,26 +160,19 @@ angular.module('mol.controllers')
       };
 
       //Get metdata for features on the map
-      $scope.map.getFeatures = function(lat,lng,zoom,scientificname) {
-          $scope.map.infowindow = {
-                    id: lat+'-'+lng,
+      $scope.map.getInfoWindowModel = function(map, eventName, coords,data) {
+         var deferred = $q.defer();
+          if(data&&data.cartodb_id) {
+          deferred.resolve({
+
                     show: true,
                     options:{animation:0, disableAutoPan:false},
-                    coords: {
-                      latitude: lat,
-                      longitude:  lng
-                  },
-                  model: {
-                    "searching":false,
-                    "featureResult" :[],
-                    "datasets" : $scope.datasets},
+
+                  model: data,
                   templateUrl: 'static/app/views/reserve-coverage/infowindow.html'
-                }
-
-            if(!$scope.$$phase) {
-               $scope.$apply();
-             }
-
+                });
+          } else {deferred.resolve({show:false});}
+          return deferred.promise;
         }
-          $scope.updateReserveModel();
+        $scope.updateReserveModel();
     }]);

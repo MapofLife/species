@@ -21,10 +21,10 @@ angular.module('mol.controllers')
      }
 
      $scope.$on("$viewContentLoaded", function(){
-       if(!$scope.species.refine.maps) {
+       if($scope.species&&!$scope.species.refine.maps) {
          $scope.updateRefineModel();
        } else {
-         $scope.updateHabitatMaps();
+         $scope.updateHabitatMap();
        }
      });
 
@@ -32,6 +32,8 @@ angular.module('mol.controllers')
      $scope.refineUpdater = null;
 
      $scope.refineCanceller = $q.defer();
+
+     $scope.map.getFeatures = function(lat,lng,zoom,scientificname) {}
 
      ///for habitat refinement
      $scope.updateRefineModel = function () {
@@ -69,7 +71,7 @@ angular.module('mol.controllers')
         //add a reserve map
         if($scope.species&&$scope.species.refine&&$scope.species.refine.maps) {
 
-        $scope.setOverlay(
+        $scope.map.setOverlay(
           ($scope.toggles.refine) ?
             $scope.species.refine.maps.refined:
               $scope.species.refine.maps.expert,

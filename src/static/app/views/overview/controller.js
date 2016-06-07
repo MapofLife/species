@@ -9,7 +9,7 @@ angular.module('mol.controllers')
             $scope.mapUpdater  = undefined;
             $scope.canceller = $q.defer()
             $scope.map.options.scrollwheel = false;
-            $scope.clearOverlays();
+            $scope.map.clearOverlays();
               $scope.$watch(
                 'species.scientificname',
                 function(name) {
@@ -29,8 +29,7 @@ angular.module('mol.controllers')
                       }}).success(function(result, status, headers, config) {
                             if($scope.species && result.layergroupid) {
 
-                              $scope.tilesloaded=false;
-                              $scope.setOverlay({
+                              $scope.map.setOverlay({
                                   tile_url: ""+
                                     "https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
                                       .format(result.cdn_url.https,

@@ -7,10 +7,10 @@ angular.module('mol.controllers')
   .controller('molDetailMapCtrl',
   	[  '$compile',
       '$window','$http','$uibModal','$scope','$state', '$filter',
-      '$timeout','$location','$anchorScroll','$q','molApi','molApiVersion','uiGmapGoogleMapApi',
+      '$timeout','$location','$anchorScroll','$q','molApi','molApiVersion',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $location, $anchorScroll, $q,  molApi,molApiVersion,uiGmapGoogleMapApi) {
+          $timeout, $location, $anchorScroll, $q,  molApi,molApiVersion) {
             /* set up defatul scop*/
 
 
@@ -52,7 +52,7 @@ angular.module('mol.controllers')
               $scope.canceller.resolve();
               $scope.canceller = $q.defer();
 
-              $scope.clearOverlays();
+              $scope.map.clearOverlays();
               if($scope.species) {
                   if($scope.mapUpdater) {
                     try{
@@ -77,7 +77,7 @@ angular.module('mol.controllers')
                         if($scope.species && result.layergroupid) {
 
                           $scope.tilesloaded=false;
-                          $scope.setOverlay({
+                          $scope.map.setOverlay({
                               tile_url: ""+
                                 "https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
                                   .format(result.cdn_url.https,
@@ -215,57 +215,56 @@ angular.module('mol.controllers')
           }
 
         //Get metdata for features on the map
-        $scope.map.getFeatures = function(lat,lng,zoom,scientificname) {
-
-            molApi({
-              "canceller": $scope.canceller,
-              "loading": true,
-              "service" : "species/featuremetadata",
-              "version" : molApiVersion,
-              "creds" : true,
-              "params" : {
-                "scientificname": scientificname,
-                "lat": lat,
-                "lng": lng,
-                "zoom": zoom,
-                "datasets":$scope.visibleDatasets,
-                "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
-                "max_year" : ($scope.filters.years)?$scope.year.max:5555555,
-                "min_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.min:-5555555,
-                "max_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.max:5555555,
-                "scientificname": $scope.species.scientificname,
-                "datasets": $scope.visibleDatasets,
-                "null_years":($scope.filters.years)?$scope.year.nulls.toString():true.toString(),
-                "default_uncertainty":20000,
-                "point_limit": ($scope.filters.limit)?$scope.filters.points:0,
-              }
-            }).then(
-              function(results) {
-                if(angular.isDefined(results.data[0].datasets)&&results.data[0].datasets){
-                      $scope.map.infowindow = {
-                        id: lat+'-'+lng,
-                        show: true,
-                        options:{animation:0, disableAutoPan:false},
-                        coords: {
-                          latitude: lat,
-                          longitude:  lng
-                      },
-                      model: {
-                        "searching":false,
-                        "featureResult" :results.data[0],
-                        "datasets" : $scope.datasets},
-                      templateUrl: 'static/app/views/detailed-map/infowindow.html'
-                    }
-                } else {
-                      $scope.map.infowindow = {};
+        $scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {
+          var deferred = $q.defer();
+          switch(eventName) {
+            case 'click':
+               molApi({
+                "canceller": $scope.canceller,
+                "loading": true,
+                "service" : "species/featuremetadata",
+                "version" : molApiVersion,
+                "creds" : true,
+                "params" : {
+                  "scientificname": $scope.species.scientificname,
+                  "lat": latLng.lat(),
+                  "lng": latLng.lng(),
+                  "zoom": map.getZoom(),
+                  "datasets":$scope.visibleDatasets,
+                  "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
+                  "max_year" : ($scope.filters.years)?$scope.year.max:5555555,
+                  "min_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.min:-5555555,
+                  "max_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.max:5555555,
+                  "scientificname": $scope.species.scientificname,
+                  "datasets": $scope.visibleDatasets,
+                  "null_years":($scope.filters.years)?$scope.year.nulls.toString():true.toString(),
+                  "default_uncertainty":20000,
+                  "point_limit": ($scope.filters.limit)?$scope.filters.points:0,
                 }
-                if(!$scope.$$phase) {
-                   $scope.$apply();
-                 }
+              }).then(
+                function(results) {
+                  if(angular.isDefined(results.data[0].datasets) && results.data[0].datasets){
+                        deferred.resolve( {
+                          model:{
+                            "searching":false,
+                            "featureResult" :results.data[0],
+                            "datasets" : $scope.datasets
+                          },
+                          show: true,
+                          templateUrl: 'static/app/views/detailed-map/infowindow.html'
+                        });
+                  } else {
+                      deferred.resolve();
+                  }
+                }
+              );
+              break;
+            default:
+              deferred.resolve();
+          }
+          return deferred.promise;
 
-              }
-            );
-          };
+        };
 
 
       $scope.getLayers = function(scientificname) {
