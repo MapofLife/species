@@ -15,8 +15,8 @@ molServices.factory(
 
 molServices.factory(
 	'molUiMap',
-	[ 'uiGmapGoogleMapApi','$http','$q','$rootScope',
-		function(uiGmapGoogleMapApi,$http,$q,$rootScope) {
+	[ 'uiGmapGoogleMapApi','$http','$q','$rootScope','$timeout',
+		function(uiGmapGoogleMapApi,$http,$q,$rootScope,$timeout) {
 
 
 				var molUiMap = function() {
@@ -63,6 +63,25 @@ molServices.factory(
 								refresh: true,
 								opacity: overlay.opacity,
 								maxZoom: 10
+							}
+
+							this.resize = function () {
+
+								uiGmapGoogleMapApi.then(
+	                function(maps) {
+	                  try {
+	                    var	map = self.control.getGMap(),
+												center = map.getCenter();
+	                    for(var i=0;i<=700;i+=4) {
+	                        $timeout(function() {
+	                            google.maps.event.trigger(map,'resize');
+	                            map.panTo(center);
+	                        },i);
+	                    }
+	                  } catch (e) {
+											console.log(e);
+										}
+	                });
 							}
 
 							function getTileUrl(c,z,p) {
@@ -200,21 +219,7 @@ molServices.factory(
 			     };
 
 
-						molUiMap.prototype.resize = function () {
-							var self = this;
-							uiGmapGoogleMapApi.then(
-                function(maps) {
-                  try {
-                    var center = self.map.getCenter();
-                    for(var i=0;i<=700;i+=4) {
-                        $timeout(function() {
-                            google.maps.event.trigger(map,'resize');
-                            this.map.panTo(center);
-                        },i);
-                    }
-                  } catch (e) {}
-                });
-						};
+
 
 
 

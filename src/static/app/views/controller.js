@@ -16,10 +16,10 @@ angular.module('mol.controllers')
       $scope.$watch('rc',
         function(n,v) {
           if(n) {
-            $scope.map.resize();}
+            $scope.$parent.map.resize();}
         });
       $scope.$watch('lc', function(n,v) {
-          if(n!=v) {$scope.map.resize()};
+          if(n!=v) {$scope.$parent.map.resize()};
       });
 
       //Map utilities --> maybe put in a service?

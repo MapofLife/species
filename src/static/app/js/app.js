@@ -8,6 +8,7 @@ angular.module('mol', [
   'ngCookies',
   'ngAnimate',
   'ngTouch',
+  //'mol.meta',
   'mol.api',
   'mol.filters',
   'mol.services',
@@ -43,12 +44,11 @@ angular.module('mol', [
   }])
 .config(function($sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
-  var speciesParams = ""+
+  var params = ""+
     "{scientificname}?" + //taxon
     "regiontype&region&" + //region constraint
     "dsid&type&" + //selected data options
-    "embed&noimage&noname&nodesc&noregionselect&nospeciesselect&nosidebar&" + //embed options
-    "noheader&nosubnav&nofooter&norandom&nofilters";
+    "embed&sidebar&header&subnav&footer&speciessearch&regionsearch", base = '';
   $sceDelegateProvider.resourceUrlWhitelist([
       'self',
       'http*://localhost**',
@@ -59,13 +59,18 @@ angular.module('mol', [
   $httpProvider.defaults.useXDomain = true;
   //send cookies
   $httpProvider.defaults.withCredentials = false;
-  $urlRouterProvider.otherwise("/overview/");
+  $urlRouterProvider.otherwise('/');
 
   $stateProvider
     .state(
       'species', //this view contains the bones of the Species Info pages (name, pic, & search bar)
       {
         abstract: true,
+      /*  resolve: {
+          data: function (molMeta) {
+            return molMeta();
+          }
+        },*/
         views: {
           "": {
             templateUrl: 'static/app/layouts/base-static.html',
@@ -84,7 +89,7 @@ angular.module('mol', [
           "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
           "@pa" : {templateUrl: "static/app/views/species-in-reserves/main.html"}
         },
-        url: '/pa'
+        url: '{0}/pa'.format(base)
       }
     )
     .state(
@@ -96,7 +101,7 @@ angular.module('mol', [
             controller: 'molOverviewCtrl'
           }
         },
-        url: '/{0}'.format(speciesParams)
+        url: '{0}/{1}'.format(base,params)
       }
     )
     .state(
@@ -108,7 +113,7 @@ angular.module('mol', [
             controller: 'molDetailMapCtrl'
           }
         },
-        url: '/map/{0}'.format(speciesParams)
+        url: '{0}/map/{1}'.format(base,params)
       }
     )
     .state(
@@ -120,7 +125,7 @@ angular.module('mol', [
             controller: 'molHabitatDistributionCtrl'
           }
         },
-        url: '/range/{0}'.format(speciesParams)
+        url: '{0}/range/{1}'.format(base,params)
       }
     )
     .state(
@@ -132,7 +137,7 @@ angular.module('mol', [
             controller: 'molReserveCoverageCtrl'
           }
         },
-        url: '^/protect/{0}'.format(speciesParams)
+        url: '^{0}/protect/{0}'.format(base,params)
       }
     );
     //Gets rid of the # in the querystring. Wont work on IE

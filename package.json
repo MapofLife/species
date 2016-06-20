@@ -9,6 +9,7 @@
   "license": "MIT",
   "directory": "static/components/",
   "devDependencies": {
+    "cors": "^2.7.1",
     "debug": "~2.2.0",
     "express": "~4.13.4",
     "grunt": "^0.4.1",

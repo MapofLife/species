@@ -19,7 +19,7 @@
                  ui-sref="species.detailed-map($state.params)"
                  ><a href="#">Detailed Map</a></li>
 
-               <li ng-show="species.prefs.ee_id" ui-sref-active-eq="active"
+               <!--<li ng-show="species.prefs.ee_id" ui-sref-active-eq="active"
                   ui-sref="species.habitat-distribution($state.params)"
                     ui-sref-opts="{reload: 'species.habitat-distribution'}"
                 ><a href="#">Habitat Distribution</a></li>
@@ -27,7 +27,7 @@
                <li  ng-show="species.prefs.ee_id" ui-sref-active-eq="active"
                   ui-sref="species.habitat-distribution.reserve-coverage($state.params)"
                   ui-sref-opts="{reload: 'species.habitat-distribution'}"
-                  ><a href="#">Reserve Coverage</a></li>
+                  ><a href="#">Reserve Coverage</a></li>-->
             </ul>
             <ul class="nav navbar-nav visible-xxxs visible-xxs">
                 <li>
@@ -39,8 +39,8 @@
                         <i class="fa fa-list-ol icon"></i>Species Lists by Location</a>
                 </li>
             </ul>
-            <mol-species-search ng-show="!$state.params.nospeciesselect"></mol-species-search>
-
+            <mol-species-search ng-show="!$state.params.embed||$state.params.speciessearch"></mol-species-search>
+            <mol-location-search ng-show="!$state.params.embed||$state.params.regionsearch"></mol-location-search>
           </div>
 
 </div>
