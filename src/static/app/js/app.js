@@ -14,7 +14,8 @@ angular.module('mol', [
   'percentage', 'km2', 'angular-loading-bar',
 ])
 .constant('molConfig',{
-    "module" : "species",  //module name (used in routing)
+    "module" : "species",
+    "base" : angular.element('base').attr('href'), //module name (used in routing)
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
 })
 .config(function(uiGmapGoogleMapApiProvider) {
@@ -24,13 +25,34 @@ angular.module('mol', [
         libraries: 'weather,geometry,visualization'
     });
 })
+.run(
+  /*
+   *  Handles nesting the app at alternate bases to support i18n
+   */
+  function($timeout,$rootScope,molConfig) {
+      var base = angular.element('#mol-base').attr('content');
+      if (base) {
+        angular.element('base').attr('href', base);
+        $rootScope.$on('$viewContentLoading',
+          function() {
+            console.log(molConfig);
+              angular.element('base').attr('href',molConfig.base);
+          }
+        );
+      }
+  }
+)
 .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
     cfpLoadingBarProvider.includeBar = false;
     //cfpLoadingBarProvider.includeBar = false;
     cfpLoadingBarProvider.latencyThreshold = 100;
   }])
-.config(function($sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+.config(function( $sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+
+
+  //angular.element('base').href="/en/species/"
+
 
   var params = ""+
     "{scientificname}?" + //taxon
