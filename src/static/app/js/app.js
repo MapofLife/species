@@ -4,73 +4,19 @@
 angular.module('mol.controllers',[]);
 
 angular.module('mol', [
-  'ngSanitize',
-  'ngCookies',
-  'ngAnimate',
-  'ngTouch',
+  'ngSanitize', 'ngCookies', 'ngAnimate', 'ngTouch',
   //'mol.meta',
-  'mol.api',
-  'mol.filters',
-  'mol.services',
-  'mol.species-search',
-  'mol.species-description',
-  'mol.location-search',
-  'mol.species-images',
-  'mol.point-filters',
-  'mol.controllers',
-  'mol.loading-indicator',
-  'ui.bootstrap',
-  'ui.router',
-  'ui.checkbox',
-  'uiGmapgoogle-maps',
-  //'nvd3',
+  'mol.api', 'mol.filters', 'mol.services', 'mol.species-search',
+  'mol.species-description', 'mol.location-search', 'mol.species-images',
+  'mol.point-filters', 'mol.controllers', 'mol.loading-indicator',
+  'ui.bootstrap', 'ui.router', 'ui.checkbox', 'uiGmapgoogle-maps',
   'ui-rangeSlider',
-  'percentage',
-  'km2',
-  'angular-loading-bar',
+  'percentage', 'km2', 'angular-loading-bar',
 ])
-.config(["$httpProvider", function($httpProvider) {
-    $httpProvider.interceptors.push('middleware');
-}])
-.factory('middleware', function() {
-    return {
-        request: function(config) {
-            // need more controlling when there is more than 1 domain involved
-
-            config.url = (config.url.indexOf('/')!=0 &&
-              config.url.indexOf('http')!=0) ?
-                "//localhost:9001/species/" + config.url :
-                config.url;
-            return config;
-        }
-    };
+.constant('molConfig',{
+    "module" : "species",  //module name (used in routing)
+    "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
 })
-.config(function($stateProvider) {
-  $stateProvider.decorator('url', function (state, parent) {
-  var result = {},
-      views = parent(state);
-
-  angular.forEach(views, function (config, name) {
-    var autoName = (state.name + '.' + name).replace('.', '/');
-    config.templateUrl = config.templateUrl || '/partials/' + autoName + '.html';
-    result[name] = config;
-  });
-  return result;
-  });
-  $stateProvider.decorator('views', function (state, parent) {
-  var result = {},
-      views = parent(state);
-
-  angular.forEach(views, function (config, name) {
-    var autoName = (state.name + '.' + name).replace('.', '/');
-    config.templateUrl = config.templateUrl || '/partials/' + autoName + '.html';
-    result[name] = config;
-  });
-  return result;
-  });
-})
-//.constant('molLang', document.getElementById('mol-lang').value)
-//.constant('molRegion', document.getElementById('mol-region').value)
 .config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
@@ -105,7 +51,7 @@ angular.module('mol', [
   $httpProvider.defaults.useXDomain = true;
   //send cookies
   $httpProvider.defaults.withCredentials = false;
-  $urlRouterProvider.otherwise("/");
+  //$urlRouterProvider.otherwise("/");
 
   $stateProvider
     .state(
@@ -186,5 +132,5 @@ angular.module('mol', [
       requireBase: false
     });
 
-});
+})
 console.log(angular.module('mol'))
