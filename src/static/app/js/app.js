@@ -27,7 +27,7 @@ angular.module('mol', [
 })
 .run(['$rootScope','molConfig',function($rootScope,molConfig) {
   $rootScope.molConfig = molConfig;
-})
+}])
 .config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
