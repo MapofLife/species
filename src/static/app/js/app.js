@@ -4,9 +4,9 @@
 angular.module('mol.controllers',[]);
 
 angular.module('mol', [
-  'ngSanitize', 'ngCookies', 'ngAnimate', 'ngTouch',
+  'ngSanitize', 'ngCookies', 'ngAnimate', 'ngTouch', 'pascalprecht.translate',
   //'mol.meta',
-  'mol.api', 'mol.filters', 'mol.services', 'mol.species-search',
+  'mol.api', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',
   'mol.species-description', 'mol.location-search', 'mol.species-images',
   'mol.point-filters', 'mol.controllers', 'mol.loading-indicator',
   'ui.bootstrap', 'ui.router', 'ui.checkbox', 'uiGmapgoogle-maps',
@@ -17,6 +17,13 @@ angular.module('mol', [
     "module" : "species",
     "base" : angular.element('base').attr('href'), //module name (used in routing)
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
+})
+.config(function ($translateProvider) {
+  $translateProvider
+    .determinePreferredLanguage()
+    .registerAvailableLanguageKeys([
+      'en','fr','es','pt','de','zh'
+    ]);
 })
 .config(function(uiGmapGoogleMapApiProvider) {
     uiGmapGoogleMapApiProvider.configure({
