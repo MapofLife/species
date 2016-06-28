@@ -216,7 +216,7 @@
   }
 
   .layer_table {
-  		max-width: 600px;
+  		min-width: 300px;
   		margin-top: 10px;
   		size: 12pt;
   }
