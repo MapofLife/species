@@ -7,10 +7,10 @@ angular.module('mol.controllers')
   .controller('molDetailMapCtrl',
   	[  '$compile',
       '$window','$http','$uibModal','$scope','$state', '$filter',
-      '$timeout','$location','$anchorScroll','$q','molApi','molApiVersion',
+      '$timeout','$location','$anchorScroll','$q','molApi',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $location, $anchorScroll, $q,  molApi,molApiVersion) {
+          $timeout, $location, $anchorScroll, $q,  molApi,) {
             /* set up defatul scop*/
 
 
@@ -107,8 +107,7 @@ angular.module('mol.controllers')
                 "id": dataset.id
               },
               "canceller" :$scope.canceller,
-              "loading":true,
-              "version": molApiVersion
+              "loading":true
             }).then(
               function(results) {
                 var modalInstance, metadata = results.data;
@@ -142,9 +141,8 @@ angular.module('mol.controllers')
                 "id": type.id
                },
                "canceller": $scope.canceller,
-               "loading": true,
+               "loading": true
 
-               "version": molApiVersion
             }).then(
               function(results) {
                 var modalInstance, metadata = results.data;
@@ -223,7 +221,6 @@ angular.module('mol.controllers')
                 "canceller": $scope.canceller,
                 "loading": true,
                 "service" : "species/featuremetadata",
-                "version" : molApiVersion,
                 "creds" : true,
                 "params" : {
                   "scientificname": $scope.species.scientificname,
@@ -272,8 +269,7 @@ angular.module('mol.controllers')
        molApi({
           "canceller": $scope.canceller,
           "loading": true,
-          "service" : "species/datasets",
-          "version" : molApiVersion,
+          "service" : "species/datasets"
           "creds" : true,
           "params" :   {"scientificname" : scientificname}
        }).success(
