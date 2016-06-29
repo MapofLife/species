@@ -34,7 +34,7 @@ angular.module('mol.controllers')
 
       $scope.map = {control : {}};
 
-      $scope.map =  angular.extend($scope.map,new molUiMap($scope));
+      $scope.map = new molUiMap();
 
 
       $scope.cleanURLName = function (name) {

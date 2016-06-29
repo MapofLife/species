@@ -25,11 +25,13 @@ angular.module('mol', [
       'en','fr','es','pt','de','zh'
     ]);
 })
-.config(function(uiGmapGoogleMapApiProvider) {
+.config(function(uiGmapGoogleMapApiProvider,$translateProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
-        v: '3.30', //defaults to latest 3.X anyhow
-        libraries: 'weather,geometry,visualization'
+        v: '3.24', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization',
+        language: $translateProvider.preferredLanguage()
+
     });
 })
 .run(
@@ -63,7 +65,7 @@ angular.module('mol', [
 
   var params = ""+
     "{scientificname}?" + //taxon
-    "regiontype&region&" + //region constraint
+    "region&" + //region constraint
     "dsid&type&" + //selected data options
     "embed&sidebar&header&subnav&footer&speciessearch&regionsearch";
 
