@@ -14,10 +14,13 @@ angular.module('mol', [
   'percentage', 'km2', 'angular-loading-bar',
 ])
 .constant('molConfig',{
-    "module" : "species",
-    "base" : angular.element('base').attr('href'), //module name (used in routing)
+    "module" : "species", //module name (used in routing)
+    "base" : angular.element('base').attr('href'), //static assets base
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
 })
+.config(){
+
+}
 .config(function ($translateProvider) {
   $translateProvider
     .determinePreferredLanguage()
@@ -49,6 +52,8 @@ angular.module('mol', [
           }
         );
       }
+
+      $rootScope.molConfig = molConfig;
   }
 )
 .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
