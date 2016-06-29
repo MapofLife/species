@@ -10,7 +10,7 @@ angular.module('mol.controllers')
       '$timeout','$location','$anchorScroll','$q','molApi',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $location, $anchorScroll, $q,  molApi,) {
+          $timeout, $location, $anchorScroll, $q,  molApi) {
             /* set up defatul scop*/
 
 
@@ -269,7 +269,7 @@ angular.module('mol.controllers')
        molApi({
           "canceller": $scope.canceller,
           "loading": true,
-          "service" : "species/datasets"
+          "service" : "species/datasets",
           "creds" : true,
           "params" :   {"scientificname" : scientificname}
        }).success(
