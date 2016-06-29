@@ -34,7 +34,7 @@ angular.module('mol', [
 
     });
 })
-.run(['$timeout'',$rootScope','molConfig',
+.run(['$timeout','$rootScope','molConfig',
   /*
    *  Handles nesting the app at alternate bases to support i18n
    */
