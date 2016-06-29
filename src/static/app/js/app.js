@@ -18,9 +18,6 @@ angular.module('mol', [
     "base" : angular.element('base').attr('href'), //static assets base
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
 })
-.config(){
-
-}
 .config(function ($translateProvider) {
   $translateProvider
     .determinePreferredLanguage()
@@ -37,7 +34,7 @@ angular.module('mol', [
 
     });
 })
-.run(
+.run(['$timeout'',$rootScope','molConfig',
   /*
    *  Handles nesting the app at alternate bases to support i18n
    */
@@ -55,7 +52,7 @@ angular.module('mol', [
 
       $rootScope.molConfig = molConfig;
   }
-)
+])
 .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
     cfpLoadingBarProvider.includeSpinner = false;
     cfpLoadingBarProvider.includeBar = false;
