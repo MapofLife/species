@@ -9,12 +9,12 @@ angular.module('mol', [
   'mol.api', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',
   'mol.species-description', 'mol.location-search', 'mol.species-images',
   'mol.point-filters', 'mol.controllers', 'mol.loading-indicator',
-  'ui.bootstrap', 'ui.router', 'ui.checkbox', 'uiGmapgoogle-maps',
-  'ui-rangeSlider',
-  'percentage', 'km2', 'angular-loading-bar',
+  'ui.bootstrap', 'ui.router', 'ui.checkbox','ui-rangeSlider',
+  'percentage', 'km2',
 ])
 .constant('molConfig',{
     "module" : "species", //module name (used in routing)
+    "api" : "0.x",
     "base" : angular.element('base').attr('href'), //static assets base
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
 })
@@ -24,15 +24,6 @@ angular.module('mol', [
     .registerAvailableLanguageKeys([
       'en','fr','es','pt','de','zh'
     ]);
-})
-.config(function(uiGmapGoogleMapApiProvider,$translateProvider) {
-    uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
-        v: '3.24', //defaults to latest 3.X anyhow
-        libraries: 'weather,geometry,visualization',
-        language: $translateProvider.preferredLanguage()
-
-    });
 })
 .run(['$timeout','$rootScope','molConfig',
   /*
@@ -53,12 +44,6 @@ angular.module('mol', [
       $rootScope.molConfig = molConfig;
   }
 ])
-.config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
-    cfpLoadingBarProvider.includeSpinner = false;
-    cfpLoadingBarProvider.includeBar = false;
-    //cfpLoadingBarProvider.includeBar = false;
-    cfpLoadingBarProvider.latencyThreshold = 100;
-  }])
 .config(function( $sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
 
