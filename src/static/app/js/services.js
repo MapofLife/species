@@ -4,17 +4,8 @@
 
 
 // Service to get Species Info from CartoDB
-var molServices = angular.module('mol.services', ['uiGmapgoogle-maps','pascalprecht.translate']);
-molServices
-.config(['uiGmapGoogleMapApiProvider','$translateProvider',function(uiGmapGoogleMapApiProvider,$translateProvider) {
-    uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
-        v: '3.24', //defaults to latest 3.X anyhow
-        libraries: 'weather,geometry,visualization',
-        language: $translateProvider.preferredLanguage()
-
-    });
-}]).factory(
+angular.module('mol.services', ['uiGmapgoogle-maps'])
+.factory(
 	'molUiMap',
 	[ 'uiGmapGoogleMapApi','$http','$q','$rootScope','$timeout',
 		function(uiGmapGoogleMapApi,$http,$q,$rootScope,$timeout) {
@@ -218,9 +209,8 @@ molServices
 
 		}
 	]
-);
-
-	molServices.factory(
+)
+.factory(
 	'molSpeciesTooltips',
 	[function() {
 	 return {        /** start of tooltips **/

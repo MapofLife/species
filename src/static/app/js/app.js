@@ -4,47 +4,61 @@
 angular.module('mol.controllers',[]);
 
 angular.module('mol', [
+  //base angular
   'ngSanitize', 'ngCookies', 'ngAnimate', 'ngTouch', 'pascalprecht.translate',
+  //3rd party ui
+  'ui.bootstrap', 'ui.router', 'ui.checkbox','ui-rangeSlider','uiGmapgoogle-maps',
+
   //'mol.meta',
   'mol.api', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',
   'mol.species-description', 'mol.location-search', 'mol.species-images',
   'mol.point-filters', 'mol.controllers', 'mol.loading-indicator',
-  'ui.bootstrap', 'ui.router', 'ui.checkbox','ui-rangeSlider',
+
   'percentage', 'km2',
 ])
 .constant('molConfig',{
     "module" : "species", //module name (used in routing)
     "api" : "0.x",
     "base" : angular.element('base').attr('href'), //static assets base
+    "url" :  angular.element('#mol-url').attr('content'),
+    "lang" : angular.element('#mol-lang').attr('content'),
+    "region" : angular.element('#mol-region').attr('content'),
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
-})
-.config(function ($translateProvider) {
-  $translateProvider
-    .determinePreferredLanguage()
-    .registerAvailableLanguageKeys([
-      'en','fr','es','pt','de','zh'
-    ]);
 })
 .run(['$timeout','$rootScope','molConfig',
   /*
-   *  Handles nesting the app at alternate bases to support i18n
+   *  pre bootstrap config
    */
   function($timeout,$rootScope,molConfig) {
-      var base = angular.element('#mol-base').attr('content');
-      if (base) {
-        angular.element('base').attr('href', base);
-        $rootScope.$on('$viewContentLoading',
-          function() {
-            console.log(molConfig);
-              angular.element('base').attr('href',molConfig.base);
-          }
-        );
-      }
-
+      angular.element('base').attr('href', '/');
+      $rootScope.$on('$viewContentLoading',
+        function() {angular.element('base').attr('href',molConfig.base);});
       $rootScope.molConfig = molConfig;
   }
 ])
-.config(function( $sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+//move this to i8n
+.config(['$translateProvider','molConfig', function($translateProvider,molConfig) {
+  if(molConfig.lang) {
+    $translateProvider.preferredLanguage(molConfig.lang)
+  } else {
+    $translateProvider.determinePreferredLanguage()
+  }
+  $translateProvider.registerAvailableLanguageKeys([
+      'en','fr','es','pt','de','zh' ///should move to meta-tag config or api call
+  ]);
+}])
+.config(['uiGmapGoogleMapApiProvider','$translateProvider',
+	function(uiGmapGoogleMapApiProvider,$translateProvider) {
+    uiGmapGoogleMapApiProvider.configure({
+        key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
+        v: '3.24', //defaults to latest 3.X anyhow
+        libraries: 'weather,geometry,visualization',
+        language: $translateProvider.preferredLanguage()
+
+    });
+}])
+.config(['molConfig','$sceDelegateProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
+  function(molConfig,$sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
 
   //angular.element('base').href="/en/species/"
@@ -52,7 +66,7 @@ angular.module('mol', [
 
   var params = ""+
     "{scientificname}?" + //taxon
-    "region&" + //region constraint
+    ((!molConfig.url.match('{region}'))?"region&":'') + //region constraint
     "dsid&type&" + //selected data options
     "embed&sidebar&header&subnav&footer&speciessearch&regionsearch";
 
@@ -75,15 +89,19 @@ angular.module('mol', [
     .state(
       'species', //this view contains the bones of the Species Info pages (name, pic, & search bar)
       {
-        abstract: true,
+        //abstract: true,
         views: {
           "": {
             templateUrl: 'static/app/layouts/base-static.html',
             controller: 'molSpeciesCtrl'},
           "@species" : {
             templateUrl: 'static/app/layouts/map-with-sidebars.html'
-          }
-        }
+          },
+        //  "right-sidebar@species" : {
+        //    templateUrl: 'static/app/views/species-list/list.html'
+        //  }
+        },
+        url: molConfig.url
       }
     )
     .state(
@@ -93,7 +111,7 @@ angular.module('mol', [
           "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
           "@pa" : {templateUrl: "static/app/views/species-in-reserves/main.html"}
         },
-        url: '/pa'
+        url: 'pa'
       }
     )
     .state(
@@ -103,9 +121,9 @@ angular.module('mol', [
           "left-sidebar@species" :{
             templateUrl: "static/app/views/overview/sidebar.html",
             controller: 'molOverviewCtrl'
-          }
+          },
         },
-        url: '/{0}'.format(params)
+        url: '{0}'.format(params)
       }
     )
     .state(
@@ -117,7 +135,7 @@ angular.module('mol', [
             controller: 'molDetailMapCtrl'
           }
         },
-        url: '/map/{0}'.format(params)
+        url: 'map/{0}'.format(params)
       }
     )
     .state(
@@ -129,10 +147,10 @@ angular.module('mol', [
             controller: 'molHabitatDistributionCtrl'
           }
         },
-        url: '/range/{0}'.format(params)
+        url: 'range/{0}'.format(params)
       }
     )
-    .state(
+    /*.state(
       'species.habitat-distribution.reserve-coverage',
       {
         views: {
@@ -141,14 +159,13 @@ angular.module('mol', [
             controller: 'molReserveCoverageCtrl'
           }
         },
-        url: '^/protect/{0}'.format(params)
+        url: '^protect/{0}'.format(params)
       }
-    );
+    );*/
     //Gets rid of the # in the querystring. Wont work on IE
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
     });
 
-})
-console.log(angular.module('mol'))
+}])
