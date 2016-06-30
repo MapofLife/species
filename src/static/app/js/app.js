@@ -83,13 +83,13 @@ angular.module('mol', [
   $httpProvider.defaults.useXDomain = true;
   //send cookies
   $httpProvider.defaults.withCredentials = false;
-  //$urlRouterProvider.otherwise("/");
+  $urlRouterProvider.otherwise(molConfig.url);
 
   $stateProvider
     .state(
       'species', //this view contains the bones of the Species Info pages (name, pic, & search bar)
       {
-        //abstract: true,
+        abstract: true,
         views: {
           "": {
             templateUrl: 'static/app/layouts/base-static.html',
