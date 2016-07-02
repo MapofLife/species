@@ -1,6 +1,8 @@
- <div class="navigation">
-    <div class="navbar navbar-default" style="white-space:nowrap" >
-          <div class="subnav container-fluid" >
+ <div class="subnav  navigation">
+    <div class="navbar navbar-default" style="white-space:nowrap;background-color:#8cbf44" >
+
+          <div class="container-fluid" >
+
             <ul class="nav navbar-nav">
               <li ui-sref-active="active"
                  ui-sref="species.overview($state.params)"
@@ -9,9 +11,12 @@
                  ui-sref="species.detailed-map($state.params)"
                  ><a href="#">Detailed Map</a></li>
             </ul>
-            <div class="pull-right">
+            <div  class="pull-right">
               <mol-species-search ng-show="!$state.params.embed||$state.params.speciessearch"></mol-species-search>
               <mol-location-search ng-show="!$state.params.embed||$state.params.regionsearch"></mol-location-search>
             </div>
+          </div>
+
     </div>
+
 </div>

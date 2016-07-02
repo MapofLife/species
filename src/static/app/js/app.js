@@ -7,7 +7,7 @@ angular.module('mol', [
   //base angular
   'ngSanitize', 'ngCookies', 'ngAnimate', 'ngTouch', 'pascalprecht.translate',
   //3rd party ui
-  'ui.bootstrap', 'ui.router', 'ui.checkbox','ui-rangeSlider','uiGmapgoogle-maps',
+  'ui.bootstrap', 'ui.router', 'ui.select','ui.checkbox','ui-rangeSlider','uiGmapgoogle-maps',
 
   //'mol.meta',
   'mol.api', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',

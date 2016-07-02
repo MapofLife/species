@@ -114,4 +114,11 @@ angular.module('mol.controllers')
       });
 
 
+      $scope.$watch("region", function(n,o) {
+          if(n&n.type!=='global') {;
+            $scope.setOverlay(molRegionOverlay(n));
+          }
+      });
+
+
   }])

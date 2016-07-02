@@ -215,6 +215,46 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 	]
 )
 .factory(
+	'molRegionOverlay',
+	[ 'uiGmapGoogleMapApi','$http','$q','$rootScope','$timeout',
+		function($http) {
+			return function(region) {
+					if(region) {
+							$http({
+								"withCredentials":false,
+								"method":"POST",
+								"url":"https://mol.cartodb.com/api/v1/map/named/region-map",
+								"data": {
+								 "region_id": region.region_id,
+								}}).success(function(result, status, headers, config) {
+										if($scope.species && result.layergroupid) {
+
+											$scope.map.setOverlay({
+													tile_url: ""+
+														"https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
+															.format(result.cdn_url.https,
+
+																result.layergroupid),
+													grid_url: ""+
+														"http://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
+															.format(
+																result.cdn_url.https,
+																result.layergroupid),
+													key: result.layergroupid,
+													attr: '©2014 Map of Life',
+													name: 'overview',
+													opacity: 0.8,
+													type: 'overview'
+											},0);
+
+										}});
+									}
+						}
+					}
+			
+
+	])
+.factory(
 	'molSpeciesTooltips',
 	[function() {
 	 return {        /** start of tooltips **/

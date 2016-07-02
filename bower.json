@@ -35,9 +35,11 @@
     "tests"
   ],
   "resolutions": {
-    "angular": "~1.5.0"
+    "angular": "1.5.7"
   },
   "dependencies": {
-    "angular-translate": "~2.11.0"
+    "angular-translate": "~2.11.0",
+    "angular-ui-select3": "ui-select#*",
+    "angular-ui-select": "^0.18.0"
   }
 }
