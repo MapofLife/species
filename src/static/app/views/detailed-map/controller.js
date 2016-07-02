@@ -313,7 +313,7 @@ angular.module('mol.controllers')
                 }
 
                 if (layer.product_type != 'range') {
-                  $scope.types[layer.product_type].feature_ct+=layer.feature_count;
+                  $scope.types[layer.product_type].feature_ct+=layer.no_rows;
                 } else {
                   $scope.types[layer.product_type].feature_ct++;
                 }

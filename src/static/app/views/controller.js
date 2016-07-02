@@ -9,10 +9,7 @@ angular.module('mol.controllers')
 
       //for view specific css targeting
       $rootScope.$state = $state;
-
-
-
-
+      
       angular.extend($scope, {"tt": molSpeciesTooltips});
 
       $scope.$watch('rc',
@@ -22,15 +19,11 @@ angular.module('mol.controllers')
         });
       $scope.$watch('lc', function(n,v) {
           if(n!=v) {
-
             $scope.$parent.map.resize()};
       });
 
       //Map utilities --> maybe put in a service?
-
       /* wait until gmaps is ready */
-
-
 
       $scope.region = {};
 
