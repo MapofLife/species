@@ -59,12 +59,13 @@ angular.module('mol.controllers')
         try {
            var newbnds = angular.copy($scope.getBounds(bnds));
            //pin to region bounds if possible
-           if(Object.keys($scope.region).length) {
+
+           /*if(Object.keys($scope.region).length) {
              newbnds.southwest.longitude = Math.max($scope.region.bnds[0]);
              newbnds.southwest.latitude = Math.max($scope.region.bnds[1]);
              newbnds.northeast.longitude = Math.min($scope.region.bnds[2]);
              newbnds.northeast.latitude = Math.min($scope.region.bnds[3]);
-           }
+           }*/
            $scope.map.bounds = newbnds;
         } catch(e) {}
 
@@ -104,7 +105,11 @@ angular.module('mol.controllers')
           if(newValue != undefined) {
             var bnds = {southWest:{lat:newValue[1],lng:newValue[0]},
               northEast: {lat:newValue[3],lng:newValue[2]}}
-            $scope.fitBounds(bnds);
+            if($scope.region.type==='global'&&$scope.species&&$scope.species.bounds) {
+              $scope.fitBounds($scope.species.bounds)
+            } else {
+              $scope.fitBounds(bnds);
+            }
           }
       });
 
