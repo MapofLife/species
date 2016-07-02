@@ -21,7 +21,7 @@
           style="width:25px;height:25px;"
           ng-src="static/app/views/detailed-map/img/{{ id }}.png">
         </div>
-        <div class="col" width="25px" >
+        <div class="col feature-ct"  >
           <div class="layer_count clickable" uib-tooltip="{{type.feature_ct | number}} {{type.title}} available to be mapped."
           ng-bind-html="type.feature_ct | number"></div>
         </div>
@@ -50,8 +50,8 @@
               class='layer_title dataset_title clickable'
                 ng-bind-html="dataset.title">
             </div>
-            <div class="col clickable">
-              <div ng-show="id !='range'" class="layer_count"
+            <div class="col feature-ct ">
+              <div ng-show="id !='range'" class="layer_count clickable"
                 uib-tooltip="{{dataset.feature_ct | number }} features available in {{dataset.title}}"
                 ng-bind-html="dataset.feature_ct | number"></div>
             </div>
