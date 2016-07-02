@@ -1,8 +1,8 @@
 angular.module('mol.controllers')
   .controller('molSpeciesCtrl',
-  	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout','$window',
+  	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout',
      '$location','$anchorScroll','$q','molUiMap','$window', 'molSpeciesTooltips',
-   		function( $http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout, $window,
+   		function( $http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
          $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips) {
 
       $rootScope = $scope; //important for map
