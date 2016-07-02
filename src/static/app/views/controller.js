@@ -1,8 +1,8 @@
 angular.module('mol.controllers')
   .controller('molSpeciesCtrl',
-  	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout',
+  	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout','$window',
      '$location','$anchorScroll','$q','molUiMap','$window', 'molSpeciesTooltips',
-   		function( $http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
+   		function( $http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout, $window,
          $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips) {
 
       $rootScope = $scope; //important for map
@@ -18,10 +18,12 @@ angular.module('mol.controllers')
       $scope.$watch('rc',
         function(n,v) {
           if(n) {
-            $scope.map.resize();}
+            $scope.$parent.map.resize();}
         });
       $scope.$watch('lc', function(n,v) {
-          if(n!=v) {$scope.map.resize()};
+          if(n!=v) {
+
+            $scope.$parent.map.resize()};
       });
 
       //Map utilities --> maybe put in a service?

@@ -102,7 +102,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 						this.bounds = {};
 						this.center = {latitude:0,longitude:0};
 						this.zoom = 0;
-
+						this.control = {};
 						this.options = {
 										//fullscreenControl: true,
 										//fullscreenControlOptions: {position: 3},
@@ -156,11 +156,11 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 
 
 						molUiMap.prototype.resize = function () {
-
+								var self = this;
 								uiGmapGoogleMapApi.then(
 	                function(maps) {
 	                  try {
-	                    var	map = self.control.getGMap(),
+	                    var	map =  self.control.getGMap(),
 												center = map.getCenter();
 	                    for(var i=0;i<=700;i+=4) {
 	                        $timeout(function() {
@@ -251,7 +251,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 									}
 						}
 					}
-			
+
 
 	])
 .factory(
