@@ -293,7 +293,7 @@ angular.module('mol.controllers')
                     "title":layer.type_title,
                     "bounds": layer.bounds,
                     "visible": (layer.product_type!='regionalchecklist'),
-                    "feature_ct":0,
+                    "feature_ct": 0,
                     "datasets":{}};
                 } else {
                   $scope.types[layer.product_type].bounds =
@@ -308,7 +308,7 @@ angular.module('mol.controllers')
                   "title": layer.dataset_title,
                   "bounds": layer.bounds,
                   "metadata": undefined,
-                  "feature_ct": layer.feature_count,
+                  "feature_ct": layer.no_rows,
                   "features":[]
                 }
 

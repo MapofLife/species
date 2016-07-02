@@ -51,8 +51,11 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 												if(!grid[z]) {grid[z]={}};
 												if(!grid[z][c.x]) {grid[z][c.x]={}};
 												if(!grid[z][c.x][c.y]) {
-													$http.jsonp('{0}?callback=JSON_CALLBACK'.format(grid_url))
-														.success(
+													$http({
+														url:'{0}?callback=JSON_CALLBACK'.format(grid_url),
+														method: 'JSONP',
+														ignoreLoadingbar:true
+													}).success(
 															function(data, status, headers, config) {
 																grid[z][c.x][c.y] = data;
 															}
@@ -69,7 +72,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 
 								img.onload = function(e) {
 									delete self.tiles[tile_url];
-									if (Object.keys(self.tiles).length<5) {
+									if (Object.keys(self.tiles).length<1) {
 
 										$rootScope.$emit('cfpLoadingBar:completed');
 									}
@@ -77,7 +80,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 								img.onerror = function(e) {
 									delete this.tiles[tile_url];
 									img.src = 'static/app/img/blank_tile.png';
-									if (Object.keys(this.tiles).length<5) {
+									if (Object.keys(this.tiles).length<1) {
 
 										$rootScope.$emit('cfpLoadingBar:completed');
 									}
@@ -116,6 +119,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 						this.events = {
 								click : angular.bind(self,self.interactivity),
 								mousemove: angular.bind(self,self.interactivity)
+
 						};
 						this.clearOverlays = function() {
 				        self.utfGrid={};
@@ -151,7 +155,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 
 
 
-							molUiMap.prototype.resize = function () {
+						molUiMap.prototype.resize = function () {
 
 								uiGmapGoogleMapApi.then(
 	                function(maps) {
@@ -165,7 +169,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 	                        },i);
 	                    }
 	                  } catch (e) {
-											console.log(e);
+											//console.log(e);
 										}
 	                });
 							}

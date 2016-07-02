@@ -18,10 +18,10 @@ angular.module('mol.controllers')
       $scope.$watch('rc',
         function(n,v) {
           if(n) {
-            $scope.$parent.map.resize();}
+            $scope.map.resize();}
         });
       $scope.$watch('lc', function(n,v) {
-          if(n!=v) {$scope.$parent.map.resize()};
+          if(n!=v) {$scope.map.resize()};
       });
 
       //Map utilities --> maybe put in a service?
@@ -32,7 +32,6 @@ angular.module('mol.controllers')
 
       $scope.region = {};
 
-      $scope.map = {control : {}};
 
       $scope.map = new molUiMap();
 
