@@ -1,15 +1,15 @@
 angular.module('mol.controllers')
   .controller('molSpeciesCtrl',
   	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout',
-     '$location','$anchorScroll','$q','molUiMap','$window', 'molSpeciesTooltips',
+     '$location','$anchorScroll','$q','molUiMap','$window', 'molSpeciesTooltips','molRegionOverlay',
    		function( $http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
-         $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips) {
+         $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay) {
 
       $rootScope = $scope; //important for map
 
       //for view specific css targeting
       $rootScope.$state = $state;
-      
+
       angular.extend($scope, {"tt": molSpeciesTooltips});
 
       $scope.$watch('rc',
@@ -110,10 +110,13 @@ angular.module('mol.controllers')
 
 
       $scope.$watch("region", function(n,o) {
-          if(n&n.type!=='global') {;
-            $scope.setOverlay(molRegionOverlay(n));
-          }
-      });
+          if(n&&n.type!=='global') {;
+          molRegionOverlay(n).then(
+            function(overlay){
+              if(overlay) $scope.map.setOverlay(angular.extend(overlay,{index:0}),0)}
+            );
+          } else {$scope.map.setOverlay({index:0},0);}
+      },true);
 
 
   }])

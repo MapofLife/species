@@ -9,7 +9,7 @@ angular.module('mol.controllers')
             $scope.mapUpdater  = undefined;
             $scope.canceller = $q.defer()
             $scope.map.options.scrollwheel = false;
-            $scope.map.clearOverlays();
+            $scope.map.removeOverlay(1);
               $scope.$watch(
                 'species.scientificname',
                 function(name) {
@@ -44,8 +44,9 @@ angular.module('mol.controllers')
                                   attr: '©2014 Map of Life',
                                   name: 'overview',
                                   opacity: 0.8,
+                                  index,1
                                   type: 'overview'
-                              },0);
+                              },1);
 
                             }});},500);
                     }

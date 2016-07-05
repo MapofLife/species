@@ -115,7 +115,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 						};
 						this.utfGrid = {};
 						this.infowindow = {};
-						this.overlayMapTypes=  [];
+						this.overlayMapTypes=  [null,null];
 						this.events = {
 								click : angular.bind(self,self.interactivity),
 								mousemove: angular.bind(self,self.interactivity)
@@ -123,7 +123,10 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 						};
 						this.clearOverlays = function() {
 				        self.utfGrid={};
-				        self.overlayMapTypes = [];
+				        self.overlayMapTypes = [null,null];
+						}
+						this.removeOverlay = function(index) {
+							this.overlayMapTypes[index] = null;
 						}
 						this.setOverlay = function(overlay,index) {
 							this.overlayMapTypes[index]= new OverlayMapType(overlay);
@@ -216,42 +219,38 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 )
 .factory(
 	'molRegionOverlay',
-	[ 'uiGmapGoogleMapApi','$http','$q','$rootScope','$timeout',
-		function($http) {
+	[ '$http','$q',
+		function($http,$q) {
 			return function(region) {
-					if(region) {
-							$http({
+					if(region.region_id) {
+						return $http({
 								"withCredentials":false,
 								"method":"POST",
 								"url":"https://mol.cartodb.com/api/v1/map/named/region-map",
 								"data": {
 								 "region_id": region.region_id,
-								}}).success(function(result, status, headers, config) {
-										if($scope.species && result.layergroupid) {
-
-											$scope.map.setOverlay({
+							 }}).then(function(result, status, headers, config) {
+											return {
 													tile_url: ""+
 														"https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
-															.format(result.cdn_url.https,
+															.format(result.data.cdn_url.https,
 
-																result.layergroupid),
-													grid_url: ""+
-														"http://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
-															.format(
-																result.cdn_url.https,
-																result.layergroupid),
-													key: result.layergroupid,
+																result.data.layergroupid),
+													grid_url: null,
+													key: result.data.layergroupid,
 													attr: '©2014 Map of Life',
-													name: 'overview',
+													name: 'region',
 													opacity: 0.8,
-													type: 'overview'
-											},0);
-
-										}});
-									}
+													type: 'region'
+											};
+										});
+						} else {
+							return $q.when(null)
 						}
-					}
 
+
+					}
+				}
 
 	])
 .factory(
