@@ -15,10 +15,12 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 					  this.show=true;
 						this.tiles = {};
 						this.getTile = getTile;
-						this.tileSize = new google.maps.Size(256, 256);
+						uiGmapGoogleMapApi.then(
+							function(maps) {
+								self.tileSize = new google.maps.Size(256, 256)});
 						this.name = overlay.type;
 						this.overlay = overlay;
-						this.index= Math.round(Math.random()*1000);
+						this.index= overlay.index;//Math.round(Math.random()*1000);
 						this.refresh= true;
 						this.opacity= overlay.opacity;
 						this.maxZoom= 10;
@@ -38,7 +40,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 
 						function getTile (c,z,d) {
 
-								var img = document.createElement('img'),
+								var img = document.createElement('img'),div = document.createElement('div'),
 									tile_url = getTileUrl(c,z,this.overlay.tile_url),
 									grid_url,
 									grid = self.utfGrid;//s[type];
@@ -67,30 +69,36 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 
 
 								img.style.opacity = this.opacity;
-								img.width=this.tileSize.width;
-								img.height=this.tileSize.height;
+								img.width=div.style.width=this.tileSize.width;
+								img.height=div.style.width=this.tileSize.height;
 
-								img.onload = function(e) {
-									delete self.tiles[tile_url];
-									if (Object.keys(self.tiles).length<1) {
 
-										$rootScope.$emit('cfpLoadingBar:completed');
+								if(tile_url) {
+									img.onload = function(e) {
+										delete self.tiles[tile_url];
+										if (Object.keys(self.tiles).length<1) {
+
+											$rootScope.$emit('cfpLoadingBar:completed');
+										}
 									}
-								}
-								img.onerror = function(e) {
-									delete this.tiles[tile_url];
-									img.src = 'static/app/img/blank_tile.png';
-									if (Object.keys(this.tiles).length<1) {
+									img.onerror = function(e) {
+										delete this.tiles[tile_url];
+										img.src = 'static/app/img/blank_tile.png';
+										if (Object.keys(this.tiles).length<1) {
 
-										$rootScope.$emit('cfpLoadingBar:completed');
+											$rootScope.$emit('cfpLoadingBar:completed');
+										}
 									}
+
+									$rootScope.$emit('cfpLoadingBar:started');
+									this.tiles[tile_url] = "loading";
+
+									img.src = tile_url;
+									return img;
+								} else {
+									return div;
 								}
 
-								$rootScope.$emit('cfpLoadingBar:started');
-								this.tiles[tile_url] = "loading";
-
-								img.src = tile_url;
-								return img;
 
 							}
 				}
@@ -115,7 +123,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 						};
 						this.utfGrid = {};
 						this.infowindow = {};
-						this.overlayMapTypes=  [null,null];
+						this.overlayMapTypes=  [new OverlayMapType({tile_url:"",index:0}),new OverlayMapType({tile_url:"",index:1})];
 						this.events = {
 								click : angular.bind(self,self.interactivity),
 								mousemove: angular.bind(self,self.interactivity)
@@ -126,7 +134,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 				        self.overlayMapTypes = [null,null];
 						}
 						this.removeOverlay = function(index) {
-							this.overlayMapTypes[index] = null;
+							this.overlayMapTypes[index] = new OverlayMapType({tile_url:""});
 						}
 						this.setOverlay = function(overlay,index) {
 							this.overlayMapTypes[index]= new OverlayMapType(overlay);

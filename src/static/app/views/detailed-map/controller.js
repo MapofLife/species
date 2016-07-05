@@ -52,7 +52,7 @@ angular.module('mol.controllers')
               $scope.canceller.resolve();
               $scope.canceller = $q.defer();
 
-              $scope.map.removeOverlay(1);
+              $scope.map.removeOverlay(0);
               if($scope.species) {
                   if($scope.mapUpdater) {
                     try{
@@ -91,10 +91,10 @@ angular.module('mol.controllers')
                               key: result.layergroupid,
                               attr: '©2014 Map of Life',
                               name: 'detail',
-                              index:1,
+                              index:0,
                               opacity: 0.8,
                               type: 'detail'
-                          },1);
+                          },0);
 
                         }});},500);}
 
