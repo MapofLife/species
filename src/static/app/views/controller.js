@@ -1,17 +1,14 @@
 angular.module('mol.controllers')
   .controller('molSpeciesCtrl',
   	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout',
-     '$location','$anchorScroll','$q','molUiMap','$window', 'molSpeciesTooltips',
+     '$location','$anchorScroll','$q','molUiMap','$window', 'molSpeciesTooltips','molRegionOverlay',
    		function( $http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
-         $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips) {
+         $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay) {
 
       $rootScope = $scope; //important for map
 
       //for view specific css targeting
       $rootScope.$state = $state;
-
-
-
 
       angular.extend($scope, {"tt": molSpeciesTooltips});
 
@@ -21,20 +18,17 @@ angular.module('mol.controllers')
             $scope.$parent.map.resize();}
         });
       $scope.$watch('lc', function(n,v) {
-          if(n!=v) {$scope.$parent.map.resize()};
+          if(n!=v) {
+            $scope.$parent.map.resize()};
       });
 
       //Map utilities --> maybe put in a service?
-
       /* wait until gmaps is ready */
-
-
 
       $scope.region = {};
 
-      $scope.map = {control : {}};
 
-      $scope.map =  angular.extend($scope.map,new molUiMap($scope));
+      $scope.map = new molUiMap();
 
 
       $scope.cleanURLName = function (name) {
@@ -60,7 +54,8 @@ angular.module('mol.controllers')
         try {
            var newbnds = angular.copy($scope.getBounds(bnds));
            //pin to region bounds if possible
-           if(Object.keys($scope.region).length) {
+
+           if(Object.keys($scope.region).length&&$scope.region.type!=='global') {
              newbnds.southwest.longitude = Math.max($scope.region.bnds[0]);
              newbnds.southwest.latitude = Math.max($scope.region.bnds[1]);
              newbnds.northeast.longitude = Math.min($scope.region.bnds[2]);
@@ -105,9 +100,23 @@ angular.module('mol.controllers')
           if(newValue != undefined) {
             var bnds = {southWest:{lat:newValue[1],lng:newValue[0]},
               northEast: {lat:newValue[3],lng:newValue[2]}}
-            $scope.fitBounds(bnds);
+            if($scope.region.type==='global'&&$scope.species&&$scope.species.bounds) {
+              $scope.fitBounds($scope.species.bounds)
+            } else {
+              $scope.fitBounds(bnds);
+            }
           }
       });
+
+
+      $scope.$watch("region", function(n,o) {
+          if(n&&n.type!=='global') {;
+          molRegionOverlay(n).then(
+            function(overlay){
+              if(overlay) $scope.map.setOverlay(angular.extend(overlay,{index:1}),1)}
+            );
+          } else {$scope.map.setOverlay({index:1},1);}
+      },true);
 
 
   }])

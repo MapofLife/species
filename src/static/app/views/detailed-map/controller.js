@@ -7,10 +7,10 @@ angular.module('mol.controllers')
   .controller('molDetailMapCtrl',
   	[  '$compile',
       '$window','$http','$uibModal','$scope','$state', '$filter',
-      '$timeout','$location','$anchorScroll','$q','molApi','molApiVersion',
+      '$timeout','$location','$anchorScroll','$q','molApi',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $location, $anchorScroll, $q,  molApi,molApiVersion) {
+          $timeout, $location, $anchorScroll, $q,  molApi) {
             /* set up defatul scop*/
 
 
@@ -52,7 +52,7 @@ angular.module('mol.controllers')
               $scope.canceller.resolve();
               $scope.canceller = $q.defer();
 
-              $scope.map.clearOverlays();
+              $scope.map.removeOverlay(0);
               if($scope.species) {
                   if($scope.mapUpdater) {
                     try{
@@ -91,6 +91,7 @@ angular.module('mol.controllers')
                               key: result.layergroupid,
                               attr: '©2014 Map of Life',
                               name: 'detail',
+                              index:0,
                               opacity: 0.8,
                               type: 'detail'
                           },0);
@@ -107,8 +108,7 @@ angular.module('mol.controllers')
                 "id": dataset.id
               },
               "canceller" :$scope.canceller,
-              "loading":true,
-              "version": molApiVersion
+              "loading":true
             }).then(
               function(results) {
                 var modalInstance, metadata = results.data;
@@ -142,9 +142,8 @@ angular.module('mol.controllers')
                 "id": type.id
                },
                "canceller": $scope.canceller,
-               "loading": true,
+               "loading": true
 
-               "version": molApiVersion
             }).then(
               function(results) {
                 var modalInstance, metadata = results.data;
@@ -223,7 +222,6 @@ angular.module('mol.controllers')
                 "canceller": $scope.canceller,
                 "loading": true,
                 "service" : "species/featuremetadata",
-                "version" : molApiVersion,
                 "creds" : true,
                 "params" : {
                   "scientificname": $scope.species.scientificname,
@@ -273,7 +271,6 @@ angular.module('mol.controllers')
           "canceller": $scope.canceller,
           "loading": true,
           "service" : "species/datasets",
-          "version" : molApiVersion,
           "creds" : true,
           "params" :   {"scientificname" : scientificname}
        }).success(
@@ -297,7 +294,7 @@ angular.module('mol.controllers')
                     "title":layer.type_title,
                     "bounds": layer.bounds,
                     "visible": (layer.product_type!='regionalchecklist'),
-                    "feature_ct":0,
+                    "feature_ct": 0,
                     "datasets":{}};
                 } else {
                   $scope.types[layer.product_type].bounds =
@@ -312,12 +309,12 @@ angular.module('mol.controllers')
                   "title": layer.dataset_title,
                   "bounds": layer.bounds,
                   "metadata": undefined,
-                  "feature_ct": layer.feature_count,
+                  "feature_ct": layer.no_rows,
                   "features":[]
                 }
 
                 if (layer.product_type != 'range') {
-                  $scope.types[layer.product_type].feature_ct+=layer.feature_count;
+                  $scope.types[layer.product_type].feature_ct+=layer.no_rows;
                 } else {
                   $scope.types[layer.product_type].feature_ct++;
                 }
