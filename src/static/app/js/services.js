@@ -149,20 +149,21 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 								} else {
 									map.setOptions({ draggableCursor: 'default' });
 								}
-
-								this.getInfoWindowModel(map, eventName,coords[0].latLng,data).then(
-									function(result) {
-										if(result) {
-										self.infowindow = angular.extend({
-												coords: {
-													latitude: coords[0].latLng.lat(),
-													longitude:  coords[0].latLng.lng()
-												}
-											},
-											result
-										);
-									}
-							 });
+								if(this.getInfoWindowModel) {
+									this.getInfoWindowModel(map, eventName,coords[0].latLng,data).then(
+										function(result) {
+											if(result) {
+											self.infowindow = angular.extend({
+													coords: {
+														latitude: coords[0].latLng.lat(),
+														longitude:  coords[0].latLng.lng()
+													}
+												},
+												result
+											);
+										}
+								 });
+							 }
 						 };
 
 
