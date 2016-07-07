@@ -25,28 +25,7 @@ angular.module('mol', [
     "region" : angular.element('#mol-region').attr('content'),
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
 })
-<<<<<<< HEAD
-.config(function ($translateProvider) {
-  $translateProvider
-    .determinePreferredLanguage()
-    .registerAvailableLanguageKeys([
-      'en','fr','es','pt','de','zh'
-    ]);
-})
-.run(['$rootScope','molConfig',function($rootScope,molConfig) {
-  $rootScope.molConfig = molConfig;
-}])
-.config(function(uiGmapGoogleMapApiProvider) {
-    uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
-        v: '3.30', //defaults to latest 3.X anyhow
-        libraries: 'weather,geometry,visualization'
-    });
-})
-.run(
-=======
 .run(['$timeout','$rootScope','molConfig',
->>>>>>> 674816977f32de2bf0e9b38e19e5e9e6a7de4158
   /*
    *  pre bootstrap config
    */

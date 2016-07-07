@@ -12,6 +12,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 
 				function OverlayMapType(overlay) {
 						var self = this;
+						overlay = angular.copy(overlay);
 					  this.show=true;
 						this.tiles = {};
 						this.getTile = getTile;
@@ -244,11 +245,10 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 															.format(result.data.cdn_url.https,
 
 																result.data.layergroupid),
-													grid_url: null,
 													key: result.data.layergroupid,
 													attr: '©2014 Map of Life',
 													name: 'region',
-													opacity: 0.8,
+													opacity: 1,
 													type: 'region'
 											};
 										});

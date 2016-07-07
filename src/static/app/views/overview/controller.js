@@ -6,10 +6,17 @@ angular.module('mol.controllers')
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
           $timeout, $location, $anchorScroll, $q,  molApi,uiGmapGoogleMapApi) {
+
+
+
+
             $scope.mapUpdater  = undefined;
             $scope.canceller = $q.defer()
             $scope.map.options.scrollwheel = false;
-            $scope.map.removeOverlay(1);
+            $scope.map.removeOverlay(0);
+
+            $scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {}
+
               $scope.$watch(
                 'species.scientificname',
                 function(name) {
@@ -44,9 +51,9 @@ angular.module('mol.controllers')
                                   attr: '©2014 Map of Life',
                                   name: 'overview',
                                   opacity: 0.8,
-                                  index:1,
+                                  index:0,
                                   type: 'overview'
-                              },1);
+                              },0);
 
                             }});},500);
                     }
