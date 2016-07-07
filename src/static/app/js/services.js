@@ -149,7 +149,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 								} else {
 									map.setOptions({ draggableCursor: 'default' });
 								}
-								if(typeof this.getInfoWindowModel === 'function') {
+								try {
 									this.getInfoWindowModel(map, eventName,coords[0].latLng,data).then(
 										function(result) {
 											if(result) {
@@ -162,7 +162,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 												result
 											);
 										}
-								 });
+								 });} catch(e) {}
 							 }
 						 };
 
