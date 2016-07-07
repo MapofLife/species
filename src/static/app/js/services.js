@@ -149,7 +149,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 								} else {
 									map.setOptions({ draggableCursor: 'default' });
 								}
-								if(this.getInfoWindowModel) {
+								if(typeof this.getInfoWindowModel === 'function') {
 									this.getInfoWindowModel(map, eventName,coords[0].latLng,data).then(
 										function(result) {
 											if(result) {
