@@ -163,7 +163,7 @@ angular.module('mol.services', ['uiGmapgoogle-maps'])
 											);
 										}
 								 });} catch(e) {}
-							 }
+							 
 						 };
 
 
