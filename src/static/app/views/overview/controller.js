@@ -12,7 +12,7 @@ angular.module('mol.controllers')
 
             $scope.mapUpdater  = undefined;
             $scope.canceller = $q.defer()
-            $scope.map.options.scrollwheel = false;
+            //$scope.map.options.scrollwheel = false;
             $scope.map.removeOverlay(0);
 
             $scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {}
