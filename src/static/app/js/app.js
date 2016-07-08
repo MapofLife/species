@@ -10,7 +10,7 @@ angular.module('mol', [
   'ui.bootstrap', 'ui.router', 'ui.select','ui.checkbox','ui-rangeSlider','uiGmapgoogle-maps',
 
   //'mol.meta',
-  'mol.api', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',
+  'mol.api', 'mol.ui-map', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',
   'mol.species-description', 'mol.location-search', 'mol.species-images',
   'mol.point-filters', 'mol.controllers', 'mol.loading-indicator',
 
