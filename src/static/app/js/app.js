@@ -57,6 +57,16 @@ angular.module('mol', [
 
     });
 }])
+.factory('molBaseIntercept', ['$log', 'molConfig', function($log, molConfig) {
+    $log.debug('$log is here to show you that this is a regular factory with injection');
+    return {
+      request: function(r) {
+        r.url = (r.url.indexOf('static')===0) ? molConfig.base + r.url : r.url;
+        $log.debug(r.url);
+        return(r)
+      }
+    };
+}])
 .config(['molConfig','$sceDelegateProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
   function(molConfig,$sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
@@ -64,9 +74,11 @@ angular.module('mol', [
   //angular.element('base').href="/en/species/"
 
 
+  $httpProvider.interceptors.push('molBaseIntercept');
+
   var params = ""+
     "{scientificname}?" + //taxon
-    ((!molConfig.url.match('{region}'))?"region&":'') + //region constraint
+    ((!molConfig.url.includes('{region}'))?"region&":'') + //region constraint
     "dsid&type&" + //selected data options
     "embed&sidebar&header&subnav&footer&speciessearch&regionsearch";
 
