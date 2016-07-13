@@ -1,10 +1,6 @@
 
 <div ng-show="!$state.params.embed||$state.params.header"
-<<<<<<< HEAD
-  ng-include="(($root.molConfig.prod)?'//mol.org/':'http://localhost:8080/')+'partials/header-thin' | trustUrl"></div>
-=======
   ng-include="((($root.molConfig.prod)?'https://mol.org/':'http://localhost:8080/')+'partials/header-thin') | trustUrl"></div>
->>>>>>> 674816977f32de2bf0e9b38e19e5e9e6a7de4158
 <div ng-show="!$state.params.embed||!$state.params.subnav" ng-include="'static/app/views/sub-nav.html' | trustUrl"></div>
 <div ui-view class="layouts-base scrolling content"></div>
 <div ng-show="!$state.params.embed||$state.params.footer" ng-include="'//mol.org/partials/footer-thin' | trustUrl"></div>
