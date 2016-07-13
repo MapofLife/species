@@ -25,14 +25,6 @@ angular.module('mol', [
     "region" : angular.element('#mol-region').attr('content'),
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
 })
-.run(['$timeout','$rootScope','molConfig',
-  function($timeout,$rootScope,molConfig) {
-      angular.element('base').attr('href', '/');
-      $rootScope.$on('$viewContentLoading',
-        function() {angular.element('base').attr('href',molConfig.base);});
-      $rootScope.molConfig = molConfig;
-  }
-])
 //move this to i8n
 .config(['$translateProvider','molConfig', function($translateProvider,molConfig) {
   if(molConfig.lang) {
@@ -66,7 +58,7 @@ angular.module('mol', [
   function(molConfig,$sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
 
 
-  //angular.element('base').href="/en/species/"
+  //angular.element('base').href="/"
 
 
   $httpProvider.interceptors.push('molBaseIntercept');
@@ -176,3 +168,11 @@ angular.module('mol', [
     });*/
 
 }])
+.run(['$timeout','$rootScope','molConfig',
+  function($timeout,$rootScope,molConfig) {
+      //angular.element('base').attr('href', '/');
+      //$rootScope.$on('$viewContentLoading',
+      //  function() {angular.element('base').attr('href',molConfig.base);});
+      $rootScope.molConfig = molConfig;
+  }
+])
