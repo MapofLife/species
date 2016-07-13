@@ -13,12 +13,12 @@ module.exports = function(grunt) {
               {selector:'link.dev',attribute:'href',writeto:'cssRefs',isPath:true},
               {selector:'script.dev',attribute:'src',writeto:'jsRefs',isPath:true}
             ],
-            remove: ['base', 'meta .dev'],
+            remove: ['.dev'],
             append: [
               {selector:'head',html:'<base href="//mapoflife.github.io/" />'},
               {selector:'head',html:'<meta id="mol-asset-base" content="//mapoflife.github.io/' + pkg.base + '/"></meta>'},
-              //{selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css" rel="stylesheet"></link>'},
-              //{selector:'head',html:'<script src="' + pkg.base + '/static/app.min.js"></script>'},
+              {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css" rel="stylesheet"></link>'},
+              {selector:'head',html:'<script src="' + pkg.base + '/static/app.min.js"></script>'},
             ]
         },
         src: 'src/index.html',
