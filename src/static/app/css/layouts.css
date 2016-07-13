@@ -88,7 +88,7 @@ footer {
 
 .sidebar-toggle {
   position:absolute;
-  /*z-index:  1000;*/
+  z-index:  1000;
   top: 50%;
   bottom: 50%;
   width: 40px;
