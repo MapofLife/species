@@ -5,11 +5,11 @@
 
             <ul class="nav navbar-nav">
               <li ui-sref-active="active"
-                 ui-sref="species.overview($state.params)"
-                 ><a href="#">Overview</a></li>
+
+                 ><a ui-sref="species.overview($state.params)">Overview</a></li>
               <li ui-sref-active="active"
-                 ui-sref="species.detailed-map($state.params)"
-                 ><a href="#">Detailed Map</a></li>
+
+                 ><a ui-sref="species.detailed-map($state.params)">Detailed Map</a></li>
             </ul>
             <div  class="pull-right">
               <mol-species-search ng-show="!$state.params.embed||$state.params.speciessearch"></mol-species-search>

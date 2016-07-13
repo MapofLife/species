@@ -26,9 +26,6 @@ angular.module('mol', [
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
 })
 .run(['$timeout','$rootScope','molConfig',
-  /*
-   *  pre bootstrap config
-   */
   function($timeout,$rootScope,molConfig) {
       angular.element('base').attr('href', '/');
       $rootScope.$on('$viewContentLoading',
