@@ -1,12 +1,13 @@
 angular.module('mol.controllers')
   .controller('molSpeciesCtrl',
   	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout',
-     '$location','$anchorScroll','$q','molUiMap','$window', 'molSpeciesTooltips','molRegionOverlay',
+     '$location','$anchorScroll','$q','molUiMap','$window', 'molSpeciesTooltips','molRegionOverlay','molConfig',
    		function( $http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
-         $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay) {
+         $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay,molConfig) {
+
 
       $rootScope = $scope; //important for map
-
+      $rootScope.molConfig = molConfig;
       //for view specific css targeting
       $rootScope.$state = $state;
 

@@ -149,30 +149,9 @@ angular.module('mol', [
         url: 'range/{0}'.format(params)
       }
     )
-    /*.state(
-      'species.habitat-distribution.reserve-coverage',
-      {
-        views: {
-          "protect-metrics@species.habitat-distribution" :{
-            templateUrl: "static/app/views/reserve-coverage/reserve-coverage.html",
-            controller: 'molReserveCoverageCtrl'
-          }
-        },
-        url: '^protect/{0}'.format(params)
-      }
-    );*/
-    //Gets rid of the # in the querystring. Wont work on IE
-    $locationProvider.html5Mode(true);/*{
-      enabled: true,
-      requireBase: false
-    });*/
 
-}])
-.run(['$timeout','$rootScope','molConfig',
-  function($timeout,$rootScope,molConfig) {
-      //angular.element('base').attr('href', '/');
-      //$rootScope.$on('$viewContentLoading',
-      //  function() {angular.element('base').attr('href',molConfig.base);});
-      $rootScope.molConfig = molConfig;
-  }
-])
+
+    $locationProvider.html5Mode(true);
+
+
+}]);
