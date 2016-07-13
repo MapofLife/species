@@ -19,7 +19,7 @@ angular.module('mol', [
 .constant('molConfig',{
     "module" : "species", //module name (used in routing)
     "api" : "0.x",
-    "base" : angular.element('base').attr('href'), //static assets base
+    "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
     "url" :  angular.element('#mol-url').attr('content'),
     "lang" : angular.element('#mol-lang').attr('content'),
     "region" : angular.element('#mol-region').attr('content'),
@@ -58,11 +58,9 @@ angular.module('mol', [
     });
 }])
 .factory('molBaseIntercept', ['$log', 'molConfig', function($log, molConfig) {
-    $log.debug('$log is here to show you that this is a regular factory with injection');
     return {
       request: function(r) {
         r.url = (r.url.indexOf('static')===0) ? molConfig.base + r.url : r.url;
-        $log.debug(r.url);
         return(r)
       }
     };
