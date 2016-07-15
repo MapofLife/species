@@ -119,5 +119,8 @@ angular.module('mol.controllers')
           } else {$scope.map.setOverlay({index:1},1);}
       },true);
 
+      $scope.rc = ($state.params.scientificname);
+      $scope.lc = ($state.params.region && !$state.params.scientificname);
+
 
   }])

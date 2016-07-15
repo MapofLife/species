@@ -1,1 +1,9 @@
-<div class="sidebar"></div>
+<div class="sidebar">
+  <div ng-repeat="group in groups | removeWith:{value:'any'} | orderBy:'sortby'">
+    <h4 ng-bind-html="group.label" />
+    <div ng-repeat="species in group.species">
+      <a ui-sref="{scientificname: cleanURLName(species.scientificname)}"
+         ui-sref-opts="{reload:true, notify:true}"
+         ng-bind-html="species.scientificname" />
+    </div>
+  </div></div>

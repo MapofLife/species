@@ -40,6 +40,7 @@
   "dependencies": {
     "angular-translate": "~2.11.0",
     "angular-ui-select3": "ui-select#*",
-    "angular-ui-select": "^0.18.0"
+    "angular-ui-select": "^0.18.0",
+    "angular-filter": "~0.5.8"
   }
 }
