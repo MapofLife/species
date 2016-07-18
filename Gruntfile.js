@@ -41,7 +41,8 @@ module.exports = function(grunt) {
     copy : {
       main: {
         files: [
-          { expand:true, nonull: true, cwd: 'src', src: ['static/app/**/*.{html,png,jpg}'], dest: 'dist/'}
+          { expand:true, nonull: true, cwd: 'src', src: ['static/app/**/*.{html,png,jpg}'],
+          dest: 'dist/'}
         ],
       },
     },
@@ -59,13 +60,12 @@ module.exports = function(grunt) {
        dir: 'dist',
        commit: true,
        branch: 'gh-pages',
-
        push: true,
        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
      },
      pages: {
        options: {
-         remote: pkg.repository,
+         remote: pkg.devRepository,
          force:true,
          branch: 'gh-pages'
        }
