@@ -9,7 +9,7 @@
         ng-error="h=true;"></td>
       <td>
       <a ui-sref="{scientificname: cleanURLName(species.scientificname)}"
-         ui-sref-opts="{reload:true, notify:true}">
+         ui-sref-opts="{ notify:true}">
       {{species.common}}</td><td><i>{{species.scientificname}}<i></td>
     </tr>
   </table>

@@ -221,7 +221,7 @@ angular.module('mol.controllers')
                molApi({
                 "canceller": $scope.canceller,
                 "loading": true,
-                "service" : "species/featuremetadata",
+                "service" : "species/featuremetadata2",
                 "creds" : true,
                 "params" : {
                   "scientificname": $scope.species.scientificname,
