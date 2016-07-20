@@ -1,0 +1,72 @@
+<div class="layers_container" uib-collapse='!toggles.sidebarVisible'>
+  <!--<table class="table layer_table">-->
+    <div ng-repeat="(id,type) in types">
+      <div class="type-row">
+        <div class="col">
+            <i  ng-click="collapsed= !collapsed" class="fa clickable"
+              ng-class="{ 'fa-chevron-right':!collapsed,
+                          'fa-chevron-down': collapsed}"></i>
+        </div>
+        <div class="col">
+           <checkbox class="{{(type.partial)? 'btn-warning':'btn-primary'}}"
+              ng-model="type.visible"
+              ng-change="toggleType(id,type.visible)">
+            </checkbox>
+        </div>
+        <div class="col title clickable" ><span
+            ng-click="collapsed= !collapsed">{{type.title}}</span>
+        </div>
+        <div class="col">
+          <img
+          style="width:25px;height:25px;"
+          ng-src="species/static/app/views/detailed-map/img/{{ id }}.png">
+        </div>
+        <div class="col feature-ct"  >
+          <div class="layer_count clickable" uib-tooltip="{{type.feature_ct | number}} {{type.title}} available to be mapped."
+          ng-bind-html="type.feature_ct | number"></div>
+        </div>
+        <div  class="col clickable" ng-click="fitBounds(type.bounds)">
+            <i
+              uib-tooltip="Zoom map to this data type"
+
+              class="clickable fa fa-search"></i>
+        </div>
+        <div
+          class="col clickable"
+          ng-click="typeMetadata({'id':id,'title':type.title})" width="15px">
+            <i uib-tooltip="Information about this data type" class="fa fa-info"></i>
+        </div>
+        <div uib-collapse="!collapsed">
+          <div ng-repeat="dataset in type.datasets">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col">
+                <checkbox  class="btn-primary" ng-change="toggleDataset(type)"
+                ng-model="dataset.visible">
+                </checkbox>
+            </div>
+            <div class="col title clickable"
+              ng-click="datasetMetadata(dataset)"
+              class='layer_title dataset_title clickable'
+                ng-bind-html="dataset.title">
+            </div>
+            <div class="col feature-ct ">
+              <div ng-show="id !='range'" class="layer_count clickable"
+                uib-tooltip="{{dataset.feature_ct | number }} features available in {{dataset.title}}"
+                ng-bind-html="dataset.feature_ct | number"></div>
+            </div>
+            <div class="col" ng-click="fitBounds(dataset.bounds)" class="clickable">
+              <i
+                uib-tooltip="Zoom map to this dataset"
+                class="clickable fa fa-search"></i>
+            </div>
+            <div class="col clickable" ng-click="datasetMetadata(dataset)">
+              <i
+                uib-tooltip="Information about this dataset."
+                class="clickable  fa fa-info"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
