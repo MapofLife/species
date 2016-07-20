@@ -6,7 +6,7 @@ angular.module('mol.controllers',[]);
 angular.module('mol', [
   //base angular
   'ngSanitize', 'ngCookies', 'ngAnimate', 'ngTouch', 'pascalprecht.translate',
-  'angular.filter',
+  'angular.filter', 'ngError', 
 
   //3rd party ui
   'ui.bootstrap', 'ui.router', 'ui.select','ui.checkbox','ui-rangeSlider','uiGmapgoogle-maps',
@@ -98,9 +98,7 @@ angular.module('mol', [
           "@species" : {
             templateUrl: 'static/app/layouts/map-with-sidebars.html'
           },
-          "right-sidebar@species" : {
-            templateUrl: 'static/app/views/species-list/list.html',
-          }
+
         },
         url: molConfig.url
       }
@@ -123,6 +121,9 @@ angular.module('mol', [
             templateUrl: "static/app/views/overview/sidebar.html",
             controller: 'molOverviewCtrl'
           },
+          "right-sidebar@species" : {
+            templateUrl: 'static/app/views/species-list/list.html',
+          }
         },
         url: '{0}'.format(params)
       }
