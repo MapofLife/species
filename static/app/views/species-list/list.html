@@ -1,1 +1,17 @@
-<div class="sidebar"></div>
+<div class="sidebar">
+  <div ng-show="group.species.length" ng-repeat="group in groups | removeWith:{value:'any'} | orderBy:'sortby'">
+    <h4 ng-bind-html="group.label" />
+    <table class="table">
+    <tr ng-repeat="species in group.species">
+      <td><img
+        ng-hide="h"
+        ng-src="{{species.image_url + '=s22-c'}}"
+        ng-error="h=true;"></td>
+      <td>
+      <a ui-sref="{scientificname: cleanURLName(species.scientificname)}"
+         ui-sref-opts="{reload:true, notify:true}">
+      {{species.common}}</td><td><i>{{species.scientificname}}<i></td>
+    </tr>
+  </table>
+  </div>
+</div>
