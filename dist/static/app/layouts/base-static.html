@@ -1,0 +1,6 @@
+
+<div ng-show="!$state.params.embed||$state.params.header"
+  ng-include="'https://mol.org/partials/header-thin' | trustUrl"></div>
+<div ng-show="!$state.params.embed||$state.params.subnav" ng-include="'static/app/views/sub-nav.html' | trustUrl"></div>
+<div class="layouts-base static content" ui-view></div>
+<div ng-show="!$state.params.embed||$state.params.footer" ng-include="'//mol.org/partials/footer-thin' | trustUrl"></div>

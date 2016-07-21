@@ -1,0 +1,66 @@
+<div ng-class="{'disabled':stale || !species.refine.metrics.refined_range_size }" class="col-md-12 metrics">
+
+    <div class="row">
+        <div class="row col-md-12">
+            <h4 style="margin-left:1em"><span class="ttelem" uib-tooltip="{{ tt.geo_dist }}">Geographic distribution</span></h4>
+        </div>
+    </div>
+
+    <!-- Range size -->
+    <div class="row metric" >
+        <div class="col-md-4">
+            <div class="name-center">
+                <span class="ttelem" uib-tooltip="{{ tt.range_size }}">Range size</span>
+            </div>
+        </div>
+        <div class="col-md-4" ng-show="species.refine.metrics.refined_range_size !=null && toggles.refine"
+                ng-class="{'protection_status_light_red': species.refine.metrics.refined_range_size  < 20000}">
+            <div class="value-center">
+                {{species.refine.metrics.refined_range_size | number:0 | km2}}
+                <br />
+                <small ng-show='!processing.refine'>Suitable</small>
+            </div>
+        </div>
+        <div class="col-md-4" >
+            <div class="value-center">
+                {{species.refine.metrics.expert_range_size | number:0 | km2 }}
+                <br />
+                <small  ng-show='!processing.refine'>Total</small>
+            </div>
+        </div>
+    </div>
+    <!-- Range size -->
+
+    <hr ng-show="toggles.refine" />
+
+    <!-- Map improvement -->
+    <div class="row metric" ng-show="toggles.refine">
+        <div class="col-md-4">
+            <div class="name-center">
+                <span class="ttelem" uib-tooltip="Change in map performance according to available validation information ({{ species.refine.range_pts + species.refine.points_in_expert_range }} points).">Map improvement</span>
+            </div>
+        </div>
+        <div class="col-md-4" ng-show="species.refine.metrics.change_in_map_performance!=null"
+             class="progress-bar-alert"
+                ng-class="{'protection_status_red': species.metrics.refine.f_change_high < 0,
+                'protection_status_green': species.refine.metrics.f_change_low > 0,
+                'protection_status_yellow': species.refine.metrics.f_change_low == 0 || species.refine.metrics.f_change_high == 0}">
+            <div class="value-center">
+                {{species.refine.metrics.change_in_map_performance | number}}&nbsp;%&nbsp;
+                <br />
+                <small>
+                    (<span ng-show="species.refine.metrics.f_change_low!=null">{{ species.refine.metrics.f_change_low }}&nbsp;%&nbsp;</span>
+                    &nbsp;-&nbsp;
+                    <span ng-show="species.refine.metrics.f_change_high!=null">{{ species.refine.metrics.f_change_high }}&nbsp;%&nbsp;</span>)
+                </small>
+            </div>
+        </div>
+        <div class="col-md-4" ng-show="species.refine.metrics.total_points!=null">
+            <div class="value-center">
+                {{species.refine.metrics.total_points | number}}
+                <br />
+                <small>Validation points</small>
+            </div>
+        </div>
+    </div>        <!-- Map improvement -->
+</div>
