@@ -6,37 +6,38 @@ angular.module('mol.controllers')
          $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay,molConfig) {
 
 
-      $rootScope = $scope; //important for map
-      $rootScope.molConfig = molConfig;
-      //for view specific css targeting
-      $rootScope.$state = $state;
 
-      angular.extend($scope, {"tt": molSpeciesTooltips});
 
-      $scope.$watch('rc',
-        function(n,v) {
-          if(n) {
-            $scope.$parent.map.resize();}
-        });
-      $scope.$watch('lc', function(n,v) {
-          if(n!=v) {
-            $scope.$parent.map.resize()};
-      });
+
+      angular.extend($scope, { model: {
+         tt: molSpeciesTooltips,
+         rc: ($state.params.scientificname),
+         lc: ($state.params.region && !$state.params.scientificname)
+      }});
+
+      $scope.$watch('rc', function(n,v){
+        if(n!=v){
+          $scope.$parent.map.resize();}});
+      $scope.$watch('lc', function(n,v){
+        if(n!=v){
+          $scope.$parent.map.resize()};});
+
 
       //Map utilities --> maybe put in a service?
       /* wait until gmaps is ready */
 
       $scope.region = {};
 
-
       $scope.map = new molUiMap();
 
+      $rootScope = $scope; //important for map
+      $rootScope.molConfig = molConfig;
+      //for view specific css targeting
+      $rootScope.$state = $state;
 
       $scope.cleanURLName = function (name) {
         if(name) {return name.replace(/ /g, '_');}
       }
-
-
 
       $scope.getBounds = function(bnds) {
         var nbnds = {southwest: {
@@ -119,8 +120,7 @@ angular.module('mol.controllers')
           } else {$scope.map.setOverlay({index:1},1);}
       },true);
 
-      $scope.rc = ($state.params.scientificname);
-      $scope.lc = ($state.params.region && !$state.params.scientificname);
+
 
 
   }])

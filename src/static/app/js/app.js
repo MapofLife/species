@@ -6,10 +6,11 @@ angular.module('mol.controllers',[]);
 angular.module('mol', [
   //base angular
   'ngSanitize', 'ngCookies', 'ngAnimate', 'ngTouch', 'pascalprecht.translate',
-  'angular.filter', 'ngError',
+  'angular.filter',
 
   //3rd party ui
-  'ui.bootstrap', 'ui.router', 'ui.select','ui.checkbox','ui-rangeSlider','uiGmapgoogle-maps',
+  'ui.bootstrap', 'ui.router', 'ui.select','ui.checkbox','ui-rangeSlider',
+  'uiGmapgoogle-maps','suEndlessScroll', 'ngError',
 
   //'mol.meta',
   'mol.api', 'mol.ui-map', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',
