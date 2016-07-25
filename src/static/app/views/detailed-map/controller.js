@@ -325,7 +325,6 @@ angular.module('mol.controllers')
 
             );
 
-          $scope.newSpecies = true;
           $scope.updateLayers();
 
 

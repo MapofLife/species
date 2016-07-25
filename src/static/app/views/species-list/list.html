@@ -11,8 +11,10 @@
             ng-src="{{species.image_url + '=s22-c'}}"
             ng-error="h=true;"></td>
           <td>
-          <a ui-sref="{scientificname: cleanURLName(species.scientificname)}"
-             ui-sref-opts="{ notify:true}">
+          <a
+             ng-href="{{$state.href($state.current.name,{scientificname: cleanURLName(species.scientificname)},{absolute:true})}}"
+             ng-click="$state.go($state.current,{scientificname: cleanURLName(species.scientificname)})"
+          >
           {{species.common}}</td>
           <td><i>{{species.scientificname}}<i></td>
         </tr>
