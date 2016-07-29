@@ -62,7 +62,7 @@ angular.module('mol.controllers')
                   "withCredentials":false,
                   "method":"POST",
                   "timeout":$scope.canceller,
-                  "url":"https://mol.carto.com/api/v1/map/named/detailed-map",
+                  "url":"https://mol.carto.com/api/v1/map/named/detailed-map-dev",
                   "data": {
                      "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
                      "max_year" : ($scope.filters.years)?$scope.year.max:5555555,
@@ -221,7 +221,7 @@ angular.module('mol.controllers')
                molApi({
                 "canceller": $scope.canceller,
                 "loading": true,
-                "service" : "species/featuremetadata",
+                "service" : "species/featuremetadata2",
                 "creds" : true,
                 "params" : {
                   "scientificname": $scope.species.scientificname,
