@@ -32,7 +32,7 @@ module.exports = function(grunt) {
       }
     },
     uglify: {
-      options: {mangle: false, wrap: 'mol'},
+      options: {mangle: false},
       main: {
         src: '<%= dom_munger.data.jsRefs %>', //use our read js references and concat+min them
         dest:'dist/static/app.min.js'
