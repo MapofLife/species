@@ -43,7 +43,7 @@ angular.module('mol.controllers')
 
                                         result.layergroupid),
                                   grid_url: ""+
-                                    "http://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
+                                    "https://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
                                       .format(
                                         result.cdn_url.https,
                                         result.layergroupid),
