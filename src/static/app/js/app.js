@@ -99,9 +99,9 @@ angular.module('mol', [
           "@species" : {
             templateUrl: 'static/app/layouts/map-with-sidebars.html'
           },
-          "right-sidebar@species" : {
+          /*"right-sidebar@species" : {
             templateUrl: 'static/app/views/species-list/list.html',
-          }
+          }*/
 
         },
         url: molConfig.url
