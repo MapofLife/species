@@ -31,9 +31,6 @@
     <link class="dev" rel="stylesheet" href="static/app/css/layouts.css"></link>
     <link class="dev" rel="stylesheet" href="static/app/views/detailed-map/main.css"></link>
     <link class="dev" rel="stylesheet" href="static/app/views/overview/main.css"></link>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script type="text/javascript">
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -44,12 +41,11 @@
         ga('send', 'pageview');
     </script>
 
-      </head>
-    <body ui-view state="{{ $state.current.name }}"></body>
     <!-- 3rd Party components -->
 
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
     <script class="dev" type="text/javascript" src="static/components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
     <script class="dev" type="text/javascript" src="static/components/angular-su-endless-scroll/su-endless-scroll.min.js"></script>
@@ -99,4 +95,7 @@
     <script class="dev" type="text/javascript" src="static/app/views/habitat-distribution/controller.js"></script>
     <script class="dev" type="text/javascript" src="static/app/views/reserve-coverage/controller.js"></script>
 
+
+  </head>
+  <body ui-view state="{{ $state.current.name }}"></body>
 </html>
