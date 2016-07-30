@@ -6,10 +6,10 @@ var pkg = require('../../package.json')
 
 exports.index =function (req, res) {
   debug(req);
-  res.sendFile(path.join(__dirname, '../../src/index.html'));
+  res.sendFile(path.join(__dirname, '../../dist/index.html'));
 }
 
 exports.static =function (req, res) {
   debug(req);
-  res.sendFile(path.join(__dirname, '../../src/', req.path.replace('/'+pkg.base,'')));
+  res.sendFile(path.join(__dirname, '../../dist/', req.path.replace('/'+pkg.base,'')));
 }

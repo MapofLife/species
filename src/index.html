@@ -43,8 +43,9 @@
 
     <!-- 3rd Party components -->
 
-    <script class="dev" type="text/javascript" src="static/components/jquery/dist/jquery.min.js"></script>
-    <script class="dev" type="text/javascript" src="static/components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!--<script class="dev" type="text/javascript" src="static/components/bootstrap/dist/js/bootstrap.min.js"></script>-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
     <script class="dev" type="text/javascript" src="static/components/angular/angular.min.js"></script>
     <script class="dev" type="text/javascript" src="static/components/angular-simple-logger/dist/angular-simple-logger.min.js"></script>
     <script class="dev" type="text/javascript" src="static/components/angular-su-endless-scroll/su-endless-scroll.min.js"></script>
@@ -96,5 +97,8 @@
 
 
   </head>
-  <body ui-view state="{{ $state.current.name }}"></body>
+  <body ui-view state="{{ $state.current.name }}">
+
+</body>
+
 </html>

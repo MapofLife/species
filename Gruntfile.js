@@ -9,16 +9,19 @@ module.exports = function(grunt) {
     dom_munger: {
       main: {
         options: {
+
+           xmlMode: true,
+
             read: [
               {selector:'link.dev',attribute:'href',writeto:'cssRefs',isPath:true},
               {selector:'script.dev',attribute:'src',writeto:'jsRefs',isPath:true}
             ],
             remove: ['.dev'],
-            append: [
-              {selector:'head',html:'<base href="//mapoflife.github.io/" />'},
+            prepend: [
+              {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css" rel="stylesheet" />'},
+              {selector:'head',html:'<script src="' + pkg.base + '/static/app.min.js"></script>'},
               {selector:'head',html:'<meta id="mol-asset-base" content="//mapoflife.github.io/' + pkg.base + '/"></meta>'},
-              {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css" rel="stylesheet"></link>'},
-              {selector:'html',html:'<script src="' + pkg.base + '/static/app.min.js"></script>'},
+              {selector:'head',html:'<base href="//mapoflife.github.io/" />'},
             ]
         },
         src: 'src/index.html',
