@@ -108,11 +108,11 @@ angular.module('mol', [
       }
     )
     .state(
-      'pa',
+      'species.pa',
       {
         views: {
           "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
-          "@pa" : {templateUrl: "static/app/views/species-in-reserves/main.html"}
+          "@species.pa" : {templateUrl: "static/app/views/species-in-reserves/main.html"}
         },
         url: 'pa'
       }
