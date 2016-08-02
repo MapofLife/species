@@ -19,7 +19,7 @@ module.exports = function(grunt) {
             remove: ['.dev'],
             prepend: [
               {selector:'head',html:'<meta id="mol-asset-base" content="//mapoflife.github.io/' + pkg.base + '/"></meta>'},
-              {selector:'head',html:'<base href="//mapoflife.github.io/"><!-- --></base>'},
+              {selector:'head',html:'<base href="//mapoflife.github.io/">'},
             ],
             append: [
               {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css" rel="stylesheet" />'},
