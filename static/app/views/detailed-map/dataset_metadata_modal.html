@@ -10,9 +10,12 @@
           ng-repeat="metadata in item.items">
         <!--<li class="list-group-item">
           <strong><h4>{{metadata.section}}</h4></strong>-->
-        <li ng-show="entry.label && entry.value" class="list-group-item"   ng-repeat="entry in metadata.children">
-          <strong>{{entry.label}}:</strong>
-          <span ng-bind-html="entry.value"></span>
+        <li class="list-group-item"   ng-repeat="section in metadata.metadata">
+          <!--<strong>{{section.section}}</strong>-->
+          <div class="row" ng-show="item.value && item.label.toLowerCase() !=='notes'" ng-repeat="item in section.children">
+            <div class="col-md-3"><strong ng-bind-html="item.label"></strong></div>
+            <div class="col-md-9"><text ng-bind-html="item.value"></text></div>
+          </div>
         </li>
       </div>
   </div>
