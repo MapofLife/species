@@ -18,10 +18,12 @@ module.exports = function(grunt) {
             ],
             remove: ['.dev'],
             prepend: [
-              {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css" rel="stylesheet" />'},
-              {selector:'head',html:'<script src="' + pkg.base + '/static/app.min.js"></script>'},
               {selector:'head',html:'<meta id="mol-asset-base" content="//mapoflife.github.io/' + pkg.base + '/"></meta>'},
               {selector:'head',html:'<base href="//mapoflife.github.io/" />'},
+            ],
+            append: [
+              {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css" rel="stylesheet" />'},
+              {selector:'head',html:'<script src="' + pkg.base + '/static/app.min.js"></script>'}
             ]
         },
         src: 'src/index.html',
@@ -75,11 +77,18 @@ module.exports = function(grunt) {
      }
    },
    express: {
-    dev: {
+    src: {
       options: {
         port: 9001,
         bases: 'src',
-        server: path.resolve('./server/server')
+        server: path.resolve('./server/srcServer')
+      }
+    },
+    dist: {
+      options: {
+        port: 9001,
+        bases: 'dist',
+        server: path.resolve('./server/distServer')
       }
     }
   },
@@ -102,7 +111,8 @@ module.exports = function(grunt) {
 
   // Default task(s).
   grunt.registerTask('build', ['dom_munger','uglify','cssmin','copy']);
-  grunt.registerTask('serve', ['express:dev', 'express-keepalive'])
+  grunt.registerTask('serveSrc', ['express:src', 'express-keepalive'])
+  grunt.registerTask('serveDist', ['express:dist', 'express-keepalive'])
   grunt.registerTask('deploy', ['buildcontrol:pages']);
 
 };
