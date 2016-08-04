@@ -141,7 +141,7 @@ angular.module('mol', [
         url: 'map/{0}'.format(params)
       }
     )
-    .state(
+    /*.state(
       'species.habitat-distribution',
       {
         views: {
@@ -152,7 +152,7 @@ angular.module('mol', [
         },
         url: 'range/{0}'.format(params)
       }
-    )
+    )*/
 
 
     $locationProvider.html5Mode(true);
