@@ -23,7 +23,7 @@ angular.module('mol', [
     "module" : "species", //module name (used in routing)
     "api" : "0.x",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
-    "url" :  angular.element('#mol-url').attr('content'),
+    "url" :  angular.element('#mol-url').attr('content') || '/species-dev/',
     "lang" : angular.element('#mol-lang').attr('content'),
     "region" : angular.element('#mol-region').attr('content'),
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
