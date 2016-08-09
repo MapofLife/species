@@ -25,7 +25,7 @@ angular.module('mol.controllers')
               limit: true,
               points: 5000
             };
-            $scope.toggles = {sidebarVisible: true, featuresActive:false, looking: false}
+
             $scope.mapUpdater  = undefined;
             $scope.canceller = $q.defer()
 
@@ -392,8 +392,7 @@ angular.module('mol.controllers')
       }
 
       $scope.$watch("species.scientificname", function(newValue, oldValue) {
-            $scope.toggles.featuresActive = false;
-            $scope.toggles.looking = false;
+
             if(newValue != undefined) {
               $scope.types = undefined;
               $scope.getLayers(newValue);

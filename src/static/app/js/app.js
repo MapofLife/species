@@ -69,7 +69,7 @@ angular.module('mol', [
   var params = ""+
     "{scientificname}?" + //taxon
     ((!molConfig.url.includes('{region}'))?"region&":'') + //region constraint
-    "dsid&type&" + //selected data options
+    "regiontype&dsid&type&" + //selected data options
     "embed&sidebar&header&subnav&footer&speciessearch&regionsearch";
 
 

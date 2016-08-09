@@ -1,49 +1,91 @@
 <style>
-  .species-list-thumb {
+  .species-list .thumb {
+    width: 32px; height: 32px;
+    opacity: 1;
     display:block;
-    margin:auto;
-    width: 28px; height: 28px;
-    border: 0.5pt solid gray;
-    border-radius: 4pt;
+    float:left;
+
     z-index: 10000000;
-  }
-  .species-list-thumb.zoom{
-    width: auto; height: auto;
-    z-index: 100000000;
     transition:all 1s ease;
   }
-  /*.species-list-thumb-container {
-    width: 30px; height: 30px;
-    padding:1px;
-    overflow:visible;
-  }*/
+  .species-list .thumb {
+    /*width: 32px; height: 32px;
+    transition:all 0.8s ease;*/
+
+  }
+  .species-list .species-container {
+    margin-top: 43px;
+  }
+
+  .species-list .thumb-error {
+    width: 32px; height: 32px;
+    background-size:contain;
+    background-image: url('https://mol.org/static/img/groups/taxa_all.png');
+  }
+
   .species-list-fullsize {
     max-height:70vh;
     z-index:110000;
   }
 
+  .species-list .row {
+    padding: 5px 0px;
+    font-size: 12pt;
+    vertical-align: middle;
+  }
+
+  .species-list .row:hover{
+
+    background-color: #eee;
+
+  }
+
+  .species-list .latin {
+    font-style: italic;
+    font-size: -1;
+  }
+  .species-list .autocomplete {
+    width:370px;
+    position: fixed;
+    padding: 5px;
+    opacity: 1;
+    z-index:1;
+    background-color: #fff;
+  }
+  .species-list .autocomplete .form-control {
+    max-width:100%;
+  }
+
 </style>
 
-<div class="sidebar">
-  <h3>{{region.name}} {{ groups.available[groups.selectedIndex].title }}</h3>
-  <table class="table table-hover">
-    <tr
-      ng-init="size='28-c'"
-      ng-mouseover="size='128'"
-      ng-mouseout="size='28-c'"
-      ng-repeat="s in groups.available[groups.selectedIndex].species"
-      class="clickable"
-      ng-click="selectSpecies(s.scientificname)">
-      <td><img
-        class="species-list-thumb"
-        ng-class="{'zoom':(size==='128')}"
-        ng-hide="h"
-        ng-src="{{s.image_url + '=s' + size }}"
-        ng-error="h=true;"
-        ></td>
-      <td>
-        <span>{{s.common}}</span>
-        <i>{{s.scientificname}}<i></td>
-    </tr>
-  </table>
+<div class="sidebar species-list">
+  <div class="autocomplete">
+    <input placeholder="Search for species" type="text" class="form-control" ng-model="term">
+  </div>
+  <div class="species-container">
+    <div class="row clickable"
+        ng-mouseover="active=true"
+        ng-mouseout="active=false"
+        sf-virtual-repeat="s in groups.available[groups.selectedIndex].species | filter:term"
+        ng-class="{'active':active}"
+        ng-click="selectSpecies(s.scientificname)">
+        <div class="col-md-2">
+          <div ng-class="{'thumb-error':h}">
+            <img
+            align="left"
+            class="thumb"
+            ng-class="{'active':active}"
+            ng-hide="h || !s.image_url ++ s.image_url === 'null'"
+            ng-src="{{(s.image_url) ? s.image_url + '=s32-c' :
+              'https://mol.org/static/img/groups/taxa_'
+                + groups.available[groups.selectedIndex].taxa + '.png' }}"
+            ng-error="h=true;"
+            ></div>
+        </div>
+        <div class="col-md-10">
+          <div class="common">{{s.common}}</div>
+          <div class="latin">{{s.scientificname}}</div>
+        </div>
+    </div>
+  </div>
 </div>

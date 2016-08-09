@@ -9,7 +9,15 @@ angular.module('mol.controllers')
 
 
 
-      angular.extend($scope, { model: {
+      angular.extend($scope, {
+        toggles: {
+          sidebars: {
+            right: false,
+            left:true
+          }
+        },
+
+        model: {
          tt: molSpeciesTooltips,
          rc: ($state.params.scientificname),
          lc: ($state.params.region && !$state.params.scientificname)
@@ -41,7 +49,9 @@ angular.module('mol.controllers')
 
       $scope.selectSpecies = function (name) {
         $scope.species = undefined;
-        $state.go($state.current,{scientificname: $scope.cleanURLName(name)})
+        //$scope.types = undefined;
+        $state.go($state.current,{
+          scientificname: $scope.cleanURLName(name)})
       }
 
       $scope.getBounds = function(bnds) {
@@ -115,15 +125,29 @@ angular.module('mol.controllers')
           }
       });
 
+      $scope.$watch("groups",
+        function(n,o) {
+          if(n) {
+            try{
+              $scope.toggles.sidebars.right = (n.available[n.selectedIndex].species.length>0);
+            } catch(e) {
+              $scope.toggles.sidebars.right = false;
+            }
+          }
+      },true);
 
       $scope.$watch("region", function(n,o) {
-          if(n&&n.type!=='global') {;
+          console.log(n);
+          if(n&&n.type!=='global') {
           molRegionOverlay(n).then(
             function(overlay){
               if(overlay) $scope.map.setOverlay(angular.extend(overlay,{index:1}),1)}
             );
-          } else {$scope.map.setOverlay({index:1},1);}
+          } else {
+            $scope.map.setOverlay({index:1},1);}
       },true);
+
+
 
 
 
