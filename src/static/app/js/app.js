@@ -10,7 +10,7 @@ angular.module('mol', [
 
   //3rd party ui
   'ui.bootstrap', 'ui.router', 'ui.select','ui.checkbox','ui-rangeSlider',
-  'uiGmapgoogle-maps','suEndlessScroll', 'ngError',
+  'uiGmapgoogle-maps','suEndlessScroll', 'ngError', 'sf.virtualScroll',
 
   //'mol.meta',
   'mol.api', 'mol.ui-map', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',
@@ -99,9 +99,9 @@ angular.module('mol', [
           "@species" : {
             templateUrl: 'static/app/layouts/map-with-sidebars.html'
           },
-          /*"right-sidebar@species" : {
+          "right-sidebar@species" : {
             templateUrl: 'static/app/views/species-list/list.html',
-          }*/
+          }
 
         },
         url: molConfig.url

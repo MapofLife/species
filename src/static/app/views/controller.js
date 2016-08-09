@@ -39,6 +39,11 @@ angular.module('mol.controllers')
         if(name) {return name.replace(/ /g, '_');}
       }
 
+      $scope.selectSpecies = function (name) {
+        $scope.species = undefined;
+        $state.go($state.current,{scientificname: $scope.cleanURLName(name)})
+      }
+
       $scope.getBounds = function(bnds) {
         var nbnds = {southwest: {
                 latitude: bnds.southWest.lat,

@@ -1,25 +1,49 @@
-<div class="sidebar">
-  <uib-tabset active="activePill" vertical="true" type="pills">
-    <uib-tab ng-repeat="group in groups |
-      removeWith:{value:'any'} | orderBy:'sortby'"
-      index="$$index"
-      heading="{{group.label}}">
-      <table class="table">
-        <tr  ng-repeat="species in group.species">
-          <td><img
-            ng-hide="h"
-            ng-src="{{species.image_url + '=s22-c'}}"
-            ng-error="h=true;"></td>
-          <td>
-          <a
-             ng-href="{{$state.href($state.current.name,{scientificname: cleanURLName(species.scientificname)},{absolute:true})}}"
-             ng-click="$state.go($state.current,{scientificname: cleanURLName(species.scientificname)})"
-          >
-          {{species.common}}</td>
-          <td><i>{{species.scientificname}}<i></td>
-        </tr>
-      </table>
-    </uib-tab>
+<style>
+  .species-list-thumb {
+    display:block;
+    margin:auto;
+    width: 28px; height: 28px;
+    border: 0.5pt solid gray;
+    border-radius: 4pt;
+    z-index: 10000000;
+  }
+  .species-list-thumb.zoom{
+    width: auto; height: auto;
+    z-index: 100000000;
+    transition:all 1s ease;
+  }
+  /*.species-list-thumb-container {
+    width: 30px; height: 30px;
+    padding:1px;
+    overflow:visible;
+  }*/
+  .species-list-fullsize {
+    max-height:70vh;
+    z-index:110000;
+  }
 
-  </uib-tabset>
+</style>
+
+<div class="sidebar">
+  <h3>{{region.name}} {{ groups.available[groups.selectedIndex].title }}</h3>
+  <table class="table table-hover">
+    <tr
+      ng-init="size='28-c'"
+      ng-mouseover="size='128'"
+      ng-mouseout="size='28-c'"
+      ng-repeat="s in groups.available[groups.selectedIndex].species"
+      class="clickable"
+      ng-click="selectSpecies(s.scientificname)">
+      <td><img
+        class="species-list-thumb"
+        ng-class="{'zoom':(size==='128')}"
+        ng-hide="h"
+        ng-src="{{s.image_url + '=s' + size }}"
+        ng-error="h=true;"
+        ></td>
+      <td>
+        <span>{{s.common}}</span>
+        <i>{{s.scientificname}}<i></td>
+    </tr>
+  </table>
 </div>
