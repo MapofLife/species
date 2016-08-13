@@ -66,9 +66,9 @@
     <div class="row clickable"
         ng-mouseover="active=true"
         ng-mouseout="active=false"
-        sf-virtual-repeat="s in groups.available[groups.selectedIndex].species | filter:term"
+        ng-repeat="s in groups.available[groups.selectedIndex].species | filter:term"
         ng-class="{'active':active}"
-        ng-click="selectSpecies(s.scientificname)">
+        ui-sref="species.overview({scientificname: cleanURLName(s.scientificname)})">
         <div class="col-md-2">
           <div ng-class="{'thumb-error':h}">
             <img

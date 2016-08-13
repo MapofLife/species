@@ -293,7 +293,7 @@ angular.module('mol.controllers')
                     "id": layer.product_type,
                     "title":layer.type_title,
                     "bounds": layer.bounds,
-                    "visible": (layer.product_type!='regionalchecklist'),
+                    "visible": (['regionalchecklist','points'].indexOf(layer.product_type)==-1),
                     "feature_ct": 0,
                     "datasets":{}};
                 } else {

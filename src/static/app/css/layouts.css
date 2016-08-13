@@ -1,5 +1,8 @@
 /* base layout */
-html {height:100%;width: 100%;}
+html {
+  height: 100%;
+  width: 100%;
+}
 body {
   display: -webkit-flex;
   display: flex;
@@ -36,8 +39,8 @@ footer {
 }
 
 
-.layouts-base .google-map-canvas, .google-map-canvas * { .box-sizing(content-box); }
-
+.layouts-base .google-map-canvas, .google-map-canvas * {
+  .box-sizing(content-box); }
 
 /* navbar override */
 
@@ -47,7 +50,6 @@ footer {
 
 
 /* map with lefthand sidebar */
-
 .layouts-map-with-sidebars {
   -webkit-flex: 1 1 auto;
   flex: 1 1 auto;
@@ -58,13 +60,12 @@ footer {
 }
 
 
-
 .layouts-map-with-sidebars .sidebar-scroll-container {
   position: relative;
   max-width: 90%;
   border: 0;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y: auto;
   transition:all 0.4s ease;
 }
 

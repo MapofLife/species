@@ -10,19 +10,23 @@ angular.module('mol.services',[])
 	[ '$http','$q',
 		function($http,$q) {
 			return function(region) {
-					if(region.region_id) {
+					if(region) {
 						return $http({
 								"withCredentials":false,
 								"method":"POST",
-								"url":"https://mol.cartodb.com/api/v1/map/named/region-map",
-								"data": {
-								 "region_id": region.region_id,
-							 }}).then(function(result, status, headers, config) {
+								"url":"https://mol.cartodb.com/api/v1/map/named/region-map-dev",
+								"data": region
+							 }).then(function(result, status, headers, config) {
 											return {
 													tile_url: ""+
 														"https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
-															.format(result.data.cdn_url.https,
-
+															.format(
+																result.data.cdn_url.https,
+																result.data.layergroupid),
+													grid_url: "" +
+														"https://{0}/mol/api/v1/map/{1}:0/{z}/{x}/{y}.grid.json"
+															.format(
+																result.data.cdn_url.https,
 																result.data.layergroupid),
 													key: result.data.layergroupid,
 													attr: '©2014 Map of Life',

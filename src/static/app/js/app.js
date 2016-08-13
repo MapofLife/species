@@ -67,7 +67,6 @@ angular.module('mol', [
   $httpProvider.interceptors.push('molBaseIntercept');
 
   var params = ""+
-    "{scientificname}?" + //taxon
     ((!molConfig.url.includes('{region}'))?"region&":'') + //region constraint
     "regiontype&dsid&type&" + //selected data options
     "embed&sidebar&header&subnav&footer&speciessearch&regionsearch";
@@ -99,10 +98,9 @@ angular.module('mol', [
           "@species" : {
             templateUrl: 'static/app/layouts/map-with-sidebars.html'
           },
-          "right-sidebar@species" : {
-            templateUrl: 'static/app/views/species-list/list.html',
+          "right-sidebar@species" :{
+            templateUrl: "static/app/views/species-list/list.html"
           }
-
         },
         url: molConfig.url
       }
@@ -112,7 +110,8 @@ angular.module('mol', [
       {
         views: {
           "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
-          "@species.pa" : {templateUrl: "static/app/views/species-in-reserves/main.html"}
+          "@species.pa" : {templateUrl: "static/app/views/species-in-reserves/main.html"},
+
         },
         url: 'pa'
       }
@@ -126,7 +125,7 @@ angular.module('mol', [
             controller: 'molOverviewCtrl'
           }
         },
-        url: '{0}'.format(params)
+        url: '{scientificname}?{0}'.format(params)
       }
     )
     .state(
@@ -138,8 +137,20 @@ angular.module('mol', [
             controller: 'molDetailMapCtrl'
           }
         },
-        url: 'map/{0}'.format(params)
+        url: 'map/{scientificname}?{0}'.format(params)
       }
+    )
+    .state(
+      'species.region', //this view contains the bones of the Species Info pages (name, pic, & search bar)
+      {
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/species-list/list.html"
+          }
+        },
+        url: 'region/?{0}'.format(params)
+      }
+
     )
     /*.state(
       'species.habitat-distribution',

@@ -1,11 +1,18 @@
 <div class="sidebar">
-  <div class="name" >
-      <div class="infoCommonName" ng-show="species.common">
-          {{ species.common }}
-      </div>
-      <div class="infoSciName" ng-show="species.scientificname">
-          {{ species.scientificname }}
-      </div>
+  <div ng-class="row">
+    <div class="name" >
+      <mol-species-images
+        class="pull-right"
+        scrolling="false"
+        ng-show="!$state.params.noimage"
+        size="100" scientificname="species.scientificname"></mol-species-images>
+        <div class="infoCommonName" ng-show="species.common">
+            {{ species.common }}
+        </div>
+        <div class="infoSciName" ng-show="species.scientificname">
+            {{ species.scientificname }}
+        </div>
+    </div>
   </div>
   <div class="row">
     <div ng-show="types" class="col-md-12"><h5>Sources</h5></div>

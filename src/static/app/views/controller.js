@@ -94,14 +94,17 @@ angular.module('mol.controllers')
         } catch (e) {return b1;}
       }
 
-      $scope.$watch("species.scientificname", function(newValue, oldValue) {
-          if(newValue != undefined) {
-            $window.parent.postMessage({"scientificname": newValue},'*');
+      $scope.$watch("species.scientificname", function(n,o) {
+          if(n != undefined) {
+            $window.parent.postMessage({"scientificname": n},'*');
             $state.transitionTo(
               $state.current.name,
-              {"scientificname":$scope.cleanURLName(newValue)},
+              {"scientificname":$scope.cleanURLName(n)},
               {inherit: true, notify:false}
-            )
+            );
+              $scope.toggles.sidebars.left = true;
+          } else {
+            $scope.toggles.sidebars.left = false;
           }
       });
 
@@ -117,7 +120,7 @@ angular.module('mol.controllers')
           if(newValue != undefined) {
             var bnds = {southWest:{lat:newValue[1],lng:newValue[0]},
               northEast: {lat:newValue[3],lng:newValue[2]}}
-            if($scope.region.type==='global'&&$scope.species&&$scope.species.bounds) {
+            if(!$scope.region.region_id&&$scope.species&&$scope.species.bounds) {
               $scope.fitBounds($scope.species.bounds)
             } else {
               $scope.fitBounds(bnds);
@@ -138,13 +141,31 @@ angular.module('mol.controllers')
 
       $scope.$watch("region", function(n,o) {
           console.log(n);
-          if(n&&n.type!=='global') {
+          if(n) {
           molRegionOverlay(n).then(
             function(overlay){
-              if(overlay) $scope.map.setOverlay(angular.extend(overlay,{index:1}),1)}
+              if(overlay)
+              $scope.map.setOverlay(angular.extend(overlay,{index:1}),1)}
             );
           } else {
-            $scope.map.setOverlay({index:1},1);}
+            $scope.map.setOverlay({index:0},0);}
+            //Get metdata for features on the map
+            $scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {
+              var deferred = $q.defer();
+                switch(eventName) {
+                  case 'click':
+                    deferred.resolve( {
+                      model: data,
+                      show: true,
+                      templateUrl: 'static/app/views/detailed-map/infowindow.html'
+                    });
+                  break;
+                default:
+                  deferred.resolve();
+              }
+              return deferred.promise;
+            };
+
       },true);
 
 
