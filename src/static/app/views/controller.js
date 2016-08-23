@@ -118,9 +118,19 @@ angular.module('mol.controllers')
 
       $scope.$watch("region.bnds", function(newValue, oldValue) {
           if(newValue != undefined) {
-            var bnds = {southWest:{lat:newValue[1],lng:newValue[0]},
-              northEast: {lat:newValue[3],lng:newValue[2]}}
-            if(!$scope.region.region_id&&$scope.species&&$scope.species.bounds) {
+            var bnds = {
+              southWest: {
+                lat: newValue[1],
+                lng: newValue[0]
+              },
+              northEast: {
+                lat: newValue[3],
+                lng: newValue[2]
+              }
+            }
+            if(!$scope.region.region_id
+                  && $scope.species
+                  && $scope.species.bounds) {
               $scope.fitBounds($scope.species.bounds)
             } else {
               $scope.fitBounds(bnds);
@@ -139,31 +149,51 @@ angular.module('mol.controllers')
           }
       },true);
 
+      $scope.infowindowPromise = $q.defer();
+
       $scope.$watch("region", function(n,o) {
           console.log(n);
           if(n) {
           molRegionOverlay(n).then(
             function(overlay){
               if(overlay)
-              $scope.map.setOverlay(angular.extend(overlay,{index:1}),1)}
-            );
-          } else {
-            $scope.map.setOverlay({index:0},0);}
+                $scope.map.setOverlay(angular.extend(overlay,{index:0}),0)}
+              );
+            } else {
+              $scope.map.setOverlay({index:0},0);
+            }
             //Get metdata for features on the map
             $scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {
-              var deferred = $q.defer();
-                switch(eventName) {
-                  case 'click':
-                    deferred.resolve( {
-                      model: data,
-                      show: true,
-                      templateUrl: 'static/app/views/detailed-map/infowindow.html'
-                    });
-                  break;
-                default:
-                  deferred.resolve();
-              }
-              return deferred.promise;
+
+                if(data) {
+                  switch(eventName) {
+                    case 'click':
+                      data.bnds = data.bnds.split(',')
+                        .map(function(n){return parseFloat(n);});
+                      $scope.region = data;
+                      $scope.infowindowPromise.resolve({show:false});
+                      $scope.infowindowPromise = $q.defer();
+                      break;
+                    case 'mousemove':
+                        $timeout(500).then(function() {
+                            $scope.infowindowPromise.resolve( {
+                            model: data,
+                            show: true,
+                            templateUrl: 'static/app/views/region-map/infowindow.html'
+                          });
+                          $scope.infowindowPromise = $q.defer();
+                        });
+                    break;
+                    default:
+                      $scope.infowindowPromise.resolve({show:false});
+                      $scope.infowindowPromise = $q.defer()
+                    }
+                } else {
+                  deferred.resolve({show: false});
+                  $scope.infowindowPromise = $q.defer() ;
+                }
+                return deferred.promise;
+
             };
 
       },true);

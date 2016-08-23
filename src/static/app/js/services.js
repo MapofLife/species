@@ -24,7 +24,7 @@ angular.module('mol.services',[])
 																result.data.cdn_url.https,
 																result.data.layergroupid),
 													grid_url: "" +
-														"https://{0}/mol/api/v1/map/{1}:0/{z}/{x}/{y}.grid.json"
+														"https://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
 															.format(
 																result.data.cdn_url.https,
 																result.data.layergroupid),
