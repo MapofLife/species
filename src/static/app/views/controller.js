@@ -179,6 +179,7 @@ angular.module('mol.controllers')
                             $scope.infowindowPromise.resolve( {
                             model: data,
                             show: true,
+                            pixelOffset:  new google.maps.Size(30, 0, 'px', 'px'),
                             templateUrl: 'static/app/views/region-map/infowindow.html'
                           });
                           $scope.infowindowPromise = $q.defer();
@@ -189,10 +190,10 @@ angular.module('mol.controllers')
                       $scope.infowindowPromise = $q.defer()
                     }
                 } else {
-                  deferred.resolve({show: false});
+                  $scope.infowindowPromise.resolve({show: false});
                   $scope.infowindowPromise = $q.defer() ;
                 }
-                return deferred.promise;
+                return   $scope.infowindowPromise.promise;
 
             };
 
