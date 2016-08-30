@@ -67,8 +67,7 @@ angular.module('mol', [
   $httpProvider.interceptors.push('molBaseIntercept');
 
   var params = ""+
-    ((!molConfig.url.includes('{region}'))?"region&":'') + //region constraint
-    "regiontype&dsid&type&" + //selected data options
+    "regiontype&region&dsid&type&" + //selected data options
     "embed&sidebar&header&subnav&footer&speciessearch&regionsearch";
 
 

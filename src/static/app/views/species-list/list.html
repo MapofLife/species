@@ -1,3 +1,4 @@
+
 <style>
   .species-list .thumb {
     width: 32px; height: 32px;
@@ -44,7 +45,7 @@
   }
   .species-list .autocomplete {
     width:370px;
-    position: fixed;
+    /*position: fixed;*/
     padding: 5px;
     opacity: 1;
     z-index:1;
@@ -58,34 +59,55 @@
 </style>
 
 <div class="sidebar species-list">
-  <div class="autocomplete">
-    <input placeholder="Search for species" type="text" class="form-control" ng-model="term">
+  <h4 ng-if="region">Species expected in the {{region.name}} region.</h4>
+  <div ng-if="region && !groups.selectedIndex ">
+    <div ng-repeat="group in groups.available ">
+      <a ng-click="groups.selectedIndex = $index" class="clickable"><strong>{{group.title}}</strong> {{group.count | number}}</a>
+    </div>
   </div>
-  <div class="species-container">
-    <a class="row clickable"
-        ng-mouseover="active=true"
-        ng-mouseout="active=false"
-        ng-repeat="s in groups.available[groups.selectedIndex].species | filter:term"
-        ng-class="{'active':active}"
-        linky
-        ng-href="https://mol.org/species/{{cleanURLName(s.scientificname)}}">
-        <div class="col-md-2">
-          <div ng-class="{'thumb-error':h}">
-            <img
-            align="left"
-            class="thumb"
+  <div ng-if="region && groups.selectedIndex ">
+      <button ng-click="groups.selectedIndex = undefined"
+        class="btn btn-default clickable"><strong>Back to all groups</button>>
+      <div class="autocomplete">
+      <input
+        placeholder="Search for species"
+        type="text" class="form-control" ng-model="term">
+      </div>
+
+      <div class="species-container">
+        <div  ng-repeat="family in groups.available[groups.selectedIndex].species
+            | filter:term
+            | groupBy:'family_common'
+            | toArray:true">
+          <h5 class="clickable" ng-click="selected_family = family.$key">
+            {{family.$key}}</h5>
+          <a class="row clickable"
+            ng-if ="s.family_common === selected_family"
+            ng-mouseover="active=true"
+            ng-mouseout="active=false"
+            ng-repeat="s in family"
             ng-class="{'active':active}"
-            ng-hide="h || !s.image_url ++ s.image_url === 'null'"
-            ng-src="{{(s.image_url) ? s.image_url + '=s32-c' :
-              'https://mol.org/static/img/groups/taxa_'
-                + groups.available[groups.selectedIndex].taxa + '.png' }}"
-            ng-error="h=true;"
-            ></div>
-        </div>
-        <div class="col-md-10">
-          <div class="common">{{s.common}}</div>
-          <div class="latin">{{s.scientificname}}</div>
-        </div>
-    </a>
+            ng-href="https://mol.org/species/{{cleanURLName(s.scientificname)}}">
+            <div class="col-md-2">
+              <div ng-class="{'thumb-error':h}">
+                <img
+                align="left"
+                class="thumb"
+                ng-class="{'active':active}"
+                ng-hide="h || !s.image_url ++ s.image_url === 'null'"
+                ng-src="{{(s.image_url) ? s.image_url + '=s32-c' :
+                  'https://mol.org/static/img/groups/taxa_'
+                    + groups.available[groups.selectedIndex].taxa + '.png' }}"
+                ng-error="h=true;"
+                ></div>
+              </div>
+            <div class="col-md-10">
+              <div class="common">{{s.common}}</div>
+              <div class="latin">{{s.scientificname}}</div>
+            </div>
+          </a>
+      </div>
+    </div>
   </div>
+
 </div>

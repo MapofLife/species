@@ -12,8 +12,8 @@ angular.module('mol.controllers')
       angular.extend($scope, {
         toggles: {
           sidebars: {
-            right: false,
-            left:true
+            right: true,
+            left: true
           }
         },
 
@@ -138,22 +138,23 @@ angular.module('mol.controllers')
           }
       });
 
-      $scope.$watch("groups",
+    /*()  $scope.$watch("groups",
         function(n,o) {
           if(n) {
             try{
-              $scope.toggles.sidebars.right = (n.available[n.selectedIndex].species.length>0);
+              $scope.toggles.sidebars.right = (n.available[n.selectedIndex].species.length>0 || $scope.region !== undefined);
             } catch(e) {
               $scope.toggles.sidebars.right = false;
             }
           }
-      },true);
+      },true); */
 
       $scope.infowindowPromise = $q.defer();
 
       $scope.$watch("region", function(n,o) {
           console.log(n);
           if(n) {
+        
           molRegionOverlay(n).then(
             function(overlay){
               if(overlay)
