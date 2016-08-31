@@ -162,10 +162,10 @@ angular.module('mol.controllers')
           molRegionOverlay(n).then(
             function(overlay){
               if(overlay)
-                $scope.map.setOverlay(angular.extend(overlay,{index:1}),1)}
+                $scope.map.setOverlay(angular.extend(overlay,{index:0}),0)}
               );
             } else {
-              $scope.map.setOverlay({index:1},1);
+              $scope.map.setOverlay({index:0},0);
             }
             //Get metdata for features on the map
             $scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {
