@@ -58,18 +58,18 @@
          class="clickable">{{group.count | number}}&nbsp;{{group.title}}</h3>
     </div>
   </div>
-  <div ng-show="region.name && groups.selectedIndex !== undefined ">
+  <div ng-init="selected_family = 'none'" ng-if="region.name && groups.selectedIndex !== undefined ">
       <button ng-click="groups.selectedIndex = undefined"
         class="btn btn-default clickable"><strong>Back to all groups</button>
       <div class="container">
-        <div  ng-init="c=false" ng-repeat="family in groups.available[groups.selectedIndex].species
+        <div  ng-repeat="family in groups.available[groups.selectedIndex].species
             | orderBy:'sequenceid'
             | groupBy:'family_common'
             | toArray:true">
-          <h3 class="clickable" ng-click="c= !c">
+          <h3 class="clickable" ng-click="selected_family = family.$key">
             {{(family.$key !== 'null')?family.$key:'Family unknown'}}</h3>
           <div class="row clickable"
-            ng-if="c"
+            ng-if="selected_family === family.$key"
             ng-repeat="s in family"
             ng-href="https://mol.org/species/{{cleanURLName(s.scientificname)}}?embed&sidebar">
             <div class="col-md-2">

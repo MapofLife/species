@@ -153,10 +153,10 @@ angular.module('mol.controllers')
 
       $scope.$watch("region", function(n,o) {
           console.log(n);
-          if(n) {
+          if(n && !angular.equals(n,o)) {
             $state.transitionTo(
               $state.current.name,
-              {"regoin":n.name},
+              {"region":n.name},
               {inherit: true, notify:false}
             );
           molRegionOverlay(n).then(
@@ -180,14 +180,14 @@ angular.module('mol.controllers')
                       $scope.infowindowPromise = $q.defer();
                       break;
                     case 'mousemove':
-                        $timeout(200).then(function() {
+                        /*$timeout(200).then(function() {
                             $scope.infowindowPromise.resolve( {
                             model: data,
                             show: true,
                             templateUrl: 'static/app/views/region-map/infowindow.html'
                           });
                           $scope.infowindowPromise = $q.defer();
-                        });
+                        });*/
                     break;
                     default:
                       $scope.infowindowPromise.resolve({show:false});
