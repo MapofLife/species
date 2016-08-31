@@ -19,7 +19,7 @@ angular.module('mol.controllers')
 
         model: {
          tt: molSpeciesTooltips,
-         rc: ($state.params.scientificname),
+         //rc: ($state.params.scientificname && ),
          lc: ($state.params.region && !$state.params.scientificname)
       }});
 
@@ -154,7 +154,11 @@ angular.module('mol.controllers')
       $scope.$watch("region", function(n,o) {
           console.log(n);
           if(n) {
-        
+            $state.transitionTo(
+              $state.current.name,
+              {"regoin":n.name},
+              {inherit: true, notify:false}
+            );
           molRegionOverlay(n).then(
             function(overlay){
               if(overlay)
@@ -176,11 +180,10 @@ angular.module('mol.controllers')
                       $scope.infowindowPromise = $q.defer();
                       break;
                     case 'mousemove':
-                        $timeout(500).then(function() {
+                        $timeout(200).then(function() {
                             $scope.infowindowPromise.resolve( {
                             model: data,
                             show: true,
-                            pixelOffset:  new google.maps.Size(30, 0, 'px', 'px'),
                             templateUrl: 'static/app/views/region-map/infowindow.html'
                           });
                           $scope.infowindowPromise = $q.defer();
@@ -194,7 +197,7 @@ angular.module('mol.controllers')
                   $scope.infowindowPromise.resolve({show: false});
                   $scope.infowindowPromise = $q.defer() ;
                 }
-                return   $scope.infowindowPromise.promise;
+                return $scope.infowindowPromise.promise;
 
             };
 
