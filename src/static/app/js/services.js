@@ -14,7 +14,7 @@ angular.module('mol.services',[])
 						return $http({
 								"withCredentials":false,
 								"method":"POST",
-								"url":"https://mol.cartodb.com/api/v1/map/named/region-map-dev",
+								"url":"https://mol.carto.com/api/v1/map/named/region-map-dev",
 								"data": region
 							 }).then(function(result, status, headers, config) {
 											return {
