@@ -67,7 +67,7 @@
             | groupBy:'family_common'
             | toArray:true">
           <h3 class="clickable" ng-click="selected_family = family.$key">
-            {{(family.$key !== 'null')?family.$key:'Family unknown'}}</h3>
+            {{family.length}}&nbsp;{{(family.$key !== 'null')?family.$key:'Family unknown'}}</h3>
           <a class="row clickable"
             ng-if="selected_family === family.$key"
             ng-repeat="s in family"
