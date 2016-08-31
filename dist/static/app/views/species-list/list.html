@@ -68,7 +68,7 @@
             | toArray:true">
           <h3 class="clickable" ng-click="selected_family = family.$key">
             {{(family.$key !== 'null')?family.$key:'Family unknown'}}</h3>
-          <div class="row clickable"
+          <a class="row clickable"
             ng-if="selected_family === family.$key"
             ng-repeat="s in family"
             ng-href="https://mol.org/species/{{cleanURLName(s.scientificname)}}?embed&sidebar">
@@ -88,7 +88,7 @@
               <div class="common">{{s.common}}</div>
               <div class="latin">{{s.scientificname}}</div>
             </div>
-          </div>
+          </a>
       </div>
     </div>
   </div>
