@@ -71,7 +71,7 @@
           <a class="row clickable"
             ng-if="selected_family === family.$key"
             ng-repeat="s in family"
-            ng-href="https://mol.org/species/{{cleanURLName(s.scientificname)}}?embed&sidebar">
+            ng-href="/species-dev/{{cleanURLName(s.scientificname)}}?embed=true&sidebar=true&regiontype={{region.type}}&region={{region.name}}">
             <div class="col-md-2">
               <div ng-class="{'thumb-error':h}">
                 <img
