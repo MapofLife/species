@@ -20,7 +20,7 @@ angular.module('mol', [
   'percentage', 'km2',
 ])
 .constant('molConfig',{
-    "module" : "species", //module name (used in routing)
+    "module" : "species-dev", //module name (used in routing)
     "api" : "0.x",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
     "url" :  angular.element('#mol-url').attr('content') || '/species-dev/',
