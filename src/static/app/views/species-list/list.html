@@ -58,7 +58,7 @@
          class="clickable">{{group.count | number}}&nbsp;{{group.title}}</h3>
     </div>
   </div>
-  <div ng-if="region.name && groups.selectedIndex !== undefined ">
+  <div ng-show="region.name && groups.selectedIndex !== undefined ">
       <button ng-click="groups.selectedIndex = undefined"
         class="btn btn-default clickable"><strong>Back to all groups</button>
       <div class="container">
