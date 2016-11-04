@@ -171,4 +171,4 @@ function ($rootScope, $state, $stateParams,molConfig) {
   $rootScope.$state = $state;
   $rootScope.$stateParams = $stateParams;
   $rootScope.molConfig = molConfig;
-}])
+}]);
