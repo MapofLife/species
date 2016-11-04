@@ -27,13 +27,10 @@ angular.module('mol.controllers')
       /* wait until gmaps is ready */
 
       $scope.region = {};
-
       $scope.map = new molUiMap();
 
-      $rootScope = $scope; //important for map
-      $rootScope.molConfig = molConfig;
-      //for view specific css targeting
-      $rootScope.$state = $state;
+      //$rootScope = $scope; //important for map
+
 
       $scope.cleanURLName = function (name) {
         if(name) {return name.replace(/ /g, '_');}

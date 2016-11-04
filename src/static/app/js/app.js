@@ -92,6 +92,7 @@ angular.module('mol', [
       'species', //this view contains the bones of the Species Info pages (name, pic, & search bar)
       {
         abstract: true,
+        data: {title : 'Species Pages'},
         views: {
           "": {
             templateUrl: 'static/app/layouts/base-static.html',
@@ -110,6 +111,7 @@ angular.module('mol', [
     .state(
       'species.pa',
       {
+        data: {title : 'Species In Reserves'},
         views: {
           "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
           "@species.pa" : {templateUrl: "static/app/views/species-in-reserves/main.html"}
@@ -120,6 +122,7 @@ angular.module('mol', [
     .state(
       'species.overview',
       {
+        data: {title : 'Species Overview'},
         views: {
           "left-sidebar@species" :{
             templateUrl: "static/app/views/overview/sidebar.html",
@@ -132,6 +135,7 @@ angular.module('mol', [
     .state(
       'species.detailed-map',
       {
+        data: {title : 'Species Detail Map'},
         views: {
           "left-sidebar@species" :{
             templateUrl: "static/app/views/detailed-map/sidebar.html",
@@ -155,7 +159,16 @@ angular.module('mol', [
     )
 
 
-    $locationProvider.html5Mode(true);
+     $locationProvider.html5Mode({
+       enabled: true,
+       requireBase: false,
+       rewriteLinks:  true
+     });
 
 
-}]);
+}]).run([ '$rootScope', '$state', '$stateParams','molConfig',
+function ($rootScope, $state, $stateParams,molConfig) {
+  $rootScope.$state = $state;
+  $rootScope.$stateParams = $stateParams;
+  $rootScope.molConfig = molConfig;
+}])
