@@ -21,9 +21,9 @@ angular.module('mol', [
 ])
 .constant('molConfig',{
     "module" : "species", //module name (used in routing)
-    "api" : "0.x",
+    "api" : "1.0",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
-    "url" :  angular.element('#mol-url').attr('content'),
+    "url" :  angular.element('#mol-url').attr('content') || 'http://localhost:8080/species/',
     "lang" : angular.element('#mol-lang').attr('content'),
     "region" : angular.element('#mol-region').attr('content'),
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
@@ -56,13 +56,21 @@ angular.module('mol', [
         return(r)
       }
     };
-}])
-.config(['molConfig','$sceDelegateProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
+}]).config(['$urlRouterProvider', function($urlRouterProvider){
+  $urlRouterProvider.rule(function ($injector, $location) {
+    var path = $location.path(),
+       normalized = path.toLowerCase();
+
+      if(path.contains('detail')) {
+        $location.path(path.replace('detail','map'));
+      }
+      if(path.contains('overview/')) {
+        $location.path(path.replace('overview/',''));
+      }
+    });
+
+}]).config(['molConfig','$sceDelegateProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
   function(molConfig,$sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
-
-
-  //angular.element('base').href="/"
-
 
   $httpProvider.interceptors.push('molBaseIntercept');
 
@@ -72,16 +80,15 @@ angular.module('mol', [
     "dsid&type&" + //selected data options
     "embed&sidebar&header&subnav&footer&speciessearch&regionsearch";
 
-
-
   $sceDelegateProvider.resourceUrlWhitelist([
-      'self',
-      'http*://localhost**',
-      'http*://127.0.0.1:9001/**',
-      'http*://*mol.org/**',
-      'http*://api.mol.org/**',
-      'http*://mapoflife.github.io/**'
-    ]);
+    'self',
+    'http*://localhost**',
+    'http*://127.0.0.1:9001/**',
+    'http*://*mol.org/**',
+    'http*://api.mol.org/**',
+    'http*://mapoflife.github.io/**'
+  ]);
+
   $httpProvider.defaults.useXDomain = true;
   //send cookies
   $httpProvider.defaults.withCredentials = false;

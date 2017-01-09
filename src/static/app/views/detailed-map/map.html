@@ -7,6 +7,11 @@
     events="map.events"
     options="map.options"
     pan="true">
+    <ui-gmap-map-control
+      template="'static/app/views/map_attribution.html'"
+      controller='molSpeciesCtrl'
+      position="bottom-left"
+      index="2"></ui-gmap-map-control>
     <ui-gmap-map-type
         options="mt"
         show="mt.show"

@@ -1,7 +1,8 @@
 
 <script type="text/ng-template" id="logo.tpl.html" ng-controller="molSpeciesCtrl">
   <a style="background-color:none;" class="map-link"
-    ng-href="https://mol.org/species/{{$root.$state.params.scientificname}}"
+    ng-show="$root.$state.params.embed"
+      ng-href="https://mol.org/species/{{$root.$state.params.scientificname}}"
       target="_blank">
     <img src="static/app/img/logo.png">
   </a>
@@ -28,8 +29,6 @@
         templateUrl="map.infowindow.templateUrl"
         templateParameter="map.infowindow.model"
         ></ui-gmap-window>
-        <ui-gmap-map-control
-          template="logo.tpl.html" position="bottom-left" index="10000">
-
-        </ui-gmap-map-control>
+      <ui-gmap-map-control
+        template="logo.tpl.html" position="bottom-left" index="10000"></ui-gmap-map-control>
 </ui-gmap-google-map>
