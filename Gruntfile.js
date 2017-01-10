@@ -22,8 +22,8 @@ module.exports = function(grunt) {
               {selector:'head',html:'<base href="//mapoflife.github.io/" />'},
             ],
             append: [
-              {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css?kjhkjlhkas" rel="stylesheet" />'},
-              {selector:'head',html:'<script src="' + pkg.base + '/static/app.min.js?lhsdklhs"></script>'}
+              {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css?lkjjls" rel="stylesheet" />'},
+              {selector:'head',html:'<script src="' + pkg.base + '/static/app.min.js?aafdhs"></script>'}
             ]
         },
         src: 'src/index.html',
