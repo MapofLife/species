@@ -20,10 +20,10 @@ angular.module('mol', [
   'percentage', 'km2',
 ])
 .constant('molConfig',{
-    "module" : "species-dev", //module name (used in routing)
+    "module" : "species", //module name (used in routing)
     "api" : "1.0",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
-    "url" :  angular.element('#mol-url').attr('content') || '/species-dev/',
+    "url" :  angular.element('#mol-url').attr('content') || '/species/',
     "lang" : angular.element('#mol-lang').attr('content'),
     "region" : angular.element('#mol-region').attr('content'),
     "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode

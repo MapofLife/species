@@ -70,7 +70,7 @@ module.exports = function(grunt) {
      },
      pages: {
        options: {
-         remote: pkg.devRepository,
+         remote: pkg.repository,
          force:true,
          branch: 'gh-pages'
        }
