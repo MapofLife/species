@@ -23,10 +23,10 @@ angular.module('mol', [
     "module" : "species", //module name (used in routing)
     "api" : "1.0",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
-    "url" :  angular.element('#mol-url').attr('content') || '/species/',
+    "url" :  angular.element('#mol-url').attr('content'),
     "lang" : angular.element('#mol-lang').attr('content'),
     "region" : angular.element('#mol-region').attr('content'),
-    "prod":(window.location.hostname!=='localhost') //boolean for MOL production mode
+    "prod": (window.location.hostname!=='localhost') //boolean for MOL production mode
 })
 //move this to i8n
 .config(['$translateProvider','molConfig', function($translateProvider,molConfig) {
@@ -92,6 +92,7 @@ angular.module('mol', [
   $httpProvider.defaults.useXDomain = true;
   //send cookies
   $httpProvider.defaults.withCredentials = false;
+  console.log(molConfig.url);
   $urlRouterProvider.otherwise(molConfig.url);
 
   $stateProvider
