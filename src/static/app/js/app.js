@@ -113,6 +113,20 @@ angular.module('mol', [
       }
     )
     .state(
+      'species.home',
+      {
+        data: {title : 'Species Intro'},
+        views: {
+          "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
+          "@species.home" : {
+            templateUrl: "static/app/views/home/main.html",
+            controller: 'molHomeCtrl'
+          }
+        },
+        url: 'home'
+      }
+    )
+    .state(
       'species.pa',
       {
         data: {title : 'Species In Reserves'},

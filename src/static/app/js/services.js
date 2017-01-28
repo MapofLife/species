@@ -119,4 +119,67 @@ angular.module('mol.services',[])
 
 
 	}
-]);
+])
+.factory('molSpeciesList', [function() {
+  return [{
+    s: "Megalaima_corvina",
+    c: "Brown-Throated Barbet",
+    i: "BrownThroatedBarbet.png"
+  }, {
+    s: "Amblyornis_subalaris",
+    c: "Streaked Bowerbird",
+    i: "StreakedBowerbird.png",
+  }, {
+    s: "Coracina_ostenta",
+    c: "White-Winged Cuckooshrike",
+    i: "WhiteWingedCuckooshrike.jpg",
+  }, {
+    s: "Doliornis_sclateri",
+    c: "Bay-vented Cotinga",
+    i: "BayVentedCotinga.png",
+  }, {
+    s: "Calicalicus_rufocarpalis",
+    c: "Red shouldered Vanga",
+    i: "RedShoulderedVanga.png",
+  }, {
+    s: "Glaucidium_sanchezi",
+    c: "Tamaulipas Pygmy Owl",
+    i: "TamaulipasPygmyOwl.jpg",
+  }, {
+    s: "Urosphena_whiteheadi",
+    c: "Bornean Stubtail",
+    i: "BorneanStubtail.png",
+  }, {
+    s: "Tinamus_solitarius",
+    c: "Solitary Tinamou",
+    i: "SolitaryTinamou.png",
+  }, {
+    s: "Crocidura_fumosa",
+    c: "Smoky white-toothed Shrew",
+    i: "SmokywhitetoothedShrew.jpg",
+  }, {
+    s: "Taphozous_hildegardeae",
+    c: "Hildegarde's tomb bat",
+    i: "HildegardesTombBat.png",
+  }, {
+    s: "Antechinus_stuartii",
+    c: "Brown Antechinus",
+    i: "BrownAntechinus.png",
+  }, {
+    s: "Beamys_hindei",
+    c: "Long-Tailed Pouched Rat",
+    i: "LongTailedPouchedRat.jpg",
+  }, {
+    s: "Hybomys_planifrons",
+    c: "Liberian Forest Hybomys",
+    i: "LiberianForestHybomys.jpg",
+  }, {
+    s: "Reithrodontomys_sumichrasti",
+    c: "Sumachrasti's Harvest Mouse",
+    i: "SumachrastisHarvestMouse.png",
+  }, {
+    s: "Litoria_freycineti",
+    c: "Freycinet's frog",
+    i: "FreycinetsFrog.png",
+  }]; 
+}]);

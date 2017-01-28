@@ -376,6 +376,8 @@ margin: 0;
   max-width: 400px;
   text-align: left;
   white-space: nowrap;
+  border-bottom: 1px solid #ccc;
+  cursor: pointer;
 }
 
 .searchResult:first-line {
@@ -400,3 +402,41 @@ margin: 0;
     background: #fff url(../images/header_background.png)
         no-repeat bottom center;
 }
+
+/** Splash page specific **/
+.hero-species {
+    margin: 0 0 32px 0;
+    position: relative;
+    cursor: pointer;
+    /*box-shadow: 0 2px 5px 0 rgba(0,0,0,0.26);*/
+    background: #fff;
+    -webkit-transition: all .3s;
+    transition: all .3s;    
+}
+.hero-card {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    margin: 8px;
+    padding: 8px;
+    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+    transition: all 100ms cubic-bezier(0.165, 0.840, 0.440, 1.000);
+}
+.hero-card:hover {
+    box-shadow: 0px 4px 7px 0 rgba(0,0,0,.2),0 4px 4px 0 rgba(0,0,0,.14),0 5px 4px -4px rgba(0,0,0,.12);
+    transform: translate3d( 0px, -4px, 0px );
+}
+.hero-header { 
+    height: 300px; 
+    overflow: hidden; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.hero-header img { 
+    flex: 0 0 auto;
+    width: 100%;
+    height: auto;
+}
+.hero-species h4 { line-height: 0.7; }
+/** End splash page specific **/
