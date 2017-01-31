@@ -1,0 +1,69 @@
+<script type="text/ng-template" id="sp-ac-template.html">
+	<a class="searchResult">
+        <div class="commonName" ng-bind-html="((match.label.vernacular) ? match.label.vernacular : '') | uibTypeaheadHighlight:query"></div>
+        <div class="sciName" ng-bind-html="match.label.scientificname | uibTypeaheadHighlight:query"></div>
+	</a>
+</script>
+
+<script type="text/ng-template" id="popup-template.html">
+  <div class="custom-popup-wrapper">
+		 <ul class="dropdown-menu ng-isolate-scope"
+		 		ng-show="isOpen() && !moveInProgress"
+				style="position:absolute;"
+				ng-style="{top: position().top+'px', right: position().right+'px'}"
+				role="listbox" aria-hidden="false"
+				uib-typeahead-popup=""
+				matches="matches" active="activeIdx"
+				select="select(activeIdx, evt)"
+				move-in-progress="moveInProgress" query="query"
+				assign-is-open="assignIsOpen(isOpen)" debounce="debounceUpdate" template-url="ac-template.html">
+     </ul>
+  </div>
+</script>
+
+<div class="container content assessment">
+
+    <div class="row">
+        <div class="col-md-10">
+
+        <h4 class="lead">Search for a species</h4>
+        <div class="form-inline taxa-info">
+                    
+            <select class="form-control selectpicker" ng-model="groups.selected" 
+                ng-options="group.title for group in groups track by group.value">
+                <option value="">All groups</option>
+            </select>
+
+            <input type="text" class="form-control" 
+                style="min-width:400px;" autocomplete="on" placeholder="Search for a species" 
+                ng-model="selected.value" 
+                uib-typeahead="species.scientificname as species for species in searchSpecies(($viewValue)?$viewValue:'.')" 
+                typeahead-on-select="loadSpeciesPage($model)" typeahead-template-url="sp-ac-template.html" />
+
+            <button ng-click="randomSpecies()" class="btn btn-default">Pick a random species</button>
+        </div>
+
+
+        </div>
+    </div>
+
+    <hr />
+
+    <h4 class="lead">Or select from the list</h4>
+
+    <div class="col-md-4 text-center" ng-repeat="sp in speciesList">
+        <div class="hero-species" ng-click="loadSpeciesPage(sp.s)">
+            <div class="hero-card">
+                <div class="hero-header">
+                    <img class="img-rounded" src="{{molConfig.base}}static/app/views/species-in-reserves/img/{{ sp.i }}" alt="{{ sp.c }}" style="" />
+                </div>
+                <div class="hero-info">
+                    <h4>{{ sp.c }}</h4>
+                    <em>{{ sp.s }}</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

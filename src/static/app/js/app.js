@@ -43,7 +43,7 @@ angular.module('mol', [
 	function(uiGmapGoogleMapApiProvider,$translateProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
-        v: '3.24', //defaults to latest 3.X anyhow
+        v: '3.3', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization',
         language: $translateProvider.preferredLanguage()
 
@@ -110,6 +110,20 @@ angular.module('mol', [
           }
         },
         url: molConfig.url
+      }
+    )
+    .state(
+      'species.home',
+      {
+        data: {title : 'Species Intro'},
+        views: {
+          "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
+          "@species.home" : {
+            templateUrl: "static/app/views/home/main.html",
+            controller: 'molHomeCtrl'
+          }
+        },
+        url: 'home'
       }
     )
     .state(
