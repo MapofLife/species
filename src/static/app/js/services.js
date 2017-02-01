@@ -181,5 +181,9 @@ angular.module('mol.services',[])
     s: "Litoria_freycineti",
     c: "Freycinet's frog",
     i: "FreycinetsFrog.png",
+  }, {
+    s: "Discoglossus_galganoi",
+    c: "Iberian painted frog",
+    i: "IberianPaintedFrog.jpg",
   }]; 
 }]);
