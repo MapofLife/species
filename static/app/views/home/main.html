@@ -24,7 +24,7 @@
 <div class="container content home">
 
     <div class="row content">
-        <div class="col-md-6">
+        <div class="col-md-6 col-sm-6 col-divider">
             <h4 class="lead">Search for a species</h4>
             <div class="form-inline taxa-info">
                         
@@ -34,14 +34,14 @@
                 </select>
 
                 <input type="text" class="form-control" 
-                    style="min-width:400px;" autocomplete="on" placeholder="Search for a species" 
+                    style="min-width:350px;" autocomplete="on" placeholder="Search for a species" 
                     ng-model="selected.value" 
                     uib-typeahead="species.scientificname as species for species in searchSpecies(($viewValue)?$viewValue:'.')" 
                     typeahead-on-select="loadSpeciesPage($model)" typeahead-template-url="sp-ac-template.html" />
             </div>
         </div>
 
-        <div class="col-md-6 col-divider">
+        <div class="col-md-6 col-sm-6">
             <h4 class="lead">Or pick a random species</h4>
             <button ng-click="randomSpecies()" class="btn btn-default">Spin the wheel</button>
         </div>
