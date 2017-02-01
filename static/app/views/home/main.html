@@ -21,48 +21,52 @@
   </div>
 </script>
 
-<div class="container content assessment">
+<div class="container content home">
 
-    <div class="row">
-        <div class="col-md-10">
+    <div class="row content">
+        <div class="col-md-6">
+            <h4 class="lead">Search for a species</h4>
+            <div class="form-inline taxa-info">
+                        
+                <select class="form-control selectpicker" ng-model="groups.selected" 
+                    ng-options="group.title for group in groups track by group.value">
+                    <option value="">All groups</option>
+                </select>
 
-        <h4 class="lead">Search for a species</h4>
-        <div class="form-inline taxa-info">
-                    
-            <select class="form-control selectpicker" ng-model="groups.selected" 
-                ng-options="group.title for group in groups track by group.value">
-                <option value="">All groups</option>
-            </select>
-
-            <input type="text" class="form-control" 
-                style="min-width:400px;" autocomplete="on" placeholder="Search for a species" 
-                ng-model="selected.value" 
-                uib-typeahead="species.scientificname as species for species in searchSpecies(($viewValue)?$viewValue:'.')" 
-                typeahead-on-select="loadSpeciesPage($model)" typeahead-template-url="sp-ac-template.html" />
-
-            <button ng-click="randomSpecies()" class="btn btn-default">Pick a random species</button>
+                <input type="text" class="form-control" 
+                    style="min-width:400px;" autocomplete="on" placeholder="Search for a species" 
+                    ng-model="selected.value" 
+                    uib-typeahead="species.scientificname as species for species in searchSpecies(($viewValue)?$viewValue:'.')" 
+                    typeahead-on-select="loadSpeciesPage($model)" typeahead-template-url="sp-ac-template.html" />
+            </div>
         </div>
 
-
+        <div class="col-md-6 col-divider">
+            <h4 class="lead">Or pick a random species</h4>
+            <button ng-click="randomSpecies()" class="btn btn-default">Spin the wheel</button>
         </div>
     </div>
 
     <hr />
+    
+    <div class="content">
 
-    <h4 class="lead">Or select from the list</h4>
+        <h4 class="lead">Or select from our favourites</h4>
 
-    <div class="col-md-4 text-center" ng-repeat="sp in speciesList">
-        <div class="hero-species" ng-click="loadSpeciesPage(sp.s)">
-            <div class="hero-card">
-                <div class="hero-header">
-                    <img class="img-rounded" src="{{molConfig.base}}static/app/views/species-in-reserves/img/{{ sp.i }}" alt="{{ sp.c }}" style="" />
-                </div>
-                <div class="hero-info">
-                    <h4>{{ sp.c }}</h4>
-                    <em>{{ sp.s }}</em>
+        <div class="col-lg-3 col-md-4 col-sm-6 text-center" ng-repeat="sp in speciesList">
+            <div class="hero-species" ng-click="loadSpeciesPage(sp.s)">
+                <div class="hero-card">
+                    <div class="hero-header">
+                        <img class="img-center center-block img-rounded img-responsive" src="{{molConfig.base}}static/app/views/species-in-reserves/img/{{ sp.i }}" alt="{{ sp.c }}" style="" />
+                    </div>
+                    <div class="hero-info">
+                        <h4>{{ sp.c }}</h4>
+                        <em>{{ sp.s | replace:"_":" " }}</em>
+                    </div>
                 </div>
             </div>
         </div>
+        
     </div>
 
 
