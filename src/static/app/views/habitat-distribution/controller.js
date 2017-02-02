@@ -1,15 +1,17 @@
 angular.module('mol.controllers')
  .controller('molHabitatDistributionCtrl',
-    ['$scope', '$q', '$timeout','$http','$filter', 'molApi',
-    function($scope, $q, $timeout, $http, $filter, molApi) {
+    ['$scope', '$q', '$timeout','$http','$filter', 'molApi','$stateParams',
+    function($scope, $q, $timeout, $http, $filter, molApi, $stateParams) {
 
       $scope.$watch('species.scientificname',function(n,o){
       if($scope.species) {
         molApi({
-         "service" : "species/indicators/spi-map",
+         "url": "spi-metrics.api-0-x.map-of-life.appspot.com",
+         "service" : "species/indicators/map",
          "version": "0.x",
          "params" : {
-           "scientificname": $scope.species.scientificname
+           "scientificname": $scope.species.scientificname,
+           "dsid":  $stateParams.dsid
          },
          "canceller" :$scope.canceller,
          "loading":true
@@ -17,8 +19,8 @@ angular.module('mol.controllers')
          function(result) {
            $scope.tilesloaded=false;
            $scope.map.setOverlay({
-               tile_url: result.tileurl,
-               key: result.layergroupid,
+               tile_url: result.data.tileurl,
+               key: result.data.tileurl,
                attr: '©2014 Map of Life',
                name: 'spi',
                index:0,

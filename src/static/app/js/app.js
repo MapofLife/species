@@ -43,7 +43,7 @@ angular.module('mol', [
 	function(uiGmapGoogleMapApiProvider,$translateProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
-        v: '3.3', //defaults to latest 3.X anyhow
+        version: '3.x', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization',
         language: $translateProvider.preferredLanguage()
 
@@ -82,6 +82,7 @@ angular.module('mol', [
 
   $sceDelegateProvider.resourceUrlWhitelist([
     'self',
+    'http://spi-metrics.api-0-x.map-of-life.appspot.com/',
     'http*://localhost**',
     'http*://127.0.0.1:9001/**',
     'http*://*mol.org/**',
