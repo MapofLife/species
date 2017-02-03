@@ -15,7 +15,8 @@ angular.module('mol.controllers')
            "show_points": true
          },
          "canceller" :$scope.canceller,
-         "loading":true
+         "loading":true,
+         "ssl" : false
        }).then(
          function(result) {
            $scope.tilesloaded=false;
