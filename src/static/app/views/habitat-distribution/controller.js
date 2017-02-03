@@ -7,11 +7,12 @@ angular.module('mol.controllers')
       if($scope.species) {
         molApi({
          "url": "spi-metrics.api-0-x.map-of-life.appspot.com",
-         "service" : "species/indicators/map",
+         "service" : "species/indicators/habitat-distribution/map",
          "version": "0.x",
          "params" : {
            "scientificname": $scope.species.scientificname,
-           "dsid":  $stateParams.dsid
+           "dsid":  $stateParams.dsid,
+           "show_points": true
          },
          "canceller" :$scope.canceller,
          "loading":true
@@ -27,7 +28,23 @@ angular.module('mol.controllers')
                opacity: 0.8,
                type: 'detail'
            },0);
-      })
+      });
+        molApi({
+         "url": "spi-metrics.api-0-x.map-of-life.appspot.com",
+         "service" : "species/indicators/habitat-distribution/stats",
+         "version": "0.x",
+         "params" : {
+           "scientificname": $scope.species.scientificname,
+           "dsid":  $stateParams.dsid,
+           "show_points": true
+         },
+         "canceller" :$scope.canceller,
+         "loading":true
+       }).then(
+         function(result) {
+            $scope.species.habitat_distribution = result.data;
+         })
+
     }});
 
   }]);

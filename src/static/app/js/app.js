@@ -124,7 +124,7 @@ angular.module('mol', [
             controller: 'molHomeCtrl'
           }
         },
-        url: 'home'
+        url: ''
       }
     )
     .state(
@@ -148,7 +148,7 @@ angular.module('mol', [
             controller: 'molOverviewCtrl'
           }
         },
-        url: '{0}'.format(params)
+        url: 'overview/{0}'.format(params)
       }
     )
     .state(
@@ -173,7 +173,19 @@ angular.module('mol', [
             controller: 'molHabitatDistributionCtrl'
           }
         },
-        url: 'range/{0}'.format(params)
+        url: 'habitat-distribution/{0}'.format(params)
+      }
+    )
+    .state(
+      'species.reserve-coverage',
+      {
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/reserve-coverage/sidebar.html",
+            controller: 'molReserveCoverageCtrl'
+          }
+        },
+        url: 'reserve-coverage/{0}'.format(params)
       }
     )
 
