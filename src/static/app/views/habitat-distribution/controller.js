@@ -5,6 +5,7 @@ angular.module('mol.controllers')
 
       $scope.$watch('species.scientificname',function(n,o){
       if($scope.species) {
+        $scope.map.clearOverlays();
         molApi({
          "url": "spi-metrics.api-0-x.map-of-life.appspot.com",
          "service" : "species/indicators/habitat-distribution/map",
