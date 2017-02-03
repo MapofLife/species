@@ -47,6 +47,11 @@ angular.module('mol.controllers')
             $scope.species.habitat_distribution = result.data;
          })
 
+        $scope.changeInMapPerformance = function(species) {
+
+          
+        }
+
     }});
 
   }]);
