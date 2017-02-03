@@ -16,7 +16,7 @@ angular.module('mol.controllers')
          },
          "canceller" :$scope.canceller,
          "loading":true,
-         "ssl" : false
+         "protocol" : "http"
        }).then(
          function(result) {
            $scope.tilesloaded=false;
