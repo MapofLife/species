@@ -10,6 +10,13 @@
               <li ui-sref-active="active"
 
                  ><a ui-sref="species.detailed-map($state.params)">Detailed Map</a></li>
+                 <li ui-sref-active="active"
+
+                    ><a ui-sref="species.habitat-distribution($state.params)">Habitat Distribution</a></li>
+                    <li ui-sref-active="active"
+
+                       ><a ui-sref="species.reserve-coverage($state.params)">Reserve Coverage</a></li>
+
             </ul>
             <div  class="pull-right">
               <mol-species-search ng-show="!$state.params.embed||$state.params.speciessearch"></mol-species-search>
