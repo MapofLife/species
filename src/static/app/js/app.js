@@ -148,7 +148,7 @@ angular.module('mol', [
             controller: 'molOverviewCtrl'
           }
         },
-        url: 'overview/{0}'.format(params)
+        url: '{0}'.format(params)
       }
     )
     .state(
