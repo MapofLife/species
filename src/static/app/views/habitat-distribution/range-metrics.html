@@ -40,13 +40,12 @@
                 <span class="ttelem" uib-tooltip="Change in map performance according to available validation information ({{ species.refine.range_pts + species.refine.points_in_expert_range }} points).">Map improvement</span>
             </div>
         </div>
-        <div class="col-md-4" ng-show="species.habitat_distribution.change_in_map_performance!=null"
-             class="progress-bar-alert"
-                ng-class="{'protection_status_red': species.metrics.refine.f_change_high < 0,
+        <div class="col-md-4 progress-bar-alert" ng-if="species.habitat_distribution.f_change"
+            ng-class="{'protection_status_red': species.habitat_distribution.f_change_high < 0,
                 'protection_status_green': species.habitat_distribution.f_change_low > 0,
                 'protection_status_yellow': species.habitat_distribution.f_change_low == 0 || species.habitat_distribution.f_change_high == 0}">
             <div class="value-center">
-                {{ change_in_map_performance(species) | number}}&nbsp;%&nbsp;
+                {{ species.habitat_distribution.f_change | number}}&nbsp;%&nbsp;
                 <br />
                 <small>
                     (<span ng-show="species.habitat_distribution.f_change_low!=null">{{ species.habitat_distribution.f_change_low }}&nbsp;%&nbsp;</span>
@@ -55,9 +54,9 @@
                 </small>
             </div>
         </div>
-        <div class="col-md-4" ng-show="species.habitat_distribution.total_points!=null">
+        <div class="col-md-4" ng-show="species.habitat_distribution.num_points!=null">
             <div class="value-center">
-                {{species.habitat_distribution.total_points | number}}
+                {{species.habitat_distribution.num_points | number}}
                 <br />
                 <small>Validation points</small>
             </div>
