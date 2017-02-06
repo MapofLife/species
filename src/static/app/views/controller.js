@@ -7,7 +7,7 @@ angular.module('mol.controllers')
 
 
 
-
+        $scope.canceller = $q.defer();
 
       angular.extend($scope, { model: {
          tt: molSpeciesTooltips,
@@ -119,7 +119,7 @@ angular.module('mol.controllers')
 
       // if empty, let's navigate to the splash page
       if(!$state.params.scientificname) {
-        $state.transitionTo('species.home', {}, {inherit: false, notify:true});  
+        $state.transitionTo('species.home', {}, {inherit: false, notify:true});
       }
 
 

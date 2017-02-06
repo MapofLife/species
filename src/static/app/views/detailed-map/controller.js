@@ -11,7 +11,7 @@ angular.module('mol.controllers')
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
           $timeout, $q,  molApi) {
-            /* set up defatul scop*/
+
 
 
             $scope.uncertainty = {
@@ -27,7 +27,7 @@ angular.module('mol.controllers')
             };
             $scope.toggles = {sidebarVisible: true, featuresActive:false, looking: false}
             $scope.mapUpdater  = undefined;
-            $scope.canceller = $q.defer()
+
 
             $scope.visibleDatasets = undefined;
 

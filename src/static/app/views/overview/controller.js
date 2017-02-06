@@ -11,7 +11,7 @@ angular.module('mol.controllers')
 
 
             $scope.mapUpdater  = undefined;
-            $scope.canceller = $q.defer()
+
             //$scope.map.options.scrollwheel = false;
             $scope.map.removeOverlay(0);
 
@@ -21,7 +21,8 @@ angular.module('mol.controllers')
                 'species.scientificname',
                 function(name) {
                   if(name) {
-
+                      $scope.canceller.resolve();
+                      $scope.canceller = $q.defer();
                       if($scope.mapUpdater) {
                         try{
                           $timeout.cancel($scope.mapUpdater);
@@ -29,7 +30,7 @@ angular.module('mol.controllers')
                       $scope.mapUpdater = $timeout(function(){$http({
                       "withCredentials":false,
                       "method":"POST",
-                      "timeout":$scope.canceller,
+                      "timeout": $scope.canceller,
                       "url":"https://mol.carto.com/api/v1/map/named/consensus_map",
                       "data": {
                          "scientificname": name,
