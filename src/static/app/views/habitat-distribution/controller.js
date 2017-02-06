@@ -142,10 +142,10 @@ angular.module('mol.controllers')
     .factory('getSensConf',[
       function() {
         return function(sens,n) {
-        z = 1.96; //one-sided 95% z-score for normal distribution
-        t = 2*n*sens+z^2;
-        p = 1.96*Math.sqrt(z^2+4*n*sens*(1-sens));
-        q = 2*(n+1.96^2);
+         var z = 1.96, //one-sided 95% z-score for normal distribution
+             t = 2*n*sens+z^2,
+             p = z*Math.sqrt(z^2+4*n*sens*(1-sens)),
+             q = 2*(n+z^2);
 
         return [(t-p)/q, (t+p)/q]
       }
