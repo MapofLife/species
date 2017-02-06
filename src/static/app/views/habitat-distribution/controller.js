@@ -27,10 +27,10 @@ angular.module('mol.controllers')
                tile_url: result.data.tileurl,
                key: result.data.tileurl,
                attr: '©2014 Map of Life',
-               name: 'spi',
+               name: 'habitat-distribution',
                index:0,
                opacity: 0.8,
-               type: 'detail'
+               type: 'habitat-distribution'
            },0);
       });
         molApi({

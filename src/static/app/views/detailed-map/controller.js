@@ -7,10 +7,10 @@ angular.module('mol.controllers')
   .controller('molDetailMapCtrl',
   	[  '$compile',
       '$window','$http','$uibModal','$scope','$state', '$filter',
-      '$timeout','$location','$anchorScroll','$q','molApi',
+      '$timeout','$q','molApi',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $location, $anchorScroll, $q,  molApi) {
+          $timeout, $q,  molApi) {
             /* set up defatul scop*/
 
 
