@@ -20,7 +20,7 @@
         options="mt"
         show="mt.show"
         refresh="mt.refresh"
-        ng-repeat="mt in map.overlayMapTypes track by mt.index">
+        ng-repeat="mt in map.overlayMapTypes track by $index">
     </ui-gmap-map-type>
     <ui-gmap-window
         show="map.infowindow.show"
