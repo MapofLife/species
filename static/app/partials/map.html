@@ -4,7 +4,7 @@
     ng-show="$root.$state.params.embed"
       ng-href="https://mol.org/species/{{$root.$state.params.scientificname}}"
       target="_blank">
-    <img src="species/static/app/img/logo.png">
+    <img src="https://mol.org/static/img/logo.png">
   </a>
 </script>
 <ui-gmap-google-map
@@ -20,7 +20,7 @@
         options="mt"
         show="mt.show"
         refresh="mt.refresh"
-        ng-repeat="mt in map.overlayMapTypes">
+        ng-repeat="mt in map.overlayMapTypes track by mt.index">
     </ui-gmap-map-type>
     <ui-gmap-window
         show="map.infowindow.show"
