@@ -22,42 +22,31 @@
                     <tbody>
                         <tr>
                             <td><span class="ttelem" uib-tooltip="{{ tt.strict_parks }}">Strict Parks</span></td>
-                            <td ng-show="!toggles.refine">{{species.protect.unrefined.totals.I_II_III.ct}}</td>
-                            <td ng-show="!toggles.refine">{{species.protect.unrefined.totals_t.I_II_III.ct}}</td>
-                            <td ng-show="toggles.refine">{{species.protect.refined.totals.I_II_III.ct}}</td>
-                            <td ng-show="toggles.refine">{{species.protect.refined.totals_t.I_II_III.ct}}</td>
+                            <td>{{species.reserve_coverage | reserveFilter:['I','II','III']:0 | reserveCount}}</td>
+                            <td>{{species.reserve_coverage | reserveFilter:['I','II','III']:threshold.min | reserveCount}}</td>
                         </tr>
 
 
                         <tr>
                             <td><span class="ttelem" uib-tooltip="{{ tt.all_parks }}">All parks</span></td>
-                            <td ng-show="!toggles.refine">{{species.protect.unrefined.totals.all.ct}}</td>
-                            <td ng-show="!toggles.refine">{{species.protect.unrefined.totals_t.all.ct}}</td>
-                            <td ng-show="toggles.refine">{{species.protect.refined.totals.all.ct}}</td>
-                            <td ng-show="toggles.refine">{{species.protect.refined.totals_t.all.ct}}</td>
+                            <td>{{species.reserve_coverage | reserveFilter:['I','II','III','IV','V','VI','Not Reported']:0 | reserveCount}}</td>
+                            <td>{{species.reserve_coverage | reserveFilter:['I','II','III','IV','V','VI','Not Reported']:threshold.min | reserveCount}}</td>
                         </tr>
                         <tr>
                             <td><span class="ttelem" uib-tooltip="{{ tt.all_parks_area }}">All parks area</span></td>
-                            <td ng-show="!toggles.refine">{{species.protect.unrefined.totals.all.area | number : 0 | km2 }}</td>
-                            <td ng-show="!toggles.refine">{{species.protect.unrefined.totals_t.all.area| number : 0 | km2 }}</td>
-                            <td ng-show="toggles.refine">{{species.protect.refined.totals.all.area | number : 0 | km2 }}</td>
-                            <td ng-show="toggles.refine">{{species.protect.refined.totals_t.all.area | number : 0 | km2 }}</td>
-                        </tr>
+                            <td>{{species.reserve_coverage | reserveFilter:['I','II','III']:0 | reserveArea | number:1 | km2}}</td>
+                            <td>{{species.reserve_coverage | reserveFilter:['I','II','III']:threshold.min | reserveArea | number:1 | km2}}</td>
+                      </tr>
                         <tr>
                             <td><span class="ttelem" uib-tooltip="{{ tt.target_area }}">Target area</span></td>
-                            <td ng-show="!toggles.refine">{{ getTargetArea(species.refine.metrics.expert_range_size) | number : 1 | km2 }}</td>
-                            <td ng-show="toggles.refine">{{ getTargetArea(species.refine.metrics.refined_range_size) | number : 1 | km2 }}</td>
+                            <td>{{ getTargetArea(species.habitat_distribution.refined_range_size) | number : 1 | km2 }}</td>
                             <td></td>
                         </tr>
                         <tr >
                             <td><span class="ttelem" uib-tooltip="{{ tt.target_realized }}">Target realized</span></td>
-                            <td ng-show="!toggles.refine && !processing.protect" ng-class="getTargetRealizedClass(
-                                100*species.protect.unrefined.totals.all.area / getTargetArea(species.refine.metrics.expert_range_size))">
-                                {{ species.protect.unrefined.totals.all.area / getTargetArea(species.refine.metrics.expert_range_size) | percentage : 1 }}
-                            </td>
-                            <td ng-show="toggles.refine && !processing.protect" ng-class="getTargetRealizedClass(
-                                100*species.protect.refined.totals.all.area / getTargetArea(species.refine.metrics.refined_range_size))">
-                                {{ species.protect.refined.totals.all.area / getTargetArea(species.refine.metrics.refined_range_size) | percentage : 1 }}
+                            <td ng-class="getTargetRealizedClass(
+                                100*(species.reserve_coverage | reserveFilter:['I','II','III']:threshold.min | reserveArea) / getTargetArea(species.habitat_distribution.refined_range_size) )">
+                                {{ (species.reserve_coverage | reserveFilter:['I','II','III']:threshold.min | reserveArea) / getTargetArea(species.habitat_distribution.refined_range_size) | percentage : 1 }}
                             </td>
                             <td></td>
                         </tr>
@@ -69,11 +58,10 @@
                     style="text-align:right">
                     <span class="ttelem" uib-tooltip="{{ tt.min_reserve_size }}">Minimum reserve size:</span>
                 </div>
-                <div class="col-md-4">
+                  <div class="col-md-4">
                     <div range-slider show-values="false"
                         step="2" min="0" max="1000" value="10"
                         prevent-equal-min-max
-                        ng-mouseup="updateThresholds(true,false);"
                         model-min="threshold.min"
                         model-max="threshold.max"
                         pin-handle="max">

@@ -4,19 +4,10 @@
           <div class="container-fluid" >
 
             <ul class="nav navbar-nav" ng-if=" $state.current.name != 'species.home' ">
-              <li ui-sref-active="active"
-
-                 ><a ui-sref="species.overview($state.params)">Overview</a></li>
-              <li ui-sref-active="active"
-
-                 ><a ui-sref="species.detailed-map($state.params)">Detailed Map</a></li>
-                 <li ui-sref-active="active"
-
-                    ><a ui-sref="species.habitat-distribution($state.params)">Habitat Distribution</a></li>
-                    <li ui-sref-active="active"
-
-                       ><a ui-sref="species.reserve-coverage($state.params)">Reserve Coverage</a></li>
-
+              <li ui-sref-active-eq="active"><a ui-sref="species.overview($state.params)">Overview</a></li>
+              <li ui-sref-active-eq="active"><a ui-sref="species.detailed-map($state.params)">Detailed Map</a></li>
+              <li ui-sref-active-eq="active"><a ui-sref="species.habitat-distribution($state.params)">Habitat Distribution</a></li>
+              <li ui-sref-active-eq="active"><a ui-sref="species.habitat-distribution.reserve-coverage($state.params)">Reserve Coverage</a></li>
             </ul>
             <div  class="pull-right">
               <mol-species-search ng-show="!$state.params.embed||$state.params.speciessearch"></mol-species-search>
