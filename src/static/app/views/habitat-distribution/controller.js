@@ -11,7 +11,7 @@ angular.module('mol.controllers')
         $scope.canceller.resolve();
         $scope.canceller = $q.defer();
         molApi({
-         "url": "spi-metrics.api-0-x.map-of-life.appspot.com",
+         "url": "api.mol.org",
          "service" : "species/indicators/habitat-distribution/map",
          "version": "0.x",
          "params" : {
@@ -21,7 +21,7 @@ angular.module('mol.controllers')
          },
          "canceller" :$scope.canceller,
          "loading":true,
-         "protocol" : "http"
+         "protocol" : "https"
        }).then(
          function(result) {
            $scope.tilesloaded=false;
@@ -36,7 +36,7 @@ angular.module('mol.controllers')
            },0);
       });
         molApi({
-         "url": "spi-metrics.api-0-x.map-of-life.appspot.com",
+         "url": "api.mol.org",
          "service" : "species/indicators/habitat-distribution/stats",
          "version": "0.x",
          "params" : {
@@ -46,7 +46,7 @@ angular.module('mol.controllers')
          },
          "canceller" :$scope.canceller,
          "loading":true,
-         "protocol": "http"
+         "protocol": "https"
        }).then(
          function(result) {
            var habitat_distribution = result.data,

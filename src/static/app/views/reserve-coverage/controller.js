@@ -1,36 +1,62 @@
 angular.module('mol.controllers')
 
  .controller('molReserveCoverageCtrl',
-    ['$scope', '$rootScope','$window','$q', '$timeout', '$filter','$http',
-      function($scope, $rootScope, $window, $q, $timeout, $filter, $http) {
+    ['$scope', '$rootScope','$window','$q', '$timeout', '$filter','molApi','$stateParams',
+      function($scope, $rootScope, $window, $q, $timeout, $filter, molApi, $stateParams) {
 
 
-      $scope.$watch(
-        "species.prefs",
-        function(n, o) {
-          if(!angular.equals(n,o)){
-            $scope.updateReserveModel();
-          }
-      },true);
+        $scope.threshold= {min: 10, max: 1e18};
+
+        $scope.$watch('species.scientificname',function(n,o){
+        if($scope.species) {
+          $scope.map.clearOverlays();
+          $scope.canceller.resolve();
+          $scope.canceller = $q.defer();
+          molApi({
+           "url": "localhost:8080",
+           "service" : "species/indicators/reserve-coverage/map",
+           "version": "0.x",
+           "params" : {
+             "scientificname": $scope.species.scientificname,
+             "dsid":  $stateParams.dsid,
+             "show_points": true,
+             "show_reserves": true
+           },
+           "canceller" :$scope.canceller,
+           "loading":true,
+           "protocol" : "http"
+         }).then(
+           function(result) {
+             $scope.tilesloaded=false;
+             $scope.map.setOverlay({
+                 tile_url: result.data.tileurl,
+                 key: result.data.tileurl,
+                 attr: '©2014 Map of Life',
+                 name: 'reserve-coverage',
+                 index:1,
+                 opacity: 0.8,
+                 type: 'reserve-coverage'
+             },0);
+        });
+          molApi({
+           "url": "api.mol.org",
+           "service" : "species/indicators/reserve-coverage/global-stats",
+           "version": "0.x",
+           "params" : {
+             "scientificname": $scope.species.scientificname,
+             "dsid":  $stateParams.dsid
+           },
+           "canceller" :$scope.canceller,
+           "loading":true,
+           "protocol": "https"
+         }).then(
+           function(result) {
+             $scope.species.reserve_coverage = result.data;
+
+           })
 
 
-      $scope.$watch(
-        "toggles.refine",
-        function(n,o) {
-          if(n!=o) {
-            $scope.updateReserveMaps();
-          }
-      });
-
-    $scope.getReserveStats = function(prefs) {
-      return $http({
-        method: 'GET',
-        url: '//species.mol.org/api/protect',
-        withCredentials: false,
-        params: prefs,
-        timeout: $scope.reserveCanceller})
-     }
-
+      }});
 
       $scope.getTargetArea = function(rs) {
           if( rs <= 1000) {
@@ -41,7 +67,6 @@ angular.module('mol.controllers')
               return rs*(212.6 - 37.542*Math.log10(rs))/100;
           }
       }
-
 
       $scope.getTargetRealizedClass = function(value) {
           if (value >= 120) {
@@ -70,5 +95,31 @@ angular.module('mol.controllers')
           } else {deferred.resolve({show:false});}
           return deferred.promise;
         }
-        $scope.updateReserveModel();
-    }]);
+
+    }])
+.filter(
+  "reserveFilter", function() {
+      return function(reserves, iucn_cats, threshold) {
+
+        return (reserves)? reserves.filter(function(reserve) {
+            return (iucn_cats.indexOf(reserve.IUCN_CAT) >= 0 && reserve.sum > threshold)
+          }
+        ) : undefined;
+      }
+  }
+
+).filter(
+  "reserveArea", function() {
+      return function(reserves) {
+        return (reserves) ? reserves.reduce(function(p, c) { return p + c.sum; },0) : undefined;
+      }
+  }
+
+).filter(
+  "reserveCount", function() {
+    return function(reserves) {
+      return (reserves)? reserves.length : undefined;
+    }
+  }
+
+);

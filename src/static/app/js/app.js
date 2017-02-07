@@ -177,17 +177,15 @@ angular.module('mol', [
       }
     )
     .state(
-      'species.reserve-coverage',
-      {
-        views: {
-          "left-sidebar@species" :{
-            templateUrl: "static/app/views/reserve-coverage/sidebar.html",
-            controller: 'molReserveCoverageCtrl'
-          }
-        },
-        url: 'reserve-coverage/{0}'.format(params)
+      'species.habitat-distribution.reserve-coverage',
+      { views:{
+        "reserve-coverage" : {
+        templateUrl: "static/app/views/reserve-coverage/reserve-coverage.html",
+        controller: 'molReserveCoverageCtrl'
+      }},
+        url: '^{0}reserve-coverage/{1}'.format(molConfig.url,params)
       }
-    )
+    );
 
 
      $locationProvider.html5Mode({

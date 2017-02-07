@@ -7,7 +7,7 @@ angular.module('mol.controllers')
 
 
 
-        $scope.canceller = $q.defer();
+      $rootScope.canceller = $q.defer();
 
       angular.extend($scope, { model: {
          tt: molSpeciesTooltips,
