@@ -13,7 +13,7 @@ angular.module('mol.controllers')
           $scope.canceller.resolve();
           $scope.canceller = $q.defer();
           molApi({
-           "url": "localhost:8080",
+           "url": "api.mol.org",
            "service" : "species/indicators/reserve-coverage/map",
            "version": "0.x",
            "params" : {
