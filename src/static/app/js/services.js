@@ -120,6 +120,16 @@ angular.module('mol.services',[])
 
 	}
 ])
+.factory('molFormatSuitabilityPrefs',[function(){
+	return function(prefs) {
+		var new_prefs = angular.copy(prefs);
+		if(new_prefs.habitats) {
+			new_prefs.habitats=new_prefs.habitats.map(function(v){return (v)?"1":"0"}).join("")
+		}
+		return new_prefs;
+	}
+}])
+
 .factory('molSpeciesList', [function() {
   return [{
     s: "Megalaima_corvina",
@@ -185,5 +195,5 @@ angular.module('mol.services',[])
     s: "Discoglossus_galganoi",
     c: "Iberian painted frog",
     i: "IberianPaintedFrog.jpg",
-  }]; 
+  }];
 }]);

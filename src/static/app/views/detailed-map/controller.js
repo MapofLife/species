@@ -72,7 +72,7 @@ angular.module('mol.controllers')
                      "datasets": $scope.visibleDatasets,
                      "null_years":($scope.filters.years)?$scope.year.nulls.toString():true.toString(),
                      "default_uncertainty":20000,
-                     "point_limit": ($scope.filters.limit&&$scope.filters.limit!=undefined)?$scope.filters.points:0,
+                     "point_limit": ($scope.filters.limit&&$scope.filters.limit!=undefined)?$scope.filters.points:5000,
                    }}).success(function(result, status, headers, config) {
                         if($scope.species && result.layergroupid) {
 

@@ -1,13 +1,13 @@
 angular.module('mol.controllers')
 
  .controller('molReserveCoverageCtrl',
-    ['$scope', '$rootScope','$window','$q', '$timeout', '$filter','molApi','$stateParams',
-      function($scope, $rootScope, $window, $q, $timeout, $filter, molApi, $stateParams) {
+    ['molFormatSuitabilityPrefs','$scope', '$rootScope','$window','$q', '$timeout', '$filter','molApi','$stateParams',
+      function(molFormatSuitabilityPrefs, $scope, $rootScope, $window, $q, $timeout, $filter, molApi, $stateParams) {
 
 
         $scope.threshold= {min: 10, max: 1e18};
 
-        $scope.$watch('species.scientificname',function(n,o){
+        $scope.$watch('species.prefs',function(n,o){
         if($scope.species) {
           $scope.map.clearOverlays();
           $scope.canceller.resolve();
@@ -16,12 +16,7 @@ angular.module('mol.controllers')
            "url": "api.mol.org",
            "service" : "species/indicators/reserve-coverage/map",
            "version": "0.x",
-           "params" : {
-             "scientificname": $scope.species.scientificname,
-             "dsid":  $stateParams.dsid,
-             "show_points": true,
-             "show_reserves": true
-           },
+           "params" : molFormatSuitabilityPrefs($scope.species.prefs),
            "canceller" :$scope.canceller,
            "loading":true,
            "protocol" : "http"
@@ -42,10 +37,7 @@ angular.module('mol.controllers')
            "url": "api.mol.org",
            "service" : "species/indicators/reserve-coverage/global-stats",
            "version": "0.x",
-           "params" : {
-             "scientificname": $scope.species.scientificname,
-             "dsid":  $stateParams.dsid
-           },
+           "params" : molFormatSuitabilityPrefs($scope.species.prefs),
            "canceller" :$scope.canceller,
            "loading":true,
            "protocol": "https"
@@ -56,7 +48,7 @@ angular.module('mol.controllers')
            })
 
 
-      }});
+      }},true);
 
       $scope.getTargetArea = function(rs) {
           if( rs <= 1000) {

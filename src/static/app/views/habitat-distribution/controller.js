@@ -1,11 +1,11 @@
 angular.module('mol.controllers')
  .controller('molHabitatDistributionCtrl',
     ['$scope', '$q', '$timeout','$http','$filter', 'molApi','$stateParams',
-  'refinedMapPerformance','changeInMapPerformance','getFScore','getSensConf','getSensitivity',
+  'molFormatSuitabilityPrefs','refinedMapPerformance','changeInMapPerformance','getFScore','getSensConf','getSensitivity',
     function($scope, $q, $timeout, $http, $filter, molApi, $stateParams,
-      refinedMapPerformance, changeInMapPerformance,getFScore,getSensConf, getSensitivity ) {
+      molFormatSuitabilityPrefs,refinedMapPerformance, changeInMapPerformance,getFScore,getSensConf, getSensitivity ) {
 
-      $scope.$watch('species.scientificname',function(n,o){
+      $scope.$watch('species.prefs',function(n,o){
       if($scope.species) {
         $scope.map.clearOverlays();
         $scope.canceller.resolve();
@@ -14,11 +14,7 @@ angular.module('mol.controllers')
          "url": "api.mol.org",
          "service" : "species/indicators/habitat-distribution/map",
          "version": "0.x",
-         "params" : {
-           "scientificname": $scope.species.scientificname,
-           "dsid":  $stateParams.dsid,
-           "show_points": true
-         },
+         "params" : molFormatSuitabilityPrefs($scope.species.prefs),
          "canceller" :$scope.canceller,
          "loading":true,
          "protocol" : "https"
@@ -39,11 +35,7 @@ angular.module('mol.controllers')
          "url": "api.mol.org",
          "service" : "species/indicators/habitat-distribution/stats",
          "version": "0.x",
-         "params" : {
-           "scientificname": $scope.species.scientificname,
-           "dsid":  $stateParams.dsid,
-           "show_points": true
-         },
+          "params" : molFormatSuitabilityPrefs($scope.species.prefs),
          "canceller" :$scope.canceller,
          "loading":true,
          "protocol": "https"
@@ -93,7 +85,7 @@ angular.module('mol.controllers')
          })
 
 
-    }});
+    }},true);
 
   }])
   .factory('getFScore', [

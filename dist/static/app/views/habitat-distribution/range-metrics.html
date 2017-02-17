@@ -2,7 +2,7 @@
 
     <div class="row">
         <div class="row col-md-12">
-            <h4 style="margin-left:1em"><span class="ttelem" uib-tooltip="{{ tt.geo_dist }}">Geographic distribution</span></h4>
+            <h4 style="margin-left:1em"><span class="ttelem" uib-tooltip="{{ model.tt.geo_dist }}">Geographic distribution</span></h4>
         </div>
     </div>
 
@@ -10,7 +10,7 @@
     <div class="row metric" >
         <div class="col-md-4">
             <div class="name-center">
-                <span class="ttelem" uib-tooltip="{{ tt.range_size }}">Range size</span>
+                <span class="ttelem" uib-tooltip="{{ model.tt.range_size }}">Range size</span>
             </div>
         </div>
         <div class="col-md-4" ng-show="species.habitat_distribution.refined_range_size !=null"
