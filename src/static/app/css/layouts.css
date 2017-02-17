@@ -169,7 +169,7 @@ footer {
 .layouts-map-with-sidebars mol-loading-indicator {
   position: absolute;
   left: 50%;
-  top; 10px;
+  top: 10px;
 }
 
 /* text wrap with map on top right */
@@ -201,3 +201,10 @@ a.map-link:hover {
 .partials-map a:link {
   padding: 0;
 }
+
+/* Hack to get the nav bar features to pad correctly on Chrome and Safari */
+/* TODO: Ajay, find a better fix */
+.nav-features {
+  -webkit-padding-end: 120px;
+}
+
