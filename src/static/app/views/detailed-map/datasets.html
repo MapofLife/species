@@ -20,10 +20,10 @@
           <img
           style="width:25px;height:25px;"
           class="clickable"
-          ng-src="species/static/app/views/detailed-map/img/{{ id }}.png"
+          ng-src="{{molConfig.base}}static/app/views/detailed-map/img/{{ id }}.png"
           popover-placement="left"
           popover-trigger="{{(id=='range')?'mouseenter':'none'}}"
-          uib-popover-template="'species/static/app/views/detailed-map/legends/'+id+'/index.html'"
+          uib-popover-template="'{{molConfig.base}}static/app/views/detailed-map/legends/'+id+'/index.html'"
           popover-title="{{(type.title | capitalize) + ' key'}}">
         </div>
         <div class="col feature-ct"  >
