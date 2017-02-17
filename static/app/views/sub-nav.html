@@ -9,7 +9,7 @@
               <li ui-sref-active-eq="active"><a ui-sref="species.habitat-distribution($state.params)">Habitat Distribution</a></li>
               <li ui-sref-active-eq="active"><a ui-sref="species.habitat-distribution.reserve-coverage($state.params)">Reserve Coverage</a></li>
             </ul>
-            <div  class="pull-right">
+            <div  ng-show=" $state.current.name != 'species.home'" class="pull-right">
               <mol-species-search ng-show="!$state.params.embed||$state.params.speciessearch"></mol-species-search>
               <mol-location-search ng-show="!$state.params.embed||$state.params.regionsearch"></mol-location-search>
             </div>
