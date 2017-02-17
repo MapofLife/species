@@ -19,7 +19,7 @@ angular.module('mol.controllers')
            "params" : molFormatSuitabilityPrefs($scope.species.prefs),
            "canceller" :$scope.canceller,
            "loading":true,
-           "protocol" : "http"
+           "protocol" : "https"
          }).then(
            function(result) {
              $scope.tilesloaded=false;
