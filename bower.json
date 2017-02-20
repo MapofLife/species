@@ -24,7 +24,8 @@
     "angular-touch": "~1.5.5"
   },
   "authors": [
-    "Jeremy Malczyk <jmalczyk@gmail.com>"
+    "Jeremy Malczyk <jmalczyk@gmail.com>",
+    "Ajay Ranipeta <ajay@mol.org>"
   ],
   "ignore": [
     "**/.*",
