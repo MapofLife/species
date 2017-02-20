@@ -432,7 +432,7 @@ margin: 0;
     transform: translate3d( 0px, -4px, 0px );
 }
 .hero-header { 
-    height: 300px; 
+    height: 150px; 
     overflow: hidden; 
     display: flex;
     justify-content: center;
@@ -451,8 +451,15 @@ margin: 0;
 }
 @media (max-width: 992px) {
     .hero-header { 
-        height: 350px;
-        align-items: flex-start;
+        height: 200px;
+        align-items: center;
+    }    
+}
+@media (max-width: 768px) {
+    .hero-header { 
+        min-height: 150px;
+        max-height: 350px;
+        align-items: center;
     }    
 }
 @media (min-width: 992px) {

@@ -132,68 +132,36 @@ angular.module('mol.services',[])
 
 .factory('molSpeciesList', [function() {
   return [{
-    s: "Megalaima_corvina",
-    c: "Brown-Throated Barbet",
-    i: "BrownThroatedBarbet.png"
+    s: "Tockus_deckeni",
+    c: "Von der decken's hornbill",
+    i: "Tockus_deckeni.jpg"
   }, {
-    s: "Amblyornis_subalaris",
-    c: "Streaked Bowerbird",
-    i: "StreakedBowerbird.png",
+    s: "Grus_japonensis",
+    c: "Red-crowned crane",
+    i: "Grus_japonensis.jpg"
   }, {
-    s: "Coracina_ostenta",
-    c: "White-Winged Cuckooshrike",
-    i: "WhiteWingedCuckooshrike.jpg",
+    s: "Atelopus_spumarius",
+    c: "Pebas stubfoot toad",
+    i: "Atelopus_spumarius.jpg"
   }, {
-    s: "Doliornis_sclateri",
-    c: "Bay-vented Cotinga",
-    i: "BayVentedCotinga.png",
+    s: "Phyllomedusa_tomopterna",
+    c: "Tiger-striped leaf frog",
+    i: "Phyllomedusa_tomopterna.jpg"
   }, {
-    s: "Calicalicus_rufocarpalis",
-    c: "Red shouldered Vanga",
-    i: "RedShoulderedVanga.png",
+    s: "Danaus_plexippus",
+    c: "Monarch",
+    i: "Danaus_plexippus.jpg"
   }, {
-    s: "Glaucidium_sanchezi",
-    c: "Tamaulipas Pygmy Owl",
-    i: "TamaulipasPygmyOwl.jpg",
+    s: "Varanus_albigularis",
+    c: "White-throated monitor",
+    i: "Varanus_albigularis.jpg"
   }, {
-    s: "Urosphena_whiteheadi",
-    c: "Bornean Stubtail",
-    i: "BorneanStubtail.png",
+    s: "Macaca_fascicularis",
+    c: "Crab eating macaque",
+    i: "Macaca_fascicularis.jpg"
   }, {
-    s: "Tinamus_solitarius",
-    c: "Solitary Tinamou",
-    i: "SolitaryTinamou.png",
-  }, {
-    s: "Crocidura_fumosa",
-    c: "Smoky white-toothed Shrew",
-    i: "SmokywhitetoothedShrew.jpg",
-  }, {
-    s: "Taphozous_hildegardeae",
-    c: "Hildegarde's tomb bat",
-    i: "HildegardesTombBat.png",
-  }, {
-    s: "Antechinus_stuartii",
-    c: "Brown Antechinus",
-    i: "BrownAntechinus.png",
-  }, {
-    s: "Beamys_hindei",
-    c: "Long-Tailed Pouched Rat",
-    i: "LongTailedPouchedRat.jpg",
-  }, {
-    s: "Hybomys_planifrons",
-    c: "Liberian Forest Hybomys",
-    i: "LiberianForestHybomys.jpg",
-  }, {
-    s: "Reithrodontomys_sumichrasti",
-    c: "Sumachrasti's Harvest Mouse",
-    i: "SumachrastisHarvestMouse.png",
-  }, {
-    s: "Litoria_freycineti",
-    c: "Freycinet's frog",
-    i: "FreycinetsFrog.png",
-  }, {
-    s: "Discoglossus_galganoi",
-    c: "Iberian painted frog",
-    i: "IberianPaintedFrog.jpg",
+    s: "Chelonoidis_carbonaria",
+    c: "Red-footed tortoise",
+    i: "Chelonoidis_carbonaria.jpg"
   }];
 }]);
