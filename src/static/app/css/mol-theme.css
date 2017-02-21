@@ -482,6 +482,9 @@ margin: 0;
   max-height: 400px;
   overflow: scroll;
 }
+.taxa-info select.selectpicker, .taxa-random select.selectpicker, .nav-features select {
+    max-width: 165px;
+}
 
 .no-results {
     margin: 10px 0;
