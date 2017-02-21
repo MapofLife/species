@@ -452,11 +452,16 @@ margin: 0;
 .col-divider {
     border-right: 1px solid #ccc;
 }
+.taxa-info .form-control {
+    display: inline;
+}
 .taxa-info input, .taxa-info .dropdown-menu {
     min-width: 350px;
 }
 .no-results {
     margin: 10px 0;
+    position: absolute;
+    z-index: 10;
 }
 .hero-species {
     margin: 0 0 32px 0;
@@ -493,6 +498,16 @@ margin: 0;
     height: auto;
 }
 .hero-species h4 { line-height: 1.0; }
+@media (max-width: 500px) {
+    .taxa-info input, .taxa-info .dropdown-menu {
+        min-width: 250px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1011px) {
+    .taxa-info input, .taxa-info .dropdown-menu {
+        min-width: 250px;
+    }
+}
 @media (min-width: 768px) {
     .container {
         width: 750px;
@@ -510,6 +525,10 @@ margin: 0;
         max-height: 350px;
         align-items: center;
     }    
+    .taxa-random select.selectpicker {
+        display: none;
+        margin-top: 10px
+    }
 }
 @media (min-width: 992px) {
     .container {

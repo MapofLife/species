@@ -37,7 +37,7 @@ angular.module('mol.controllers')
               // Set up the family display
               $scope.selectedFamily = selectedGroup.title;
               if (family) {
-                $scope.selectedFamily += ' > ' + family
+                $scope.selectedFamily += ' | ' + family
               }
 
               // Set up the IUCN status
