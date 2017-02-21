@@ -207,4 +207,9 @@ a.map-link:hover {
 .nav-features {
   -webkit-padding-end: 120px;
 }
+.nav-features .dropdown-menu {
+  left: -143px !important; /* this moves the AC list to line-up with the textbox */
+  height: 300px;
+  overflow: scroll;
+}
 
