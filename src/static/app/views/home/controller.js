@@ -7,10 +7,10 @@ angular.module("mol.controllers").controller("molHomeCtrl", ["$scope", "$state",
   $scope.searchSpecies = function (term) {
     //$scope.canceller.resolve();
 
-    if (!$scope.groups) {
-      $scope.groups = { selected: undefined };
-    }
-    
+    // if (!$scope.groups) {
+    //   $scope.groups = { selected: undefined };
+    // }
+    // 
     // return molApi({
     //   "service": "species/groupsearch",
     //   "params": {
@@ -25,9 +25,13 @@ angular.module("mol.controllers").controller("molHomeCtrl", ["$scope", "$state",
     //   return results.data;
     // });
 
+    var group = null;
+    try { group = $scope.groups.selected.taxa }
+    catch (e) { }
+
     return $scope.molApiCall('https://api.mol.org/1.0/species/groupsearch', {
       query: term,
-      group: ($scope.groups.selected !== 'any') ? $scope.groups.selected : undefined,
+      group: (group !== 'any') ? group : undefined,
       regionid: $scope.region.region_id,
       lang: $translate.use()
     }).then(function (results) {
