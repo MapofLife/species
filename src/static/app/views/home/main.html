@@ -34,10 +34,22 @@
                 </select>
 
                 <input type="text" class="form-control" 
-                    style="min-width:350px;" autocomplete="on" placeholder="Search for a species" 
-                    ng-model="selected.value" 
+                    autocomplete="on" placeholder="Search for a species" typeahead-wait-ms="500"
+                    ng-model="selected.value" typeahead-no-results="noResults" typeahead-loading="searchingSpecies" 
                     uib-typeahead="species.scientificname as species for species in searchSpecies(($viewValue)?$viewValue:'.')" 
                     typeahead-on-select="loadSpeciesPage($model)" typeahead-template-url="sp-ac-template.html" />
+
+                    <i ng-show="searchingSpecies" class="fa fa-spinner fa-pulse fa-1x fa-fw"></i>
+
+                    <div class="alert alert-warning no-results" ng-show="noResults" role="alert">
+                        <h4>
+                            <i class="fa fa-search" aria-hidden="true"></i> &nbsp; 
+                            We couldn't find what you are looking for
+                        </h4>
+                        Map of Life is constanly adding new species based on expert range maps. 
+                        If you believe we are missing species or suggest new details for existing species, 
+                        feel free to <a href="/feedback">contact us</a>.
+                    </div>
             </div>
         </div>
 

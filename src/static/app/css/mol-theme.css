@@ -286,12 +286,14 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
 .infoIUCNStatus {
     background-color: black;
     color: white;
-    padding: 5px !important;
+    padding: 5px 5px 5px 10px !important;
     width: 150px;
     font-size: 1.1em;
+    border-radius: 5px;
 }
 .infoIUCNStatus.Critically.Endangered {
     background-color: #ED3131;
+    padding: 5px !important;
 }
 .infoIUCNStatus.Endangered {
     background-color: #E8662A;
@@ -446,6 +448,12 @@ margin: 0;
 }
 .col-divider {
     border-right: 1px solid #ccc;
+}
+.taxa-info input, .taxa-info .dropdown-menu {
+    min-width: 350px;
+}
+.no-results {
+    margin: 10px 0;
 }
 .hero-species {
     margin: 0 0 32px 0;
