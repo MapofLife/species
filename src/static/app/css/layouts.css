@@ -202,14 +202,4 @@ a.map-link:hover {
   padding: 0;
 }
 
-/* Hack to get the nav bar features to pad correctly on Chrome and Safari */
-/* TODO: Ajay, find a better fix */
-.nav-features {
-  -webkit-padding-end: 120px;
-}
-.nav-features .dropdown-menu {
-  left: -143px !important; /* this moves the AC list to line-up with the textbox */
-  height: 300px;
-  overflow: scroll;
-}
 

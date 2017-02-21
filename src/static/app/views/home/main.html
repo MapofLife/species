@@ -36,10 +36,7 @@
             <h4 class="lead">Search for a species</h4>
             <div class="form-inline taxa-info">
                         
-                <select class="form-control selectpicker" ng-model="groups.selected" 
-                    ng-options="group.title for group in groups track by group.value">
-                    <option value="">All groups</option>
-                </select>
+                <div ng-include="'static/app/views/home/group_selector.html'" style="position:relative;display:inline"></div>
 
                 <input type="text" class="form-control" 
                     autocomplete="on" placeholder="Search for a species" typeahead-wait-ms="500"
@@ -67,10 +64,7 @@
             <h4 class="lead">Or pick a random species</h4>
             <div class="form-inline taxa-random">
 
-                <select class="form-control selectpicker" ng-model="groups.selected" 
-                    ng-options="group.title for group in groups track by group.value">
-                    <option value="">All groups</option>
-                </select>
+                <div ng-include="'static/app/views/home/group_selector.html'" style="position:relative;display:inline"></div>
 
                 <button ng-click="randomSpecies()" class="btn btn-default">Spin the wheel</button>
             </div>

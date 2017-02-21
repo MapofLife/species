@@ -444,6 +444,26 @@ margin: 0;
         no-repeat bottom center;
 }
 
+.dropdown-menu>.active>a img {
+    -webkit-filter: brightness(10); 
+    filter: brightness(10);
+}
+
+/** navbar species search **/
+
+/* Hack to get the nav bar features to pad correctly on Chrome and Safari */
+/* TODO: Ajay, find a better fix */
+.nav-features {
+  -webkit-padding-end: 120px;
+}
+.nav-features .dropdown-menu {
+  left: -90px !important; /* this moves the AC list to line-up with the textbox */
+  max-height: 300px;
+  width: 350px;
+  overflow: scroll;
+}
+/** End navbar species search **/
+
 /** Splash page specific **/
 .container.home {
     width: 100%;
@@ -458,6 +478,11 @@ margin: 0;
 .taxa-info input, .taxa-info .dropdown-menu {
     min-width: 350px;
 }
+.taxa-info .dropdown-menu {
+  max-height: 400px;
+  overflow: scroll;
+}
+
 .no-results {
     margin: 10px 0;
     position: absolute;
