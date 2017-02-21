@@ -425,7 +425,10 @@ margin: 0;
 .searchResult .sciName {
   font-style: italic;
 }
-
+.searchResult img {
+  width: 40px;
+  margin: 5px;
+}
 .species .v {
     padding-left:1em;
 }

@@ -1,7 +1,15 @@
 <script type="text/ng-template" id="sp-ac-template.html">
 	<a class="searchResult">
-        <div class="commonName" ng-bind-html="((match.label.vernacular) ? match.label.vernacular : '') | uibTypeaheadHighlight:query"></div>
-        <div class="sciName" ng-bind-html="match.label.scientificname | uibTypeaheadHighlight:query"></div>
+        <div class="row">
+            <div class="col-sm-2">
+                <img ng-src="https://mol.org/static/img/groups/taxa_{{match.label.taxa}}.png"
+                    err-src="https://mol.org/static/img/groups/taxa_all.png" />
+            </div>
+            <div class="col-sm-10">
+                <div class="commonName" ng-bind-html="((match.label.vernacular) ? match.label.vernacular : '') | uibTypeaheadHighlight:query"></div>
+                <div class="sciName" ng-bind-html="match.label.scientificname | uibTypeaheadHighlight:query"></div>
+            </div>
+        </div>
 	</a>
 </script>
 
