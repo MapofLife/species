@@ -261,17 +261,58 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
     font-size: 1em;
 }
 
+.name {
+  padding: 0.1em 0 1em 0;
+}
+.name div {
+  padding: 0.1em 0 0.2em 0;
+}
 .infoCommonName:first-line {
     font-size: 1.5em;
     line-height:15pt;
 }
 .infoCommonName {
     font-size: 1.2em;
+    font-weight: 400;
 }
 .infoSciName{
     font-size:1.2em;
     font-style: italic;
-
+}
+.infoFamily {
+    font-size:1.1em;
+    font-weight: 400;
+}
+.infoIUCNStatus {
+    background-color: black;
+    color: white;
+    padding: 5px !important;
+    width: 150px;
+    font-size: 1.1em;
+}
+.infoIUCNStatus.Critically.Endangered {
+    background-color: #ED3131;
+}
+.infoIUCNStatus.Endangered {
+    background-color: #E8662A;
+}
+.infoIUCNStatus.Extinct.Wild {
+    background-color: #000000;
+}
+.infoIUCNStatus.Extinct {
+    background-color: #000000;
+}
+.infoIUCNStatus.Least.Concern {
+    background-color: #006866;
+}
+.infoIUCNStatus.Near.Threatened {
+    background-color: #006866;
+}
+.infoIUCNStatus.Vulnerable {
+    background-color: #DC9C27;
+}
+.infoIUCNStatus.Vulnerable.Vulnerable.Vulnerable.Vulnerable {
+    background-color: #DC9C27;
 }
 
 .tax {
@@ -293,9 +334,6 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
 
 
 
-.name {
-    padding: 0.1em 0 0.1em 0;
-}
 .legend {
   display: inline-block;
   margin-right: 5pt;
