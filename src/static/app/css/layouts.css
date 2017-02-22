@@ -169,7 +169,7 @@ footer {
 .layouts-map-with-sidebars mol-loading-indicator {
   position: absolute;
   left: 50%;
-  top; 10px;
+  top: 10px;
 }
 
 /* text wrap with map on top right */
@@ -201,3 +201,5 @@ a.map-link:hover {
 .partials-map a:link {
   padding: 0;
 }
+
+

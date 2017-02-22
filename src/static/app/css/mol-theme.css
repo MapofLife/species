@@ -261,17 +261,60 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
     font-size: 1em;
 }
 
+.name {
+  padding: 0.1em 0 1em 0;
+}
+.name div {
+  padding: 0.1em 0 0.2em 0;
+}
 .infoCommonName:first-line {
     font-size: 1.5em;
     line-height:15pt;
 }
 .infoCommonName {
     font-size: 1.2em;
+    font-weight: 400;
 }
 .infoSciName{
     font-size:1.2em;
     font-style: italic;
-
+}
+.infoFamily {
+    font-size:1.1em;
+    font-weight: 400;
+}
+.infoIUCNStatus {
+    background-color: black;
+    color: white;
+    padding: 5px 5px 5px 10px !important;
+    width: 150px;
+    font-size: 1.1em;
+    border-radius: 5px;
+}
+.infoIUCNStatus.Critically.Endangered {
+    background-color: #ED3131;
+    padding: 5px !important;
+}
+.infoIUCNStatus.Endangered {
+    background-color: #E8662A;
+}
+.infoIUCNStatus.Extinct.Wild {
+    background-color: #000000;
+}
+.infoIUCNStatus.Extinct {
+    background-color: #000000;
+}
+.infoIUCNStatus.Least.Concern {
+    background-color: #006866;
+}
+.infoIUCNStatus.Near.Threatened {
+    background-color: #006866;
+}
+.infoIUCNStatus.Vulnerable {
+    background-color: #DC9C27;
+}
+.infoIUCNStatus.Vulnerable.Vulnerable.Vulnerable.Vulnerable {
+    background-color: #DC9C27;
 }
 
 .tax {
@@ -293,9 +336,6 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
 
 
 
-.name {
-    padding: 0.1em 0 0.1em 0;
-}
 .legend {
   display: inline-block;
   margin-right: 5pt;
@@ -385,7 +425,10 @@ margin: 0;
 .searchResult .sciName {
   font-style: italic;
 }
-
+.searchResult img {
+  width: 40px;
+  margin: 5px;
+}
 .species .v {
     padding-left:1em;
 }
@@ -401,6 +444,26 @@ margin: 0;
         no-repeat bottom center;
 }
 
+.dropdown-menu>.active>a img {
+    -webkit-filter: brightness(10); 
+    filter: brightness(10);
+}
+
+/** navbar species search **/
+
+/* Hack to get the nav bar features to pad correctly on Chrome and Safari */
+/* TODO: Ajay, find a better fix */
+.nav-features {
+  -webkit-padding-end: 120px;
+}
+.nav-features .dropdown-menu {
+  left: -90px !important; /* this moves the AC list to line-up with the textbox */
+  max-height: 300px;
+  width: 350px;
+  overflow: scroll;
+}
+/** End navbar species search **/
+
 /** Splash page specific **/
 .container.home {
     width: 100%;
@@ -408,6 +471,25 @@ margin: 0;
 }
 .col-divider {
     border-right: 1px solid #ccc;
+}
+.taxa-info .form-control {
+    display: inline;
+}
+.taxa-info input, .taxa-info .dropdown-menu {
+    min-width: 350px;
+}
+.taxa-info .dropdown-menu {
+  max-height: 400px;
+  overflow: scroll;
+}
+.taxa-info select.selectpicker, .taxa-random select.selectpicker, .nav-features select {
+    max-width: 165px;
+}
+
+.no-results {
+    margin: 10px 0;
+    position: absolute;
+    z-index: 10;
 }
 .hero-species {
     margin: 0 0 32px 0;
@@ -432,7 +514,7 @@ margin: 0;
     transform: translate3d( 0px, -4px, 0px );
 }
 .hero-header { 
-    height: 300px; 
+    height: 150px; 
     overflow: hidden; 
     display: flex;
     justify-content: center;
@@ -444,6 +526,16 @@ margin: 0;
     height: auto;
 }
 .hero-species h4 { line-height: 1.0; }
+@media (max-width: 500px) {
+    .taxa-info input, .taxa-info .dropdown-menu {
+        min-width: 250px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1011px) {
+    .taxa-info input, .taxa-info .dropdown-menu {
+        min-width: 250px;
+    }
+}
 @media (min-width: 768px) {
     .container {
         width: 750px;
@@ -451,9 +543,20 @@ margin: 0;
 }
 @media (max-width: 992px) {
     .hero-header { 
-        height: 350px;
-        align-items: flex-start;
+        height: 200px;
+        align-items: center;
     }    
+}
+@media (max-width: 768px) {
+    .hero-header { 
+        min-height: 150px;
+        max-height: 350px;
+        align-items: center;
+    }    
+    .taxa-random select.selectpicker {
+        display: none;
+        margin-top: 10px
+    }
 }
 @media (min-width: 992px) {
     .container {

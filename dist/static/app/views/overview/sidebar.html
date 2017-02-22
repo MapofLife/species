@@ -12,6 +12,12 @@
         <div class="infoSciName" ng-show="species.scientificname">
             {{species.scientificname }}
         </div>
+        <div class="infoFamily" ng-show="selectedFamily">
+            {{ selectedFamily }}
+        </div> 
+        <div class="infoIUCNStatus {{ iucnStatus }}" ng-show="iucnStatus">
+            {{ iucnStatus }}
+        </div>  
     </div>
   <p>
   <mol-species-description

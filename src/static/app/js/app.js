@@ -17,7 +17,7 @@ angular.module('mol', [
   'mol.species-description', 'mol.location-search', 'mol.species-images',
   'mol.point-filters', 'mol.controllers', 'mol.loading-indicator',
 
-  'percentage', 'km2',
+  'percentage', 'km2', 'imageHelpers'
 ])
 .constant('molConfig',{
     "module" : "species", //module name (used in routing)

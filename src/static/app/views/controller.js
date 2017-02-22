@@ -6,6 +6,7 @@ angular.module('mol.controllers')
          $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay,molConfig) {
 
 
+          $scope.toggleSearch = false;
 
       $rootScope.canceller = $q.defer();
 
