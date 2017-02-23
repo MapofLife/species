@@ -159,6 +159,13 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
 .content {
   flex: 1 1 auto;
 }
+.home .content {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.home .content.favourites h4 {
+    padding-left: 15px;
+}
 
 .info {
     font-size:1.2em;
@@ -470,7 +477,7 @@ margin: 0;
     max-width: 76em;
 }
 .col-divider {
-    border-right: 1px solid #ccc;
+    /*border-right: 1px solid #ccc;*/
 }
 .taxa-info .form-control {
     display: inline;
@@ -481,6 +488,9 @@ margin: 0;
 .taxa-info .dropdown-menu {
   max-height: 400px;
   overflow: scroll;
+}
+.taxa-info select.selectpicker {
+    margin-right: 8px;
 }
 .taxa-info select.selectpicker, .taxa-random select.selectpicker, .nav-features select {
     max-width: 165px;
@@ -526,14 +536,27 @@ margin: 0;
     height: auto;
 }
 .hero-species h4 { line-height: 1.0; }
-@media (max-width: 500px) {
+@media (max-width: 594px) {
+    .taxa-info input, .taxa-info .dropdown-menu {
+        min-width: 250px;
+    }
+    .taxa-info select.selectpicker {
+        margin-bottom: 8px;
+    }
+}
+@media (min-width: 768px) and (max-width: 1050px) {
     .taxa-info input, .taxa-info .dropdown-menu {
         min-width: 250px;
     }
 }
-@media (min-width: 768px) and (max-width: 1011px) {
+@media (min-width: 768px) and (max-width: 934px) {
+    .taxa-info select.selectpicker {
+        margin-bottom: 8px;
+    }
+}
+@media (min-width: 1050px) and (max-width: 1150px) {
     .taxa-info input, .taxa-info .dropdown-menu {
-        min-width: 250px;
+        min-width: 300px;
     }
 }
 @media (min-width: 768px) {
