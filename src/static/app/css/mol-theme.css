@@ -476,8 +476,8 @@ margin: 0;
     width: 100%;
     max-width: 76em;
 }
-.col-divider {
-    /*border-right: 1px solid #ccc;*/
+.col-divider h4 {
+    margin-left: 180px;
 }
 .taxa-info .form-control {
     display: inline;
@@ -544,7 +544,7 @@ margin: 0;
         margin-bottom: 8px;
     }
 }
-@media (min-width: 768px) and (max-width: 1050px) {
+@media (min-width: 768px) and (max-width: 1052px) {
     .taxa-info input, .taxa-info .dropdown-menu {
         min-width: 250px;
     }
@@ -554,9 +554,17 @@ margin: 0;
         margin-bottom: 8px;
     }
 }
-@media (min-width: 1050px) and (max-width: 1150px) {
+@media (min-width: 1052px) and (max-width: 1150px) {
     .taxa-info input, .taxa-info .dropdown-menu {
         min-width: 300px;
+    }
+}
+@media (max-width: 950px) {
+    .col-divider h4 {
+        margin-left: 0px;
+    }
+    .taxa-info select.selectpicker {
+        margin-bottom: 8px;
     }
 }
 @media (min-width: 768px) {
