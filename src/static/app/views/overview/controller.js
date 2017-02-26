@@ -10,13 +10,14 @@ angular.module('mol.controllers')
 
             $scope.selectedFamily = undefined;
             $scope.mapUpdater  = undefined;
-            $scope.map.removeOverlay(0);
+
             $scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {}
 
             $scope.$watch(
                 'species.scientificname',
                 function(name) {
                   if(name) {
+                      $scope.map.removeOverlay(0);
                       $scope.canceller.resolve();
                       $scope.canceller = $q.defer();
                       if($scope.mapUpdater) {
