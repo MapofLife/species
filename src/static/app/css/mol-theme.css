@@ -486,7 +486,7 @@ margin: 0;
     width: 100%;
     max-width: 76em;
 }
-.col-divider h4 {
+.col-divider>h4 {
     margin-left: 180px;
 }
 .taxa-info .form-control {
@@ -571,7 +571,7 @@ margin: 0;
     }
 }
 @media (max-width: 950px) {
-    .col-divider h4 {
+    .col-divider>h4 {
         margin-left: 0px;
     }
     .taxa-info select.selectpicker {
