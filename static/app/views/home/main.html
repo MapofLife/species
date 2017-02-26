@@ -1,7 +1,15 @@
 <script type="text/ng-template" id="sp-ac-template.html">
 	<a class="searchResult">
-        <div class="commonName" ng-bind-html="((match.label.vernacular) ? match.label.vernacular : '') | uibTypeaheadHighlight:query"></div>
-        <div class="sciName" ng-bind-html="match.label.scientificname | uibTypeaheadHighlight:query"></div>
+        <div class="row">
+            <div class="col-sm-2">
+                <img ng-src="https://mol.org/static/img/groups/taxa_{{match.label.taxa}}.png"
+                    err-src="https://mol.org/static/img/groups/taxa_all.png" />
+            </div>
+            <div class="col-sm-10">
+                <div class="commonName" ng-bind-html="((match.label.vernacular) ? match.label.vernacular : '') | uibTypeaheadHighlight:query"></div>
+                <div class="sciName" ng-bind-html="match.label.scientificname | uibTypeaheadHighlight:query"></div>
+            </div>
+        </div>
 	</a>
 </script>
 
@@ -28,28 +36,46 @@
             <h4 class="lead">Search for a species</h4>
             <div class="form-inline taxa-info">
                         
-                <select class="form-control selectpicker" ng-model="groups.selected" 
-                    ng-options="group.title for group in groups track by group.value">
-                    <option value="">All groups</option>
-                </select>
+                <div ng-include="'static/app/views/home/group_selector.html'" style="position:relative;display:inline"></div>
 
                 <input type="text" class="form-control" 
-                    style="min-width:350px;" autocomplete="on" placeholder="Search for a species" 
-                    ng-model="selected.value" 
+                    autocomplete="on" placeholder="Search for a species" typeahead-wait-ms="500"
+                    ng-model="selected.value" typeahead-no-results="noResults" typeahead-loading="searchingSpecies" 
                     uib-typeahead="species.scientificname as species for species in searchSpecies(($viewValue)?$viewValue:'.')" 
                     typeahead-on-select="loadSpeciesPage($model)" typeahead-template-url="sp-ac-template.html" />
+
+                    <i ng-show="searchingSpecies" class="fa fa-spinner fa-pulse fa-1x fa-fw"></i>
+
+                    <uib-alert class="no-results fade in" type="warning" close="noResults = false" ng-show="noResults">
+                        <h4>
+                            <i class="fa fa-search" aria-hidden="true"></i> &nbsp; 
+                            We couldn't find what you are looking for
+                        </h4>
+                        <p>
+                            This may be due name mismatch or the species has not been included in 
+                            Map of Life yet. Consider trying an alternative name or check back later. 
+                            We are constantly improving the site and adding more species, so feel free to 
+                            <a href="https://mol.org/feedback" class="alert-link">contact us</a> for 
+                            data suggestions or feedback.
+                        </p>
+                    </uib-alert>
             </div>
         </div>
 
         <div class="col-md-6 col-sm-6">
             <h4 class="lead">Or pick a random species</h4>
-            <button ng-click="randomSpecies()" class="btn btn-default">Spin the wheel</button>
+            <div class="form-inline taxa-random">
+
+                <!--<div ng-include="'static/app/views/home/group_selector.html'" style="position:relative;display:inline"></div>-->
+
+                <button ng-click="randomSpecies()" class="btn btn-default">Spin the wheel</button>
+            </div>
         </div>
     </div>
 
     <hr />
     
-    <div class="content">
+    <div class="content favourites">
 
         <h4 class="lead">Or select from our favourites</h4>
 
@@ -57,7 +83,7 @@
             <div class="hero-species" ng-click="loadSpeciesPage(sp.s)">
                 <div class="hero-card">
                     <div class="hero-header">
-                        <img class="img-center center-block img-rounded img-responsive" src="{{molConfig.base}}static/app/views/species-in-reserves/img/{{ sp.i }}" alt="{{ sp.c }}" style="" />
+                        <img class="img-center center-block img-responsive" src="{{molConfig.base}}static/app/views/home/img/{{ sp.i }}" alt="{{ sp.c }}" style="" />
                     </div>
                     <div class="hero-info">
                         <h4>{{ sp.c }}</h4>

@@ -12,6 +12,17 @@
         <div class="infoSciName" ng-show="species.scientificname">
             {{species.scientificname }}
         </div>
+        <div class="infoFamily">
+            {{([
+              (groups | filter:{taxa:species.taxa})[0].title,
+              (species.taxonomy[molConfig.lang+'_family'] || species.family)]
+                 | filter:'').join(' | ')}}
+        </div>
+        <div class="infoIUCNStatus"
+             ng-class="species.taxonomy.iucn_red_list_status | iucnStatus"
+             ng-show="species.taxonomy.iucn_red_list_status">
+            {{ species.taxonomy.iucn_red_list_status | iucnStatus }}
+        </div>
     </div>
   <p>
   <mol-species-description
