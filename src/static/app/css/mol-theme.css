@@ -469,6 +469,16 @@ margin: 0;
   width: 350px;
   overflow: scroll;
 }
+.nav-features .dropdown-menu li {
+    background-color: #fff;
+}
+.navbar-nav>li>a.no-hover:hover, 
+.navbar-nav>li>a.no-hover:focus, 
+.navbar-nav>li>a.no-hover:active {
+    background-color: transparent;
+}
+.close-icon { font-size: 1.5em; }
+
 /** End navbar species search **/
 
 /** Splash page specific **/
@@ -493,6 +503,7 @@ margin: 0;
     margin-right: 8px;
 }
 .taxa-info select.selectpicker, .taxa-random select.selectpicker, .nav-features select {
+    min-width: 165px;
     max-width: 165px;
 }
 
