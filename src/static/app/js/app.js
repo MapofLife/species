@@ -76,7 +76,7 @@ angular.module('mol', [
 
   var params = ""+
     "{scientificname}?" + //taxon
-    ((!molConfig.url.includes('{region}'))?"region&":'') + //region constraint
+    ((!molConfig.url.includes('{region}')) ?"regiontype&region&":'') + //region constraint
     "dsid&type&beta&" + //selected data options
     "embed&sidebar&header&subnav&footer&speciessearch&regionsearch";
 

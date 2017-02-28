@@ -68,10 +68,17 @@ module.exports = function(grunt) {
        push: true,
        message: 'Built %sourceName% from commit %sourceCommit% on branch %sourceBranch%'
      },
-     pages: {
+     pages_dev: {
        options: {
          remote: pkg.devRepository,
          force:true,
+         branch: 'gh-pages'
+       }
+     },
+     pages: {
+       options: {
+         remote: pkg.repository,
+         force: true,
          branch: 'gh-pages'
        }
      }
@@ -113,6 +120,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['dom_munger','uglify','cssmin','copy']);
   grunt.registerTask('serveSrc', ['express:src', 'express-keepalive'])
   grunt.registerTask('serveDist', ['express:dist', 'express-keepalive'])
+  grunt.registerTask('deployDev', ['buildcontrol:pages_dev']);
   grunt.registerTask('deploy', ['buildcontrol:pages']);
 
 };
