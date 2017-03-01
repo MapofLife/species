@@ -40,15 +40,20 @@
                         <tr>
                             <td><span class="ttelem" uib-tooltip="{{ tt.target_area }}">Target area</span></td>
                             <td>{{ getTargetArea(species.habitat_distribution.refined_range_size) | number : 1 | km2 }}</td>
-                            <td></td>
+                            <td>{{ getTargetArea(species.habitat_distribution.refined_range_size) | number : 1 | km2 }}</td>
                         </tr>
                         <tr >
                             <td><span class="ttelem" uib-tooltip="{{ tt.target_realized }}">Target realized</span></td>
-                            <td ng-class="getTargetRealizedClass(
-                                100*(species.reserve_coverage | reserveFilter:['I','II','III']:threshold.min | reserveArea) / getTargetArea(species.habitat_distribution.refined_range_size) )">
-                                {{ (species.reserve_coverage | reserveFilter:['I','II','III']:threshold.min | reserveArea) / getTargetArea(species.habitat_distribution.refined_range_size) | percentage : 1 }}
+                            <td ng-class="(
+                                100*(species.reserve_coverage | reserveFilter:['I','II','III']:0 | reserveArea) / (species.habitat_distribution.refined_range_size | targetProtectedArea ) )
+                                  | targetRealizedClass">
+                                {{ (species.reserve_coverage | reserveFilter:['I','II','III']:0 | reserveArea) / (species.habitat_distribution.refined_range_size | targetProtectedArea) | percentage : 1 }}
                             </td>
-                            <td></td>
+                            <td ng-class="(
+                                100*(species.reserve_coverage | reserveFilter:['I','II','III']:threshold.min | reserveArea) / (species.habitat_distribution.refined_range_size | targetProtectedArea ) )
+                                  | targetRealizedClass">
+                                {{ (species.reserve_coverage | reserveFilter:['I','II','III']:threshold.min | reserveArea) / (species.habitat_distribution.refined_range_size | targetProtectedArea) | percentage : 1 }}
+                            </td>
                         </tr>
                     </tbody>
                 </table>

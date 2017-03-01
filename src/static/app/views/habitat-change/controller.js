@@ -5,7 +5,8 @@
 /* Info page controller */
 angular.module('mol.controllers')
   .controller('molChangeCtrl',
-    ['$scope', '$state','$filter', 'GetHabitatChange', function($scope, $state, $filter, GetHabitatChange) {
+    ['$scope', '$state','$filter', 'GetHabitatChange',
+    function($scope, $state, $filter, GetHabitatChange) {
 
       $scope.call_ver = 0;
       $scope.err_ct = 0;
@@ -59,33 +60,9 @@ angular.module('mol.controllers')
       $scope.pop_options = angular.copy(chartOptions);
       $scope.pop_options.chart.yAxis.axisLabel = 'Human Population';
 
-      function generateData(indata, slope, intercept) {
-          var data = [];
-              //indata = JSON.parse(strdata);
-
-
-          data.push({
-              values: [],
-              slope: slope,
-              intercept: intercept
-          });
-
-          for (var j = 0; j < indata.length; j++) {
-              data[0].values.push({
-                  key: indata[j][1],
-                  x: indata[j][0],
-                  y: indata[j][1],
-                  size: 100,
-                  shape: 'circle'
-              });
-          }
-
-          return data;
-      }
 
       function updateCharts(chart_data) {
         $scope.species.habitat = chart_data;
-        $scope.err_ct =0;
 
       }
 
@@ -103,37 +80,50 @@ angular.module('mol.controllers')
         $scope.runAll();
       }
 
-        $scope.$watch(
-          "prefs",
-          function(newValue, oldValue) {
-            if(newValue){
-              //if( $scope.species.analysis.trends) {
-                $scope.updateChangeModel();
-            //} else {
-            //  $state.transitionTo('info.range',{scientificname: $scope.species.scientificname});
-            //}
-            }
+        $scope.$watch("prefs",function(n,o) {
+          $scope.species.habitat_trend = molHabitatTrend(n,$.scope.canceller)
+        });
 
-          });
-        $scope.$watch(
-          "species.habitat",
-          function(newValue, oldValue) {
-            if(newValue){
-              /*$scope.area_data = generateData(
-                $scope.species.habitat.area,
-                $scope.species.habitat.stats.area_b1,
-                $scope.species.habitat.stats.area_b0);*/
+
+
+
               $scope.tree_data = generateData(
                 $scope.species.habitat.trend,
                 $scope.species.habitat.b1,
                 $scope.species.habitat.b0);
-              /*$scope.pop_data = generateData(
-                $scope.species.habitat.pop,
-                $scope.species.habitat.stats.pop_b1,
-                $scope.species.habitat.stats.pop_b0);
-              $scope.$broadcast('refreshSlider');*/
-            }
+
+
+
+    }])
+.factory(
+  'molHabitatTrend', ['molApi', function (molApi) {
+      return function(prefs, canceller) {
+        return molApi({
+          //
+        })
+      }
+}])
+.factory('generateTrendData', function() {
+  return function (indata, slope, intercept) {
+      var data = [];
+          //indata = JSON.parse(strdata);
+
+
+      data.push({
+          values: [],
+          slope: slope,
+          intercept: intercept
+      });
+
+      for (var j = 0; j < indata.length; j++) {
+          data[0].values.push({
+              key: indata[j][1],
+              x: indata[j][0],
+              y: indata[j][1],
+              size: 100,
+              shape: 'circle'
           });
-
-
-    }]);
+      }
+      return data;
+  }
+})

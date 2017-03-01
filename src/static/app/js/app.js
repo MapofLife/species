@@ -21,7 +21,9 @@ angular.module('mol', [
 ])
 .constant('molConfig',{
     "module" : "species", //module name (used in routing)
-    "api" : "1.0",
+    "api" : "0.x",
+    "api_host": "localhost:8080",
+    "protocol" : "http",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
     "url" :  angular.element('#mol-url').attr('content'),
     "lang" : angular.element('#mol-lang').attr('content'),
@@ -177,13 +179,29 @@ angular.module('mol', [
       }
     )
     .state(
-      'species.habitat-distribution.reserve-coverage',
+      'species.habitat-trend',
+      {
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/habitat-trend/sidebar.html",
+            controller: 'molHabitatTrendCtrl'
+          },
+          "charts@species" :{
+            templateUrl: "static/app/views/habitat-trend/trend-charts.html",
+            controller: 'molHabitatTrendCtrl'
+          }
+        },
+        url: 'habitat-trend/{0}'.format(params)
+      }
+    )
+    .state(
+      'species.reserve-coverage',
       { views:{
-        "reserve-coverage" : {
-        templateUrl: "static/app/views/reserve-coverage/reserve-coverage.html",
+        "left-sidebar@species" : {
+        templateUrl: "static/app/views/reserve-coverage/sidebar.html",
         controller: 'molReserveCoverageCtrl'
       }},
-        url: '^{0}reserve-coverage/{1}'.format(molConfig.url,params)
+        url: 'reserve-coverage/{0}'.format(params)
       }
     );
 

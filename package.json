@@ -20,8 +20,7 @@
     "grunt-contrib-uglify": "~1.0.1",
     "grunt-contrib-watch": "~1.0.0",
     "grunt-dom-munger": "~3.4.0",
-    "grunt-express": "~1.4.1",
-    "grunt-keepalive": "~1.0.0",
+    "grunt-express": "^1.4.1",
     "grunt-open": "~0.2.3",
     "grunt-parallel": "^0.5.1"
   },

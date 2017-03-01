@@ -6,6 +6,7 @@ module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
     pkg: pkg,
+
     dom_munger: {
       main: {
         options: {
@@ -52,13 +53,20 @@ module.exports = function(grunt) {
       },
     },
     watch: {
-      scripts: {
-        files: ['src/*'],
-        tasks: ['dom_munger','uglify','cssmin','copy'],
+      dist: {
+        files: ['src/**/*.*'],
+        tasks: ['build'],
         options: {
-          spawn: false,
-        },
-      }
+          livereload: true
+        }
+      },
+
+        src: {
+          files: ['src/**/*.*'],
+          options: {
+            livereload: true
+          }
+        }
     },
     buildcontrol: {
      options: {
@@ -87,6 +95,7 @@ module.exports = function(grunt) {
     src: {
       options: {
         port: 9001,
+        //livereload: true,
         bases: 'src',
         server: path.resolve('./server/srcServer')
       }
@@ -113,13 +122,13 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-build-control');
-  grunt.loadNpmTasks('grunt-keepalive');
-    grunt.loadNpmTasks('grunt-open');
+  //grunt.loadNpmTasks('grunt-keepalive');
+  grunt.loadNpmTasks('grunt-open');
 
   // Default task(s).
   grunt.registerTask('build', ['dom_munger','uglify','cssmin','copy']);
-  grunt.registerTask('serveSrc', ['express:src', 'express-keepalive'])
-  grunt.registerTask('serveDist', ['express:dist', 'express-keepalive'])
+  grunt.registerTask('serveSrc', ['express:src',  'watch:src'])
+  grunt.registerTask('serveDist', ['express:dist',  'watch:dist'])
   grunt.registerTask('deployDev', ['buildcontrol:pages_dev']);
   grunt.registerTask('deploy', ['buildcontrol:pages']);
 

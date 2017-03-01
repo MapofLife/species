@@ -8,7 +8,8 @@
               <li ui-sref-active-eq="active"><a ui-sref="species.overview($state.params)" ui-sref-opts="{absolute: true}">Summary Map</a></li>
               <li ui-sref-active-eq="active"><a ui-sref="species.detailed-map($state.params)" ui-sref-opts="{absolute: true}">Detailed Map</a></li>
               <li ng-show="$state.params.beta" ui-sref-active-eq="active"><a ui-sref="species.habitat-distribution($state.params)" ui-sref-opts="{absolute: true}">Habitat Distribution</a></li>
-              <li ng-show="$state.params.beta" ui-sref-active-eq="active"><a ui-sref="species.habitat-distribution.reserve-coverage($state.params)" ui-sref-opts="{absolute: true}">Reserve Coverage</a></li>
+              <li ng-show="$state.params.beta" ui-sref-active-eq="active"><a ui-sref="species.reserve-coverage($state.params)" ui-sref-opts="{absolute: true}">Reserve Coverage</a></li>
+              <li ng-show="$state.params.beta" ui-sref-active-eq="active"><a ui-sref="species.habitat-trend($state.params)" ui-sref-opts="{absolute: true}">Habitat  Trend</a></li>
             </ul>
             <div  ng-show=" $state.current.name != 'species.home'" class="pull-right">
 
@@ -24,8 +25,8 @@
                 <li ng-show="toggleSearch"><a ng-click="toggleSearch = !toggleSearch">
                   <i class="fa fa-times close-icon" aria-hidden="true"></i>
                 </a></li>
-              </ul>     
-              
+              </ul>
+
               <mol-location-search ng-show="!$state.params.embed||$state.params.regionsearch"></mol-location-search>
             </div>
           </div>
