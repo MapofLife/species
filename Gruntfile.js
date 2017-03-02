@@ -24,7 +24,7 @@ module.exports = function(grunt) {
             ],
             append: [
               {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css?'+Math.random()+'" rel="stylesheet"></link>'},
-              {selector:'html',html:'<script src="' + pkg.base + '/static/app.min.js?"'+Math.random()+'></script>'}
+              {selector:'html',html:'<script src="' + pkg.base + '/static/app.min.js?'+Math.random()+'"></script>'}
             ]
         },
         src: 'src/index.html',
