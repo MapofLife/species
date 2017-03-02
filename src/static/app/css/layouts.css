@@ -38,7 +38,7 @@ footer {
   padding: 0;
 }
 
-.layouts-base .google-map-canvas, .google-map-canvas * { .box-sizing(content-box); }
+.layouts-base .google-map-canvas, .google-map-canvas * { box-sizing(content-box); }
 
 /* navbar override */
 
@@ -144,9 +144,15 @@ footer {
   border-left: 0.5pt solid grey;
 }
 
-.layouts-map-with-sidebars .chart-container {
+.layouts-map-with-sidebars .charts {
+  -webkit-flex:1 ;
+  flex: 1;
+  display: flex;
+  display: -webkit-flex;
+}
 
-  webkir-flex:1 ;
+.layouts-map-with-sidebars .chart-container {
+  -webkit-flex:1 ;
   flex: 1
 }
 

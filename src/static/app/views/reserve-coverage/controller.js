@@ -1,20 +1,25 @@
 angular.module('mol.controllers').controller('molReserveCoverageCtrl',
-    ['molFormatSuitabilityPrefs','molReserveCoverageMaps','molReserveCoverageStats',
+    ['molFormatSuitabilityPrefs','molReserveCoverageMaps','molReserveCoverageStats','molHabitatDistributionStatsSvc',
       '$scope', '$rootScope','$window','$q', '$timeout', '$filter','molApi','$stateParams',
       function(molFormatSuitabilityPrefs, molReserveCoverageMaps, molReserveCoverageStats,
+        molHabitatDistributionStatsSvc,
         $scope, $rootScope, $window, $q, $timeout, $filter, molApi, $stateParams) {
 
 
         $scope.threshold= {min: 10, max: 1e18};
 
         $scope.$watch('species.prefs',function(n,o){
-          if($scope.species) {
-            var prefs = molFormatSuitabilityPrefs($scope.species.prefs);
+          if(n) {
+            var prefs = molFormatSuitabilityPrefs(n);
             $scope.map.clearOverlays();
+            $scope.species.reserve_coverage = undefined;
+            $scope.species.habitat_distribution = undefined;
             $scope.canceller.resolve();
             $scope.canceller = $q.defer();
             molReserveCoverageMaps(prefs,$scope.canceller).then(
               function(result){$scope.map.setOverlay(result,0)});
+            molHabitatDistributionStatsSvc(prefs,$scope.canceller).then(
+              function(result){$scope.species.habitat_distribution = result})
             molReserveCoverageStats(prefs,$scope.canceller).then(
               function(result) {$scope.species.reserve_coverage = result;});
         }},true);
@@ -30,10 +35,7 @@ angular.module('mol.controllers').controller('molReserveCoverageCtrl',
                 "loading": true,
                 "service" : "species/indicators/reserve-coverage/query",
                 "creds" : true,
-                "params" : angular.extend( molFormatSuitabilityPrefs($scope.species.prefs),{
-                  "lat": latLng.lat(),
-                  "lng": latLng.lng()
-                })
+                "params" : {"lat": latLng.lat(),"lng": latLng.lng()}
               }).then(
                 function(results) {
                   if(angular.isDefined(results.data)){
@@ -89,7 +91,7 @@ angular.module('mol.controllers').controller('molReserveCoverageCtrl',
   "reserveFilter", function() {
       return function(reserves, iucn_cats, threshold) {
 
-        return (reserves)? reserves.filter(function(reserve) {
+        return (typeof reserves === "object")? reserves.filter(function(reserve) {
             return (iucn_cats.indexOf(reserve.IUCN_CAT) >= 0 && reserve.sum > threshold)
           }
         ) : undefined;
@@ -114,13 +116,11 @@ angular.module('mol.controllers').controller('molReserveCoverageCtrl',
   'molReserveCoverageMaps',['molApi', function(molApi) {
       return function(prefs,canceller) {
         return molApi({
-         "url": "api.mol.org",
          "service" : "species/indicators/reserve-coverage/map",
          "version": "0.x",
          "params" : prefs,
          "canceller": canceller,
          "loading":true,
-         "protocol" : "https"
        }).then(
          function(result) {
            return {
@@ -138,13 +138,11 @@ angular.module('mol.controllers').controller('molReserveCoverageCtrl',
     return function(prefs,canceller) {
 
         return molApi({
-         "url": "api.mol.org",
-         "service" : "species/indicators/reserve-coverage/global-stats",
+         "service" : "species/indicators/reserve-coverage/stats",
          "version": "0.x",
          "params" : prefs,
          "canceller": canceller,
-         "loading":true,
-         "protocol": "https"
+         "loading":true
        }).then(
          function(result) {
            return result.data;

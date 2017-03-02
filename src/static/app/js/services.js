@@ -124,7 +124,8 @@ angular.module('mol.services',[])
 	return function(prefs) {
 		var new_prefs = angular.copy(prefs);
 		if(new_prefs.habitats) {
-			new_prefs.habitats=new_prefs.habitats.map(function(v){return (v)?"1":"0"}).join("")
+			new_prefs.habitats_arr=new_prefs.habitats.map(function(v,i){return (v)?i:undefined}).filter(function(v){return v}).join(",")
+			delete new_prefs.habitats;
 		}
 		return new_prefs;
 	}

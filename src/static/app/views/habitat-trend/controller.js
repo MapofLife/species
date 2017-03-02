@@ -2,9 +2,9 @@
 angular.module('mol.controllers')
 .controller('molHabitatTrendCtrl',
     ['$scope', '$state','$filter', 'molHabitatTrendSvc',
-      'molHabitatTrendChartOptions',
+      'molHabitatTrendChartOptions', 'molFormatSuitabilityPrefs',
 
-    function($scope, $state, $filter, molHabitatTrendSvc, molHabitatTrendChartOptions) {
+    function($scope, $state, $filter, molHabitatTrendSvc, molHabitatTrendChartOptions, molFormatSuitabilityPrefs) {
 
 
       //nvd3 charts
@@ -15,11 +15,12 @@ angular.module('mol.controllers')
       $scope.pop_options = molHabitatTrendChartOptions;
       $scope.pop_options.chart.yAxis.axisLabel = 'Human Population';
 
-        $scope.$watch("species.prefs",
-          function(n,o) {
-            if(n) {
-              $scope.species.habitat_trend = molHabitatTrendSvc(n, $scope.canceller)
-          }});
+
+      $scope.$watch("species.prefs",
+        function(n,o) {
+          if(n) {
+            $scope.species.habitat_trend = molHabitatTrendSvc(molFormatSuitabilityPrefs(n), $scope.canceller)
+        }});
 
 
     }])
