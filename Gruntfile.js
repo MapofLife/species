@@ -17,7 +17,7 @@ module.exports = function(grunt) {
               {selector:'link.dev',attribute:'href',writeto:'cssRefs',isPath:true},
               {selector:'script.dev',attribute:'src',writeto:'jsRefs',isPath:true}
             ],
-            remove: ['.dev'],
+            remove: ['.dev','.delete'],
             prepend: [
               {selector:'head',html:'<meta id="mol-asset-base" content="//mapoflife.github.io/' + pkg.base + '/"></meta>'},
               {selector:'head',html:'<base href="//mapoflife.github.io/"></base>'},
