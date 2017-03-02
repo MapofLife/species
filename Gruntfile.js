@@ -70,7 +70,7 @@ module.exports = function(grunt) {
     },
     buildcontrol: {
      options: {
-       dir: 'dist',
+       dir: 'src',
        commit: true,
        branch: 'gh-pages',
        push: true,
