@@ -22,7 +22,7 @@ angular.module('mol', [
 .constant('molConfig',{
     "module" : "species", //module name (used in routing)
     "api" : "0.x",
-    "api_host": "localhost:8080",
+    //"api_host": "localhost:8080",
     "protocol" : "http",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
     "url" :  angular.element('#mol-url').attr('content'),
@@ -93,9 +93,7 @@ angular.module('mol', [
   ]);
 
   $httpProvider.defaults.useXDomain = true;
-  //send cookies
   $httpProvider.defaults.withCredentials = false;
-  console.log(molConfig.url);
   $urlRouterProvider.otherwise(molConfig.url);
 
   $stateProvider
@@ -173,6 +171,10 @@ angular.module('mol', [
           "left-sidebar@species" :{
             templateUrl: "static/app/views/habitat-distribution/sidebar.html",
             controller: 'molHabitatDistributionCtrl'
+          },
+          "habitat-controls@species.habitat-distribution" : {
+            templateUrl: "static/app/views/habitat-controls/template.html",
+            controller: "molHabitatControlsCtrl"
           }
         },
         url: 'habitat-distribution/{0}'.format(params)
@@ -185,6 +187,10 @@ angular.module('mol', [
           "left-sidebar@species" :{
             templateUrl: "static/app/views/habitat-trend/sidebar.html",
             controller: 'molHabitatTrendCtrl'
+          },
+          "habitat-controls@species.habitat-trend" : {
+            templateUrl: "static/app/views/habitat-controls/template.html",
+            controller: "molHabitatControlsCtrl"
           },
           "charts@species" :{
             templateUrl: "static/app/views/habitat-trend/trend-charts.html",
@@ -200,6 +206,10 @@ angular.module('mol', [
         "left-sidebar@species" : {
         templateUrl: "static/app/views/reserve-coverage/sidebar.html",
         controller: 'molReserveCoverageCtrl'
+      },
+      "habitat-controls@species.reserve-coverage" : {
+        templateUrl: "static/app/views/habitat-controls/template.html",
+        controller: "molHabitatControlsCtrl"
       }},
         url: 'reserve-coverage/{0}'.format(params)
       }

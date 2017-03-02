@@ -8,7 +8,7 @@ angular.module('mol.controllers').controller('molReserveCoverageCtrl',
 
         $scope.threshold= {min: 10, max: 1e18};
 
-        $scope.$watch('species.prefs',function(n,o){
+        $scope.$watch('model.prefs',function(n,o){
           if(n) {
             var prefs = molFormatSuitabilityPrefs(n);
             $scope.map.clearOverlays();
@@ -19,7 +19,7 @@ angular.module('mol.controllers').controller('molReserveCoverageCtrl',
             molReserveCoverageMaps(prefs,$scope.canceller).then(
               function(result){$scope.map.setOverlay(result,0)});
             molHabitatDistributionStatsSvc(prefs,$scope.canceller).then(
-              function(result){$scope.species.habitat_distribution = result})
+              function(result){$scope.species.habitat_distribution = result;})
             molReserveCoverageStats(prefs,$scope.canceller).then(
               function(result) {$scope.species.reserve_coverage = result;});
         }},true);

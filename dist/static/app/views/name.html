@@ -1,11 +1,17 @@
-<div class="name" >
+<div class="name" ng-if="species.scientificname">
+  <mol-species-images
+    class="pull-right"
+    scrolling="false"
+    ng-show="!$state.params.noimage"
+    size="120" scientificname="species.scientificname"></mol-species-images>
+
     <div class="infoCommonName" ng-show="species.common">
         {{species.common }}
     </div>
     <div class="infoSciName" ng-show="species.scientificname">
         {{species.scientificname }}
     </div>
-    <div class="infoFamily">
+    <div class="infoFamily" ng-if="species.taxa">
         {{([
           (groups | filter:{taxa:species.taxa})[0].title,
           (species.taxonomy[molConfig.lang+'_family'] || species.family)]

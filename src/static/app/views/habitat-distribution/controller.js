@@ -1,24 +1,23 @@
 angular.module('mol.controllers')
  .controller('molHabitatDistributionCtrl',
-    ['$scope', '$q', '$timeout', 'molFormatSuitabilityPrefs',
-    'molHabitatDistributionStatsSvc', 'molHabitatDistributionMapsSvc',
-    'molFormatSuitabilityPrefs',
-    function($scope, $q, $timeout, molFormatSuitabilityPrefs,
-      molHabitatDistributionStatsSvc, molHabitatDistributionMapsSvc,
-      molFormatSuitabilityPrefs ) {
+    ['$scope', '$q', '$timeout', 'molHabitatDistributionStatsSvc',
+    'molHabitatDistributionMapsSvc',
+    function($scope, $q, $timeout, molHabitatDistributionStatsSvc,
+      molHabitatDistributionMapsSvc ) {
 
-      $scope.$watch('species.prefs',function(n,o){
+      $scope.$watch('model.prefs',function(n,o){
       if(n) {
-        var new_prefs =  molFormatSuitabilityPrefs(n);
+
         $scope.map.clearOverlays();
+        $scope.species.habitat_distribution = undefined;
         $scope.canceller.resolve();
         $scope.canceller = $q.defer();
 
-      molHabitatDistributionStatsSvc(new_prefs,$scope.canceller)
+      molHabitatDistributionStatsSvc(n,$scope.canceller)
         .then(function(result){
           $scope.species.habitat_distribution = result
         })
-      molHabitatDistributionMapsSvc(new_prefs,$scope.canceller)
+      molHabitatDistributionMapsSvc(n,$scope.canceller)
         .then(function(result) {
           $scope.map.setOverlay(result,0);
         });

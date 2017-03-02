@@ -32,7 +32,7 @@ angular.module('mol.controllers')
 
       //$rootScope = $scope; //important for map
 
-
+      //should go into a filter
       $scope.cleanURLName = function (name) {
         if(name) {return name.replace(/ /g, '_');}
       }
@@ -114,17 +114,14 @@ angular.module('mol.controllers')
           molRegionOverlay(n).then(function(overlay) {
             if(overlay) {
               $scope.map.setOverlay(angular.extend(overlay, { index: 1 }), 1);
-            } 
+            }
           });
         } else {
           $scope.map.setOverlay({index:1}, 1);
         }
       },true);
 
-      // if empty, let's navigate to the splash page
-      if(!$state.params.scientificname) {
-        $state.transitionTo('species.home', {}, {inherit: false, notify:true});
-      }
+
 
 
 
