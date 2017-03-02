@@ -22,7 +22,6 @@ angular.module('mol', [
 .constant('molConfig',{
     "module" : "species-dev", //module name (used in routing)
     "api" : "0.x",
-    //"api_host": "localhost:8080",
     "protocol" : "http",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
     "url" :  angular.element('#mol-url').attr('content'),
