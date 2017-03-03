@@ -22,7 +22,7 @@ angular.module('mol', [
 .constant('molConfig',{
     "module" : "species-dev", //module name (used in routing)
     "api" : "0.x",
-    "protocol" : "http",
+    "protocol" : "https://",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
     "url" :  angular.element('#mol-url').attr('content'),
     "lang" : angular.element('#mol-lang').attr('content'),
