@@ -80,7 +80,7 @@ angular.module('mol.controllers')
    return {
          chart: {
              type: 'scatterChart',
-             height: 597,
+             height: 250,
              color: d3.scale.category10().range(),
              scatter: {
                  onlyCircles: true
