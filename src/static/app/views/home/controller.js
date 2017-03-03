@@ -5,7 +5,6 @@ angular.module("mol.controllers").controller("molHomeCtrl", [
   $scope.region = {};
   $scope.speciesList = molSpeciesList;
 
-
   $scope.searchSpecies = function (term) {
 
     var group = null;
@@ -30,7 +29,7 @@ angular.module("mol.controllers").controller("molHomeCtrl", [
     catch (e) { }
     molApi({
       "service": "species/random",
-      "timeout": $scope.canceller,
+      "timeout": $scope.model.canceller,
       "params" : {
         taxogroup: (group !== 'any') ? group : undefined,
         region_id: $scope.region.region_id,
@@ -44,8 +43,7 @@ angular.module("mol.controllers").controller("molHomeCtrl", [
   $scope.loadSpeciesPage = function(scientificname){
     $state.transitionTo(
       "species.overview",
-      { "scientificname": scientificname.replace(/ /g, '_') },
-      { inherit: true, notify: true }
+      { "scientificname": scientificname.replace(/ /g, '_') }
     );
   }
 }]);

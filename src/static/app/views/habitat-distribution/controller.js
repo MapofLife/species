@@ -10,14 +10,13 @@ angular.module('mol.controllers')
 
         $scope.map.clearOverlays();
         $scope.species.habitat_distribution = undefined;
-        $scope.canceller.resolve();
-        $scope.canceller = $q.defer();
 
-      molHabitatDistributionStatsSvc(n,$scope.canceller)
+
+      molHabitatDistributionStatsSvc(n,$scope.model.canceller)
         .then(function(result){
           $scope.species.habitat_distribution = result
         })
-      molHabitatDistributionMapsSvc(n,$scope.canceller)
+      molHabitatDistributionMapsSvc(n,$scope.model.canceller)
         .then(function(result) {
           $scope.map.setOverlay(result,0);
         });

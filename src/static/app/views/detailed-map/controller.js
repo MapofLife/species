@@ -49,8 +49,8 @@ angular.module('mol.controllers')
 
             $scope.updateDetailMap = function() {
               $scope.stale = false;
-              $scope.canceller.resolve();
-              $scope.canceller = $q.defer();
+              $scope.model.canceller.resolve();
+              $scope.model.canceller = $q.defer();
 
               $scope.map.removeOverlay(0);
               if($scope.species) {
@@ -61,7 +61,7 @@ angular.module('mol.controllers')
                   $scope.mapUpdater = $timeout(function(){$http({
                   "withCredentials":false,
                   "method":"POST",
-                  "timeout":$scope.canceller,
+                  "timeout":$scope.model.canceller,
                   "url":"https://mol.carto.com/api/v1/map/named/detailed-map-dev",
                   "data": {
                      "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
@@ -107,7 +107,7 @@ angular.module('mol.controllers')
               "params" : {
                 "id": dataset.id
               },
-              "canceller" :$scope.canceller,
+              "canceller" :$scope.model.canceller,
               "loading":true
             }).then(
               function(results) {
@@ -141,7 +141,7 @@ angular.module('mol.controllers')
               "params" : {
                 "id": type.id
                },
-               "canceller": $scope.canceller,
+               "canceller": $scope.model.canceller,
                "loading": true
 
             }).then(

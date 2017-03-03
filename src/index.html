@@ -42,8 +42,6 @@
     </script>
     <!-- 3rd Party components that wont compile-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.7.1/d3.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.5/nv.d3.min.js"></script>
 
     <!--compiled 3rd party components -->
     <script class="dev" type="text/javascript" src="static/components/angular/angular.min.js"></script>
@@ -66,6 +64,10 @@
     <script class="dev" type="text/javascript" src="static/components/angular-bootstrap-checkbox/angular-bootstrap-checkbox.js"></script>
     <script class="dev" type="text/javascript" src="static/components/ng-error/ng-error.js"></script>
     <script class="dev" type="text/javascript" src="static/components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+    <script type="text/javascript" src="static/app/js/d3.min.js"></script>
+    <script class="dev" type="text/javascript" src="static/components/nvd3/build/nv.d3.js"></script>
+    <script class="dev" type="text/javascript" src="static/components/angular-nvd3/dist/angular-nvd3.min.js"></script>
+
 
     <!--MOL components -->
     <script class="dev" type="text/javascript" src="static/components/mol-ui-components/api/component.js"></script>
@@ -96,7 +98,8 @@
     <script class="dev" type="text/javascript" src="static/app/views/habitat-distribution/controller.js"></script>
     <script class="dev" type="text/javascript" src="static/app/views/reserve-coverage/controller.js"></script>
     <script class="dev" type="text/javascript" src="static/app/views/habitat-controls/controller.js"></script>
+    <script class="dev" type="text/javascript" src="static/app/js/regression.js"></script>
   </head>
   <body ui-view="" state="{{ $state.current.name }}"></body>
-
+  <script src="http://localhost:35729/livereload.js"></script>
 </html>

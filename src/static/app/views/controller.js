@@ -6,14 +6,15 @@ angular.module('mol.controllers')
          $location, $anchorScroll, $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay,molConfig) {
 
 
-          $scope.toggleSearch = false;
+      $scope.toggleSearch = false;
 
-      $rootScope.canceller = $q.defer();
+
 
       angular.extend($scope, { model: {
          tt: molSpeciesTooltips,
          rc: ($state.params.scientificname),
-         lc: ($state.params.region && !$state.params.scientificname)
+         lc: ($state.params.region && !$state.params.scientificname),
+         canceller: $q.defer()
       }});
 
       $scope.$watch('rc', function(n,v){
@@ -79,6 +80,8 @@ angular.module('mol.controllers')
 
       $scope.$watch("species.scientificname", function(newValue, oldValue) {
           if(newValue != undefined) {
+            $scope.model.canceller.resolve();
+            $scope.model.canceller = $q.defer();
             $window.parent.postMessage({"scientificname": newValue},'*');
             $state.transitionTo(
               $state.current.name,

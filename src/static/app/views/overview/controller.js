@@ -18,8 +18,8 @@ angular.module('mol.controllers')
                 function(name) {
                   if(name) {
                       $scope.map.removeOverlay(0);
-                      $scope.canceller.resolve();
-                      $scope.canceller = $q.defer();
+                      $scope.model.canceller.resolve();
+                      $scope.model.canceller = $q.defer();
                       if($scope.mapUpdater) {
                         try{
                           $timeout.cancel($scope.mapUpdater);

@@ -4,7 +4,7 @@
           <div class="container-fluid" >
 
             <ul class="nav navbar-nav" ng-if=" $state.current.name != 'species.home' ">
-              <li ui-sref-active-eq="active"><a ui-sref="species.home" ui-sref-opts="{absolute: true}">Species Home</a></li>
+              <li ui-sref-active-eq="active"><a ui-sref="species.home($state.params)" ui-sref-opts="{absolute: true}">Species Home</a></li>
               <li ui-sref-active-eq="active"><a ui-sref="species.overview($state.params)" ui-sref-opts="{absolute: true}">Summary Map</a></li>
               <li ui-sref-active-eq="active"><a ui-sref="species.detailed-map($state.params)" ui-sref-opts="{absolute: true}">Detailed Map</a></li>
               <li ng-show="$state.params.beta" ui-sref-active-eq="active"><a ui-sref="species.habitat-distribution($state.params)" ui-sref-opts="{absolute: true}">Habitat Distribution</a></li>

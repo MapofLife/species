@@ -19,7 +19,7 @@
      tooltip-placement="left"
      ng-click="rc = !rc; "></i>-->
  <div class="content-container">
-     <div class="map-container" ng-include="'static/app/partials/map.html'"></div>
+     <div class="map-container" ui-view="map"></div>
      <div ui-view="charts"> </div>
  </div>
   <!--<div ng-swipe-right="rc=true"

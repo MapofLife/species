@@ -8,48 +8,54 @@ angular.module('mol.controllers')
 
 
       //nvd3 charts
-      $scope.area_options = molHabitatTrendChartOptions;
-      $scope.area_options.chart.yAxis.axisLabel = 'Suitable Habitat (km²)';
-      $scope.tree_options = molHabitatTrendChartOptions;
-      $scope.tree_options.chart.yAxis.axisLabel = 'Suitable Habitat Landsat (km²)';
-      $scope.pop_options = molHabitatTrendChartOptions;
-      $scope.pop_options.chart.yAxis.axisLabel = 'Human Population';
+      $scope.modis_options = molHabitatTrendChartOptions;
+      $scope.modis_options.chart.yAxis.axisLabel = 'Suitable Habitat MODIS + Landsat (km²)';
+      $scope.landsat_options = molHabitatTrendChartOptions;
+      $scope.landsat_options.chart.yAxis.axisLabel = 'Suitable Habitat Landsat (km²)';
+      //$scope.pop_options = molHabitatTrendChartOptions;
+      //$scope.pop_options.chart.yAxis.axisLabel = 'Human Population';
 
 
-      $scope.$watch("species.prefs",
+      $scope.$watch("model.prefs",
         function(n,o) {
           if(n) {
-            $scope.species.habitat_trend = molHabitatTrendSvc(molFormatSuitabilityPrefs(n), $scope.canceller)
+            molHabitatTrendSvc(molFormatSuitabilityPrefs(n), $scope.model.canceller).then(
+              function(value) {
+                $scope.species.habitat_trend = value;
+              }
+            )
         }});
 
 
     }])
 .factory('molHabitatTrendSvc',
-  ['molApi',function(molApi) {
+  ['molApi','regression',function(molApi,regression) {
         return function(prefs, canceller) {
           function generateData(indata, slope, intercept) {
-              var data = [];
-                  //indata = JSON.parse(strdata);
-
-              data.push({
+              var trendline = [], data =[], config = {
                   values: [],
-                  slope: slope,
-                  intercept: intercept
-              });
+                  slope: null,
+                  intercept: null
+              };
 
               angular.forEach(
                 indata,
-                function(year,area) {
-                  data[0].values.push({
+                function(area,year) {
+                  data.push([parseInt(year),area]);
+                  config.values.push({
                       key: year,
                       x: year,
                       y: area,
-                      size: 100,
+                      size: 200,
                       shape: 'circle'
                   });
               });
 
-              return data;
+              trendline = regression('linear',data);
+              config.slope = trendline.equation[0];
+              config.intercept = trendline.equation[1];
+
+              return [config];
           }
           return molApi({
            "service" : "species/indicators/habitat-trend/stats",
@@ -59,13 +65,18 @@ angular.module('mol.controllers')
            "loading":true
          }).then(
            function(result) {
-             return generateData(result.data, 0 , 2001)
+             var landsat = result.data.suitableForest,
+                  modis = result.data.suitableHabitat;
+
+             return {
+                landsat: generateData(landsat, 0 , 2001),
+                modis: generateData(modis, 0 , 2001)}
         });
 
     }
 }])
-.factory('molHabitatTrendChartOptions',
- function() {
+.factory('molHabitatTrendChartOptions',['$filter',
+ function($filter) {
    return {
          chart: {
              type: 'scatterChart',
@@ -105,5 +116,5 @@ angular.module('mol.controllers')
              }
          }
      };
- }
+ }]
 );

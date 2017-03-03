@@ -10,11 +10,11 @@ angular.module('mol', [
 
   //3rd party ui
   'ui.bootstrap', 'ui.router', 'ui.select','ui.checkbox','ui-rangeSlider',
-  'uiGmapgoogle-maps','suEndlessScroll', 'ngError',
+  'uiGmapgoogle-maps','suEndlessScroll', 'ngError', 'nvd3',
 
   //'mol.meta',
   'mol.api', 'mol.ui-map', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',
-  'mol.species-description', 'mol.location-search', 'mol.species-images',
+  'mol.species-description', 'mol.location-search', 'mol.species-images', 'mol.regression',
   'mol.point-filters', 'mol.controllers', 'mol.loading-indicator',
 
   'percentage', 'km2', 'imageHelpers'
@@ -75,8 +75,9 @@ angular.module('mol', [
 
   $httpProvider.interceptors.push('molBaseIntercept');
 
-  var params = ""+
-    "{scientificname}?" + //taxon
+  var urlparams = ""+
+    "{scientificname}",
+    queryparams = "" + //taxon
     ((!molConfig.url.includes('{region}')) ?"regiontype&region&":'') + //region constraint
     "dsid&type&beta&" + //selected data options
     "embed&sidebar&header&subnav&footer&speciessearch&regionsearch";
@@ -107,6 +108,9 @@ angular.module('mol', [
             controller: 'molSpeciesCtrl'},
           "@species" : {
             templateUrl: 'static/app/layouts/map-with-sidebars.html'
+          },
+          'map@species' : {
+            templateUrl:"static/app/partials/map.html"
           }
         },
         url: molConfig.url
@@ -123,7 +127,7 @@ angular.module('mol', [
             controller: 'molHomeCtrl'
           }
         },
-        url: ''
+        url: '?{0}'.format(queryparams)
       }
     )
     .state(
@@ -134,7 +138,7 @@ angular.module('mol', [
           "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
           "@species.pa" : {templateUrl: "static/app/views/species-in-reserves/main.html"}
         },
-        url: 'pa'
+        url: 'pa?{0}'.format(queryparams)
       }
     )
     .state(
@@ -147,7 +151,7 @@ angular.module('mol', [
             controller: 'molOverviewCtrl'
           }
         },
-        url: '{0}'.format(params)
+        url: '{0}?{1}'.format(urlparams,queryparams)
       }
     )
     .state(
@@ -160,7 +164,7 @@ angular.module('mol', [
             controller: 'molDetailMapCtrl'
           }
         },
-        url: 'map/{0}'.format(params)
+        url: 'map/{0}?{1}'.format(urlparams,queryparams)
       }
     )
     .state(
@@ -176,7 +180,7 @@ angular.module('mol', [
             controller: "molHabitatControlsCtrl"
           }
         },
-        url: 'habitat-distribution/{0}'.format(params)
+        url: 'habitat-distribution/{0}?{1}'.format(urlparams,queryparams)
       }
     )
     .state(
@@ -185,18 +189,19 @@ angular.module('mol', [
         views: {
           "left-sidebar@species" :{
             templateUrl: "static/app/views/habitat-trend/sidebar.html",
-            controller: 'molHabitatTrendCtrl'
+            controller: 'molHabitatDistributionCtrl'
           },
           "habitat-controls@species.habitat-trend" : {
             templateUrl: "static/app/views/habitat-controls/template.html",
             controller: "molHabitatControlsCtrl"
           },
-          "charts@species" :{
+
+          "map@species" :{
             templateUrl: "static/app/views/habitat-trend/trend-charts.html",
             controller: 'molHabitatTrendCtrl'
           }
         },
-        url: 'habitat-trend/{0}'.format(params)
+        url: 'habitat-trend/{0}?{1}'.format(urlparams,queryparams)
       }
     )
     .state(
@@ -210,7 +215,7 @@ angular.module('mol', [
         templateUrl: "static/app/views/habitat-controls/template.html",
         controller: "molHabitatControlsCtrl"
       }},
-        url: 'reserve-coverage/{0}'.format(params)
+        url: 'reserve-coverage/{0}?{1}'.format(urlparams,queryparams)
       }
     );
 

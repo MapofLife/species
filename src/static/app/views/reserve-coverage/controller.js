@@ -14,13 +14,12 @@ angular.module('mol.controllers').controller('molReserveCoverageCtrl',
             $scope.map.clearOverlays();
             $scope.species.reserve_coverage = undefined;
             $scope.species.habitat_distribution = undefined;
-            $scope.canceller.resolve();
-            $scope.canceller = $q.defer();
-            molReserveCoverageMaps(prefs,$scope.canceller).then(
+
+            molReserveCoverageMaps(prefs,$scope.model.canceller).then(
               function(result){$scope.map.setOverlay(result,0)});
-            molHabitatDistributionStatsSvc(prefs,$scope.canceller).then(
+            molHabitatDistributionStatsSvc(prefs,$scope.model.canceller).then(
               function(result){$scope.species.habitat_distribution = result;})
-            molReserveCoverageStats(prefs,$scope.canceller).then(
+            molReserveCoverageStats(prefs,$scope.model.canceller).then(
               function(result) {$scope.species.reserve_coverage = result;});
         }},true);
 
@@ -31,7 +30,7 @@ angular.module('mol.controllers').controller('molReserveCoverageCtrl',
           switch(eventName) {
             case 'click':
                molApi({
-                "canceller": $scope.canceller,
+                "canceller": $scope.model.canceller,
                 "loading": true,
                 "service" : "species/indicators/reserve-coverage/query",
                 "creds" : true,

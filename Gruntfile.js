@@ -20,11 +20,13 @@ module.exports = function(grunt) {
             remove: ['.dev','.delete'],
             prepend: [
               {selector:'head',html:'<meta id="mol-asset-base" content="//mapoflife.github.io/' + pkg.base + '/"></meta>'},
-              {selector:'head',html:'<base href="//mapoflife.github.io/"></base>'},
+              {selector:'head',html:'<base href="//mapoflife.github.io/"></base>'}
             ],
             append: [
               {selector:'head',html:'<link href="' + pkg.base + '/static/app.min.css?'+Math.random()+'" rel="stylesheet"></link>'},
+              {selector:'html',html:'<script src="' + pkg.base + '/static/d3.min.js?'+Math.random()+'"></script>'},
               {selector:'html',html:'<script src="' + pkg.base + '/static/app.min.js?'+Math.random()+'"></script>'}
+
             ]
         },
         src: 'src/index.html',
@@ -47,7 +49,7 @@ module.exports = function(grunt) {
     copy : {
       main: {
         files: [
-          { expand:true, nonull: true, cwd: 'src', src: ['static/app/**/*.{html,png,jpg}'],
+          { expand:true, nonull: true, cwd: 'src', src: ['static/*.js','static/app/**/*.{html,png,jpg}'],
           dest: 'dist/'}
         ],
       },
