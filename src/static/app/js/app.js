@@ -20,8 +20,8 @@ angular.module('mol', [
   'percentage', 'km2', 'imageHelpers'
 ])
 .constant('molConfig',{
-    "module" : "species-dev", //module name (used in routing)
-    "api" : "0.x",
+    "module" : "species", //module name (used in routing)
+    "api" : "1.0",
     "protocol" : "https",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base
     "url" :  angular.element('#mol-url').attr('content'),
