@@ -8,6 +8,8 @@ angular.module('mol.controllers')
 
 
       //nvd3 charts
+      $scope.region_id = 'global';
+      //$scope.species.habitat_trend={"global":{"title":"Global"}};
       $scope.modis_options = molHabitatTrendChartOptions;
       $scope.modis_options.chart.yAxis.axisLabel = 'Suitable Habitat MODIS + Landsat (km²)';
       $scope.landsat_options = molHabitatTrendChartOptions;
@@ -22,6 +24,7 @@ angular.module('mol.controllers')
             molHabitatTrendSvc(molFormatSuitabilityPrefs(n), $scope.model.canceller).then(
               function(value) {
                 $scope.species.habitat_trend = value;
+                
               }
             )
         }});
@@ -46,7 +49,7 @@ angular.module('mol.controllers')
                       key: year,
                       x: year,
                       y: area,
-                      size: 200,
+                      size: 400,
                       shape: 'circle'
                   });
               });
@@ -64,13 +67,36 @@ angular.module('mol.controllers')
            "canceller": canceller,
            "loading":true
          }).then(
-           function(result) {
-             var landsat = result.data.suitableForest,
-                  modis = result.data.suitableHabitat;
+         function(result) {
+          var trends = {};
+          var global_modis = {};
+          var global_landsat = {};
+             angular.forEach(
+            result.data,
+            function(country) { 
+             angular.forEach(
+               country.MODIS,
+               function(value,year) {
+                 global_modis[year]=((global_modis[year])? global_modis[year]:0)+value;
+               });
+             angular.forEach(
+               country.LANDSAT,
+               function(value,year) {
+                  global_landsat[year]=((global_landsat[year])?global_landsat[year]:0)+value;
+               });
+             trends[country.ISO3] = {
+                title: country.ISO3,
+                landsat: generateData(country.LANDSAT, 0 , 2001),
+                modis: generateData(country.MODIS, 0 , 2001)
+             }
+            });
+            trends.global = {
+               title: "Global",
+               landsat: generateData(global_landsat, 0 , 2001),
+                modis: generateData(global_modis, 0 , 2001)
+            }
 
-             return {
-                landsat: generateData(landsat, 0 , 2001),
-                modis: generateData(modis, 0 , 2001)}
+            return trends
         });
 
     }
