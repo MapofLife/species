@@ -35,27 +35,27 @@
         <div class="col-md-6 col-sm-6 col-divider">
             <h4 class="lead">Search for a species</h4>
             <div class="form-inline taxa-info">
-                        
+
                 <div ng-include="'static/app/views/home/group_selector.html'" style="position:relative;display:inline"></div>
 
-                <input type="text" class="form-control" 
+                <input type="text" class="form-control"
                     autocomplete="on" placeholder="Search for a species" typeahead-wait-ms="500"
-                    ng-model="selected.value" typeahead-no-results="noResults" typeahead-loading="searchingSpecies" 
-                    uib-typeahead="species.scientificname as species for species in searchSpecies(($viewValue)?$viewValue:'.')" 
+                    ng-model="selected.value" typeahead-no-results="noResults" typeahead-loading="searchingSpecies"
+                    uib-typeahead="species.scientificname as species for species in searchSpecies(($viewValue)?$viewValue:'.')"
                     typeahead-on-select="loadSpeciesPage($model)" typeahead-template-url="sp-ac-template.html" />
 
                     <i ng-show="searchingSpecies" class="fa fa-spinner fa-pulse fa-1x fa-fw"></i>
 
                     <uib-alert class="no-results fade in" type="warning" close="noResults = false" ng-show="noResults">
                         <h4>
-                            <i class="fa fa-search" aria-hidden="true"></i> &nbsp; 
+                            <i class="fa fa-search" aria-hidden="true"></i> &nbsp;
                             We couldn't find what you are looking for
                         </h4>
                         <p>
-                            This may be due name mismatch or the species has not been included in 
-                            Map of Life yet. Consider trying an alternative name or check back later. 
-                            We are constantly improving the site and adding more species, so feel free to 
-                            <a href="https://mol.org/feedback" class="alert-link">contact us</a> for 
+                            This may be due name mismatch or the species has not been included in
+                            Map of Life yet. Consider trying an alternative name or check back later.
+                            We are constantly improving the site and adding more species, so feel free to
+                            <a href="https://mol.org/feedback" class="alert-link">contact us</a> for
                             data suggestions or feedback.
                         </p>
                     </uib-alert>
@@ -74,16 +74,16 @@
     </div>
 
     <hr />
-    
+
     <div class="content favourites">
 
         <h4 class="lead">Or select from our favourites</h4>
 
         <div class="col-lg-3 col-md-4 col-sm-6 text-center" ng-repeat="sp in speciesList">
-            <div class="hero-species" ng-click="loadSpeciesPage(sp.s)">
+            <div class="hero-species" ui-sref="species.overview({scientificname:sp.s})">
                 <div class="hero-card">
                     <div class="hero-header">
-                        <img class="img-center center-block img-responsive" src="{{molConfig.base}}static/app/views/home/img/{{ sp.i }}" alt="{{ sp.c }}" style="" />
+                        <img class="img-center center-block img-responsive" ng-src="{{molConfig.base + 'static/app/views/home/img/' +sp.i }}" alt="{{ sp.c }}" style="" />
                     </div>
                     <div class="hero-info">
                         <h4>{{ sp.c }}</h4>
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </div>
-        
+
     </div>
 
 
