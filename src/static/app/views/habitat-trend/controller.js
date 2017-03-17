@@ -8,7 +8,7 @@ angular.module('mol.controllers')
 
 
       //nvd3 charts
-      $scope.region_id = 'global';
+      $scope.region_id = 'Global';
       //$scope.species.habitat_trend={"global":{"title":"Global"}};
       $scope.modis_options = molHabitatTrendChartOptions;
       $scope.modis_options.chart.yAxis.axisLabel = 'Suitable Habitat MODIS + Landsat (km²)';
@@ -90,7 +90,7 @@ angular.module('mol.controllers')
                 modis: generateData(country.MODIS, 0 , 2001)
              }
             });
-            trends.global = {
+            trends.Global = {
                title: "Global",
                landsat: generateData(global_landsat, 0 , 2001),
                 modis: generateData(global_modis, 0 , 2001)
