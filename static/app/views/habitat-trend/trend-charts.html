@@ -1,6 +1,7 @@
 <div class="chart-container" style="padding: 35px;" >
-	<select ng-if="species.habitat_trend" ng-model="region_id">
+	<select ng-if="species.habitat_trend" ng-model="$parent.region_id">
 		<option
+		    ng-select="region_id = id"
 			ng-value="id" 
 			ng-repeat="(id, trend) in species.habitat_trend">{{id}}</option>
 	</select>
