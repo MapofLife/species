@@ -29,7 +29,7 @@ angular.module("mol.controllers").controller("molHomeCtrl", [
     catch (e) { }
     molApi({
       "service": "species/random",
-      "timeout": $scope.model.canceller,
+      //"timeout": $scope.model.canceller,
       "params" : {
         taxogroup: (group !== 'any') ? group : undefined,
         region_id: $scope.region.region_id,
