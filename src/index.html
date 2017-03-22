@@ -41,8 +41,8 @@
         ga('send', 'pageview');
     </script>
     <!-- 3rd Party components that wont compile-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <script src="static/d3.min.js"></script>
+    
+    <script class="delete" src="static/d3.min.js"></script>
 
     <!--compiled 3rd party components -->
     <script class="dev" type="text/javascript" src="static/components/angular/angular.min.js"></script>
@@ -102,4 +102,5 @@
   </head>
   <body ui-view="" state="{{ $state.current.name }}"></body>
   <script class="delete" src="http://localhost:35729/livereload.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
 </html>
