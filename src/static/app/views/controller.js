@@ -2,9 +2,9 @@ angular.module('mol.controllers')
   .controller('molSpeciesCtrl',
 
   	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout',
-     '$location','$q','molUiMap','$window', 'molSpeciesTooltips','molRegionOverlay','molConfig',
+     '$location','$q','molUiMap','$window', 'molSpeciesTooltips','molRegionOverlay','molConfig','molAuth',
    		function( $http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
-         $location,  $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay,molConfig) {
+         $location,  $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay,molConfig, molAuth) {
 
       $scope.toggleSearch = false;
 
