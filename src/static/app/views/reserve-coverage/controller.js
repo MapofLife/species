@@ -32,6 +32,7 @@ angular.module('mol.controllers').controller('molReserveCoverageCtrl',
                molApi({
                 "canceller": $scope.model.canceller,
                 "loading": true,
+                "version": "0.x",
                 "service" : "species/indicators/reserve-coverage/query",
                 "creds" : true,
                 "params" : {"lat": latLng.lat(),"lng": latLng.lng()}

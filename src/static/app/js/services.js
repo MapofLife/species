@@ -40,6 +40,15 @@ angular.module('mol.services',[])
 				}
 
 	])
+  .factory(
+    'molAuth', ['$http',function($http) {
+      return function() {
+        this.rollCheck = function() {
+          return $http('https://auth.mol.org/api/me?role_check=MOL_MANAGER')
+        }
+      }
+    }]
+ )
 .factory(
 	'molSpeciesTooltips',
 	[function() {

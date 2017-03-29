@@ -7,9 +7,9 @@
               <li ui-sref-active-eq="active"><a ui-sref="species.home($state.params)" ui-sref-opts="{absolute: true}">Species Home</a></li>
               <li ui-sref-active-eq="active"><a ui-sref="species.overview($state.params)" ui-sref-opts="{absolute: true}">Summary Map</a></li>
               <li ui-sref-active-eq="active"><a ui-sref="species.detailed-map($state.params)" ui-sref-opts="{absolute: true}">Detailed Map</a></li>
-              <li ui-sref-active-eq="active"><a ui-sref="species.habitat-distribution($state.params)" ui-sref-opts="{absolute: true}">Habitat Distribution</a></li>
-              <li ui-sref-active-eq="active"><a ui-sref="species.reserve-coverage($state.params)" ui-sref-opts="{absolute: true}">Reserve Coverage</a></li>
-              <li ui-sref-active-eq="active"><a ui-sref="species.habitat-trend($state.params)" ui-sref-opts="{absolute: true}">Habitat  Trend</a></li>
+              <li ng-if="$state.params.beta" ui-sref-active-eq="active"><a ui-sref="species.habitat-distribution($state.params)" ui-sref-opts="{absolute: true}">Habitat Distribution</a></li>
+              <li ng-if="$state.params.beta" ui-sref-active-eq="active"><a ui-sref="species.reserve-coverage($state.params)" ui-sref-opts="{absolute: true}">Reserve Coverage</a></li>
+              <li ng-if="$state.params.beta" ui-sref-active-eq="active"><a ui-sref="species.habitat-trend($state.params)" ui-sref-opts="{absolute: true}">Habitat  Trend</a></li>
             </ul>
             <div  ng-show=" $state.current.name != 'species.home'" class="pull-right">
 

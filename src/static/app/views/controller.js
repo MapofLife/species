@@ -1,10 +1,10 @@
 angular.module('mol.controllers')
   .controller('molSpeciesCtrl',
+
   	['$http','$scope', '$rootScope', '$state', '$stateParams','$uibModal',  '$filter','$timeout',
      '$location','$q','molUiMap','$window', 'molSpeciesTooltips','molRegionOverlay','molConfig',
    		function( $http, $scope, $rootScope, $state, $stateParams, $modal, $filter, $timeout,
          $location,  $q,molUiMap,$window, molSpeciesTooltips, molRegionOverlay,molConfig) {
-
 
       $scope.toggleSearch = false;
 
@@ -24,16 +24,10 @@ angular.module('mol.controllers')
         if(n!=v){
           $scope.$parent.map.resize()};});
 
-
-      //Map utilities --> maybe put in a service?
-      /* wait until gmaps is ready */
-
       $scope.region = {};
       $scope.map = new molUiMap();
-
-      //$rootScope = $scope; //important for map
-
-      //should go into a filter
+      $scope.auth = new molAuth();
+          //should go into a filter
       $scope.cleanURLName = function (name) {
         if(name) {return name.replace(/ /g, '_');}
       }
