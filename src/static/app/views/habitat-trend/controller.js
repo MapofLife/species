@@ -26,8 +26,8 @@ angular.module('mol.controllers')
         function(n,o) {
           if(n) {
             molHabitatTrendSvc(molFormatSuitabilityPrefs(n), $scope.model.canceller).then(
-              function(value) {
-                $scope.species.habitat_trend = value;
+              function(trends) {
+                $scope.species.habitat_trend = trends;
                 
               }
             )
@@ -47,12 +47,13 @@ angular.module('mol.controllers')
 
               angular.forEach(
                 indata,
-                function(area,year) {
-                  data.push([parseInt(year),area]);
+                function(a,y) {
+                  a = Math.round(a*10)/10;
+                  data.push([parseInt(y),a]);
                   config.values.push({
-                      key: year,
-                      x: year,
-                      y: area,
+                      key: y,
+                      x: y,
+                      y: a,
                       size: 400,
                       shape: 'circle'
                   });
@@ -62,7 +63,7 @@ angular.module('mol.controllers')
               config.slope = trendline.equation[0];
               config.intercept = trendline.equation[1];
 
-              return [config];
+              return [angular.copy(config)];
           }
           return molApi({
            "service" : "species/indicators/habitat-trend/stats",
@@ -90,6 +91,7 @@ angular.module('mol.controllers')
                    global[dataset][year]=((global[dataset][year])? global[dataset][year]:0)+value;
                 });
             });
+<<<<<<< HEAD
           });
           angular.forEach(
             global,
@@ -97,6 +99,14 @@ angular.module('mol.controllers')
               trends["global"][dataset] = generateData(trend);
           });
             
+=======
+            trends.Global = {
+               title: "Global",
+               landsat: angular.copy(generateData(global_landsat, 0 , 2001)),
+                modis: angular.copy(generateData(global_modis, 0 , 2001))
+            }
+
+>>>>>>> 416c066ed1a29af352b70c053ca0c85a8271f255
             return trends
         });
 
@@ -115,6 +125,7 @@ angular.module('mol.controllers')
              margins: {top: 30, right: 20, bottom: 50, left: 60},
              showLegend: false,
              tooltips: false,
+             padData: true,
              transitionDuration: 1000,
              xDomain: [1995,2015],
              xAxis: {
@@ -122,7 +133,8 @@ angular.module('mol.controllers')
              },
         
              yAxis: {
-               axisLabel: '',
+                 axisLabel: '',
+                 padData: true,
                  tickFormat: function(d){
                      if(d>1000000) {
                        var sups = "⁰¹²³⁴⁵⁶⁷⁸⁹",
@@ -142,7 +154,10 @@ angular.module('mol.controllers')
                      }
                  },
                  axisLabelDistance: 10
-             }
+             },
+             
+                    useNiceScale: true,
+                    
          }
      };
  }]
