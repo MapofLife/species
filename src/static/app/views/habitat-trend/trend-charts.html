@@ -3,12 +3,9 @@
 		<option
 		    ng-select="region_id = id"
 			ng-value="id" 
-			ng-repeat="(id, trend) in species.habitat_trend">{{id}}</option>
+			ng-repeat="(id, trends) in species.habitat_trend">{{id}}</option>
 	</select>
-	<div class="metrics">
-	    <nvd3 options='modis_options' data='species.habitat_trend[region_id].modis'></nvd3>
-  </div>
-	<div class="metrics">
-			<nvd3 options='landsat_options' data='species.habitat_trend[region_id].landsat'></nvd3>
-	</div>
+	<div class="metrics" ng-repeat="(dataset, trend) in species.habitat_trend[region_id]">
+	    <nvd3 options='options' data='trend' ng-init="options=chartOptions(dataset)" ></nvd3>
+  	</div>
 </div>

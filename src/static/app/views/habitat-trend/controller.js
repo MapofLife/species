@@ -8,12 +8,16 @@ angular.module('mol.controllers')
 
 
       //nvd3 charts
-      $scope.region_id = 'Global';
+      $scope.region_id = 'global';
       //$scope.species.habitat_trend={"global":{"title":"Global"}};
-      $scope.modis_options = angular.copy(molHabitatTrendChartOptions);
-      $scope.modis_options.chart.yAxis.axisLabel = 'Suitable Habitat MODIS + Landsat (km²)';
-      $scope.landsat_options = angular.copy(molHabitatTrendChartOptions);
-      $scope.landsat_options.chart.yAxis.axisLabel = 'Suitable Habitat Landsat (km²)';
+
+      $scope.chart_options = {}
+      $scope.chartOptions = function(dataset) {
+
+        var options = angular.copy(molHabitatTrendChartOptions);
+        options.chart.yAxis.axisLabel = dataset;
+        return options
+      }
       //$scope.pop_options = molHabitatTrendChartOptions;
       //$scope.pop_options.chart.yAxis.axisLabel = 'Human Population';
 
@@ -34,7 +38,7 @@ angular.module('mol.controllers')
 .factory('molHabitatTrendSvc',
   ['molApi','regression',function(molApi,regression) {
         return function(prefs, canceller) {
-          function generateData(indata, slope, intercept) {
+          function generateData(indata) {
               var trendline = [], data =[], config = {
                   values: [],
                   slope: null,
@@ -68,34 +72,31 @@ angular.module('mol.controllers')
            "loading":true
          }).then(
          function(result) {
-          var trends = {};
-          var global_modis = {};
-          var global_landsat = {};
-             angular.forEach(
+          var trends = {"global":{}};
+          var global = {};
+          angular.forEach(
             result.data,
             function(country) { 
+             if(!trends[country.ISO3]) { trends[country.ISO3] = {};}
              angular.forEach(
-               country.MODIS,
-               function(value,year) {
-                 global_modis[year]=((global_modis[year])? global_modis[year]:0)+value;
-               });
-             angular.forEach(
-               country.LANDSAT,
-               function(value,year) {
-                  global_landsat[year]=((global_landsat[year])?global_landsat[year]:0)+value;
-               });
-             trends[country.ISO3] = {
-                title: country.ISO3,
-                landsat: generateData(country.LANDSAT, 0 , 2001),
-                modis: generateData(country.MODIS, 0 , 2001)
-             }
+               country.trends,
+               function(trend, dataset) {
+                 if(!trends[country.ISO3][dataset]) { trends[country.ISO3][dataset] = {};}
+                 if(!global[dataset]) { global[dataset] = {};}
+                 trends[country.ISO3][dataset] = generateData(trend);
+                 angular.forEach(
+                   trend,
+                  function(value, year) {
+                   global[dataset][year]=((global[dataset][year])? global[dataset][year]:0)+value;
+                });
             });
-            trends.Global = {
-               title: "Global",
-               landsat: generateData(global_landsat, 0 , 2001),
-                modis: generateData(global_modis, 0 , 2001)
-            }
-
+          });
+          angular.forEach(
+            global,
+            function(trend, dataset) { 
+              trends["global"][dataset] = generateData(trend);
+          });
+            
             return trends
         });
 
@@ -115,11 +116,13 @@ angular.module('mol.controllers')
              showLegend: false,
              tooltips: false,
              transitionDuration: 1000,
+             xDomain: [1995,2015],
              xAxis: {
-                 axisLabel: 'Year'
+                 axisLabel: 'Year',
              },
+        
              yAxis: {
-                 axisLabel: '',
+               axisLabel: '',
                  tickFormat: function(d){
                      if(d>1000000) {
                        var sups = "⁰¹²³⁴⁵⁶⁷⁸⁹",
