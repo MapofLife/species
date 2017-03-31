@@ -91,7 +91,6 @@ angular.module('mol.controllers')
                    global[dataset][year]=((global[dataset][year])? global[dataset][year]:0)+value;
                 });
             });
-<<<<<<< HEAD
           });
           angular.forEach(
             global,
@@ -99,14 +98,6 @@ angular.module('mol.controllers')
               trends["global"][dataset] = generateData(trend);
           });
             
-=======
-            trends.Global = {
-               title: "Global",
-               landsat: angular.copy(generateData(global_landsat, 0 , 2001)),
-                modis: angular.copy(generateData(global_modis, 0 , 2001))
-            }
-
->>>>>>> 416c066ed1a29af352b70c053ca0c85a8271f255
             return trends
         });
 
