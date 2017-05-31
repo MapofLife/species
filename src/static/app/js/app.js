@@ -21,7 +21,7 @@ angular.module('mol', [
 ])
 .constant('molConfig',{
     "module" : "species", //module name (used in routing)
-    "api" : "1.0",
+    "api" : "1.x",
     "protocol" : "https",
     //"api_host" : "localhost:8080",
     "base" : angular.element('#mol-asset-base').attr('content'), //static assets base

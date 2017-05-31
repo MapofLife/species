@@ -62,7 +62,7 @@ angular.module('mol.controllers')
                   "withCredentials":false,
                   "method":"POST",
                   "timeout":$scope.model.canceller,
-                  "url":"https://mol.carto.com/api/v1/map/named/detailed-map-dev",
+                  "url":"https://carto.mol.org/user/mol/api/v1/map/named/detailed-map",
                   "data": {
                      "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
                      "max_year" : ($scope.filters.years)?$scope.year.max:5555555,
@@ -80,13 +80,13 @@ angular.module('mol.controllers')
                           $scope.map.setOverlay({
                               tile_url: ""+
                                 "https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
-                                  .format(result.cdn_url.https,
+                                  .format('carto.mol.org',
 
                                     result.layergroupid),
                               grid_url: ""+
                                 "https://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
                                   .format(
-                                    result.cdn_url.https,
+                                    'carto.mol.org',
                                     result.layergroupid),
                               key: result.layergroupid,
                               attr: '©2014 Map of Life',
