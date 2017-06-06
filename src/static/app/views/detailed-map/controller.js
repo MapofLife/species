@@ -214,7 +214,7 @@ angular.module('mol.controllers')
           }
 
         //Get metdata for features on the map
-        $scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {
+        /*$scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {
           var deferred = $q.defer();
           switch(eventName) {
             case 'click':
@@ -250,6 +250,42 @@ angular.module('mol.controllers')
                           },
                           show: true,
                           templateUrl: 'static/app/views/detailed-map/infowindow.html'
+                        });
+                  } else {
+                      deferred.resolve();
+                  }
+                }
+              );
+              break;
+            default:
+              deferred.resolve();
+          }
+          return deferred.promise;
+
+        };*/
+
+        //Get metdata for features on the map
+        $scope.map.getInfoWindowModel = function(map, eventName, latLng, data) {
+          var deferred = $q.defer();
+          switch(eventName) {
+            case 'click':
+               molApi({
+                "canceller": $scope.canceller,
+                "loading": true,
+                "service" : "species/featuremetadata",
+                "creds" : true,
+                "params" : data
+                
+              }).then(
+                function(results) {
+                  if(angular.isDefined(results.data) && results.data.length>0){
+                        deferred.resolve( {
+                          model: {
+                            feature: results.data,
+                            dataset: $scope.datasets[data.dataset_id]
+                          },
+                          show: true,
+                          templateUrl: 'static/app/views/detailed-map/featurewindow.html'
                         });
                   } else {
                       deferred.resolve();
