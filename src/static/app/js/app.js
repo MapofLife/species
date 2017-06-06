@@ -85,7 +85,6 @@ angular.module('mol', [
 
   $sceDelegateProvider.resourceUrlWhitelist([
     'self',
-    'http://spi-metrics.api-0-x.map-of-life.appspot.com/',
     'http*://localhost**',
     'http*://127.0.0.1:9001/**',
     'http*://*mol.org/**',
