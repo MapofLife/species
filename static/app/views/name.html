@@ -18,6 +18,7 @@
              | filter:'').join(' | ')}}
     </div>
     <div class="infoIUCNStatus"
+         uib-tooltip="Source (IUCN 2017)" 
          ng-class="species.taxonomy.iucn_red_list_status | iucnStatus"
          ng-show="species.taxonomy.iucn_red_list_status">
         {{ species.taxonomy.iucn_red_list_status | iucnStatus }}
