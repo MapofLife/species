@@ -17,10 +17,11 @@
           (species.taxonomy[molConfig.lang+'_family'] || species.family)]
              | filter:'').join(' | ')}}
     </div>
-    <div class="infoIUCNStatus"
+    <a class="infoIUCNStatus"
          uib-tooltip="Source (IUCN 2017)" 
+         href="http://http://www.iucnredlist.org/"
          ng-class="species.taxonomy.iucn_red_list_status | iucnStatus"
          ng-show="species.taxonomy.iucn_red_list_status">
         {{ species.taxonomy.iucn_red_list_status | iucnStatus }}
-    </div>
+    </a>
 </div>
