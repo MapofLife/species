@@ -19,7 +19,6 @@
     </div>
     <div class="infoIUCNStatus"
          style="font-size:0.9em; cursor: pointer; cursor: hand;" 
-         onclick="window.open('http://www.iucnredlist.org/','_iucn')"
          ng-class="species.taxonomy.iucn_red_list_status | iucnStatus"
          ng-show="species.taxonomy.iucn_red_list_status">
         {{ (species.taxonomy.iucn_red_list_status | iucnStatus) }}&nbsp;(IUCN&nbsp;2017)
