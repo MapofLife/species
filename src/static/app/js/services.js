@@ -14,16 +14,14 @@ angular.module('mol.services',[])
 						return $http({
 								"withCredentials":false,
 								"method":"POST",
-								"url":"https://mol.cartodb.com/api/v1/map/named/region-map",
+								"url":"https://carto.mol.org/user/mol/api/v1/map/named/region-map",
 								"data": {
 								 "region_id": region.region_id,
 							 }}).then(function(result, status, headers, config) {
 											return {
 													tile_url: ""+
-														"https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
-															.format(result.data.cdn_url.https,
-
-																result.data.layergroupid),
+														"https://carto.mol.org/mol/api/v1/map/{0}/{z}/{x}/{y}.png"
+															.format(result.data.layergroupid),
 													key: result.data.layergroupid,
 													attr: '©2014 Map of Life',
 													name: 'region',
