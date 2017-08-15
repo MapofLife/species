@@ -52,7 +52,9 @@ angular.module('mol.controllers')
               $scope.model.canceller.resolve();
               $scope.model.canceller = $q.defer();
 
-              $scope.map.removeOverlay(0);
+              try{
+                $scope.map.removeOverlay(0);
+              } catch(e) {}
               if($scope.species) {
                   if($scope.mapUpdater) {
                     try{
