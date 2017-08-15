@@ -17,7 +17,9 @@ angular.module('mol.controllers')
                 'species.scientificname',
                 function(name) {
                   if(name) {
-                      $scope.map.setOverlay({index: 0}, 0);
+                      try{
+                $scope.map.removeOverlay(0);
+              } catch(e) {}
                       $scope.model.canceller.resolve();
                       $scope.model.canceller = $q.defer();
                       if($scope.mapUpdater) {
