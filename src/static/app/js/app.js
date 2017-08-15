@@ -14,7 +14,7 @@ angular.module('mol', [
 
   //'mol.meta',
   'mol.api', 'mol.ui-map', 'mol.i18n','mol.filters', 'mol.services', 'mol.species-search',
-  'mol.species-description', 'mol.location-search', 'mol.species-images', 'mol.regression',
+  'mol.species-description', 'mol.location-search', 'mol.species-images',
   'mol.point-filters', 'mol.controllers', 'mol.loading-indicator',
 
   'percentage', 'km2', 'imageHelpers'
