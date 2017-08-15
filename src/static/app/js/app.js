@@ -166,8 +166,8 @@ angular.module('mol', [
         },
         url: 'map/{0}?{1}'.format(urlparams,queryparams)
       }
-    )
-    .state(
+    );
+    /*.state(
       'species.habitat-distribution',
       {
         views: {
@@ -217,7 +217,7 @@ angular.module('mol', [
       }},
         url: 'reserve-coverage/{0}?{1}'.format(urlparams,queryparams)
       }
-    );
+    );*/
 
 
      $locationProvider.html5Mode({
