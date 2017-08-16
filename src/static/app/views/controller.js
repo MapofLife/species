@@ -108,14 +108,13 @@ angular.module('mol.controllers')
 
       $scope.$watch("region", function(n,o) {
         if(n && n.type !== 'global') {
+          $scope.map.removeOverlay(1);
           molRegionOverlay(n).then(function(overlay) {
             if(overlay) {
               $scope.map.setOverlay(angular.extend(overlay, { index: 1 }), 1);
             }
           });
-        } else {
-          $scope.map.setOverlay({index:1}, 1);
-        }
+        } 
       },true);
 
 
