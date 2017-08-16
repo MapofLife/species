@@ -92,7 +92,7 @@ angular.module('mol.controllers')
                               key: result.layergroupid,
                               attr: '©2014 Map of Life',
                               name: 'detail',
-                              index:0,
+                              index: 1,
                               opacity: 0.8,
                               type: 'detail'
                           },0);

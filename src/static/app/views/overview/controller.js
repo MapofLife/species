@@ -47,7 +47,7 @@ angular.module('mol.controllers')
                                   attr: '©2014 Map of Life',
                                   name: 'overview',
                                   opacity: 0.8,
-                                  index:0,
+                                  index:1,
                                   type: 'overview'
                               },0);
 

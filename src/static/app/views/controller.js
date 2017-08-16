@@ -111,7 +111,7 @@ angular.module('mol.controllers')
           $scope.map.removeOverlay(1);
           molRegionOverlay(n).then(function(overlay) {
             if(overlay) {
-              $scope.map.setOverlay(angular.extend(overlay, { index: 1 }), 1);
+              $scope.map.setOverlay(angular.extend(overlay, { index: 100 }), 1);
             }
           });
         } 
