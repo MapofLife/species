@@ -27,13 +27,15 @@
           popover-title="{{(type.title | capitalize) + ' key'}}">
         </div>
         <div class="col feature-ct"  >
-          <div class="layer_count clickable" uib-tooltip="{{type.feature_ct | number}} {{type.title}} available to be mapped."
-          ng-bind-html="type.feature_ct | number"></div>
+          <div class="layer_count clickable" 
+          uib-tooltip="{{type.feature_ct | number}} {{type.title}} available to be mapped."
+          ng-bind-html="type.feature_ct | number"
+          tooltip-placement="left"></div>
         </div>
         <div  class="col clickable" ng-click="fitBounds(type.bounds)">
             <i
               uib-tooltip="Zoom map to this data type"
-
+              tooltip-placement="left"
               class="clickable fa fa-search"></i>
         </div>
         <div
