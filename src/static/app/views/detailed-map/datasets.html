@@ -60,11 +60,13 @@
             <div class="col feature-ct ">
               <div ng-show="id !='range'" class="layer_count clickable"
                 uib-tooltip="{{dataset.feature_ct | number }} features available in {{dataset.title}}"
+                tooltip-placement="left"
                 ng-bind-html="dataset.feature_ct | number"></div>
             </div>
             <div class="col" ng-click="fitBounds(dataset.bounds)" class="clickable">
               <i
                 uib-tooltip="Zoom map to this dataset"
+                tooltip-placement="left"
                 class="clickable fa fa-search"></i>
             </div>
             <div class="col clickable" ng-click="datasetMetadata(dataset)">
