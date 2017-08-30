@@ -76,4 +76,10 @@ angular.module('mol.filters', []).
     }     
   } 
  }                
+])
+.filter("keys", [ function(){
+ return function(object){
+    return Object.keys(object);
+  } 
+ }                
 ]);

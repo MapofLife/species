@@ -28,7 +28,8 @@
         </div>
         <div class="col feature-ct"  >
           <div class="layer_count clickable" 
-          uib-tooltip="{{type.feature_ct | number}} {{type.title}} available across {{ type.datasets.length }} datasets. "
+          uib-tooltip="{{type.feature_ct | number}} {{type.title}} available 
+            {{((type.datasets | keys).length > 1)?'across':'in'}} {{ (type.datasets | keys).length }} dataset{{((type.datasets | keys).length > 1)?'s':''}}. "
           ng-bind-html="type.feature_ct | number"
           tooltip-placement="left"></div>
         </div>
