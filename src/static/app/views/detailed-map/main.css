@@ -78,6 +78,7 @@
 
 [state^="species.detailed-map"]  .col.title{
     width:175px;
+    overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: underline;
 }
