@@ -84,11 +84,11 @@ angular.module('mol.controllers')
                                   .format('carto.mol.org',
 
                                     result.layergroupid),
-                              grid_url: ""+
+                              /*grid_url: ""+
                                 "https://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
                                   .format(
                                     'carto.mol.org',
-                                    result.layergroupid),
+                                    result.layergroupid),*/
                               key: result.layergroupid,
                               attr: '©2014 Map of Life',
                               name: 'detail',
