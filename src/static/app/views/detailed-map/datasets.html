@@ -61,9 +61,11 @@
             </div>
             <div class="col feature-ct ">
               <div ng-show="id !='range'" class="layer_count clickable"
-                uib-tooltip="{{dataset.feature_ct | number }} features available in {{dataset.title}}"
+                uib-tooltip="{{dataset.feature_ct | number }} features available in {{dataset.title}}
+                  {{(dataset.feature_ct >= 5000)?' NOTE: Map visualizations are limited to the most recent 5,000 features in this dataset.':'' }}
+                "
                 tooltip-placement="left"
-                ng-bind-html="dataset.feature_ct | number"></div>
+                ng-bind-html="(dataset.feature_ct | number) && ((dataset.feature_ct >= 5000)?'*':'')"></div>
             </div>
             <div class="col" ng-click="fitBounds(dataset.bounds)" class="clickable">
               <i
