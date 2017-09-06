@@ -57,8 +57,8 @@ angular.module('mol.controllers')
              clippedbnds.northeast.longitude = Math.min($scope.region.bnds[2], newbnds.northeast.longitude);
              clippedbnds.northeast.latitude = Math.min($scope.region.bnds[3], newbnds.northeast.latitude);
            } 
-           if((clippedbnds.southwest.latitude === clippedbnds.northeast.latitude) || 
-            (clippedbnds.southwest.longitude === clippedbnds.northeast.longitude)) {
+           if((clippedbnds.southwest.latitude >= clippedbnds.northeast.latitude) || 
+            (clippedbnds.southwest.longitude >= clippedbnds.northeast.longitude)) {
            $scope.map.bounds = newbnds;
           } else {  $scope.map.bounds = clippedbnds;}
         } catch(e) {}
