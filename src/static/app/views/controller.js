@@ -102,7 +102,8 @@ angular.module('mol.controllers')
       });
 
       $scope.zoomToRegion = function () {
-        var bnds = {southWest:{lat:newValue[1],lng:newValue[0]},
+        var newValue = $scope.region.bnds,
+        bnds = {southWest:{lat:newValue[1],lng:newValue[0]},
               northEast: {lat:newValue[3],lng:newValue[2]}}
             if($scope.region.type==='global'&&$scope.species&&$scope.species.bounds) {
               $scope.fitBounds($scope.species.bounds)
