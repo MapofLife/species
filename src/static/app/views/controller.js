@@ -47,16 +47,20 @@ angular.module('mol.controllers')
 
       $scope.fitBounds = function(bnds) {
         try {
-           var newbnds = angular.copy($scope.getBounds(bnds));
+           var newbnds = angular.copy($scope.getBounds(bnds)),
+            clippedbnds = angular.copy($scope.getBounds(bnds));
            //pin to region bounds if possible
 
            if(Object.keys($scope.region).length&&$scope.region.type!=='global') {
-             newbnds.southwest.longitude = Math.max($scope.region.bnds[0],newbnds.southwest.longitude);
-             newbnds.southwest.latitude = Math.max($scope.region.bnds[1], newbnds.southwest.latitude);
-             newbnds.northeast.longitude = Math.min($scope.region.bnds[2], newbnds.northeast.longitude);
-             newbnds.northeast.latitude = Math.min($scope.region.bnds[3], newbnds.northeast.latitude);
+             clippedbnds.southwest.longitude = Math.max($scope.region.bnds[0],newbnds.southwest.longitude);
+             clippedbnds.southwest.latitude = Math.max($scope.region.bnds[1], newbnds.southwest.latitude);
+             clippedbnds.northeast.longitude = Math.min($scope.region.bnds[2], newbnds.northeast.longitude);
+             clippedbnds.northeast.latitude = Math.min($scope.region.bnds[3], newbnds.northeast.latitude);
            } 
+           if((clippedbnds.southwest.latitude === clippedbnds.northeast.latitude) || 
+            (clippedbnds.southwest.longitude === clippedbnds.northeast.longitude)) {
            $scope.map.bounds = newbnds;
+          } else {  $scope.map.bounds = clippedbnds;}
         } catch(e) {}
 
       }
