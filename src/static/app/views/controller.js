@@ -49,9 +49,9 @@ angular.module('mol.controllers')
         try {
            var newbnds = angular.copy($scope.getBounds(bnds)),
             clippedbnds = angular.copy($scope.getBounds(bnds));
-           //pin to region bounds if possible
+            $scope.map.bounds = newbnds;
 
-           if(Object.keys($scope.region).length&&$scope.region.type!=='global') {
+           /*if(Object.keys($scope.region).length&&$scope.region.type!=='global') {
              clippedbnds.southwest.longitude = Math.max($scope.region.bnds[0],newbnds.southwest.longitude);
              clippedbnds.southwest.latitude = Math.max($scope.region.bnds[1], newbnds.southwest.latitude);
              clippedbnds.northeast.longitude = Math.min($scope.region.bnds[2], newbnds.northeast.longitude);
@@ -60,7 +60,7 @@ angular.module('mol.controllers')
            if((clippedbnds.southwest.latitude >= clippedbnds.northeast.latitude) || 
             (clippedbnds.southwest.longitude >= clippedbnds.northeast.longitude)) {
            $scope.map.bounds = newbnds;
-          } else {  $scope.map.bounds = clippedbnds;}
+          } else {  $scope.map.bounds = clippedbnds;}*/
         } catch(e) {}
 
       }
@@ -90,7 +90,7 @@ angular.module('mol.controllers')
       });
 
       $scope.$watch("species.bounds", function(newValue, oldValue) {
-          if(newValue != undefined) {
+          if(newValue != undefined && !$scope.region.bnds) {
             $timeout(function () {
               $scope.fitBounds(newValue);
             }, 500);
