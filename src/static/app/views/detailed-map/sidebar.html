@@ -9,8 +9,8 @@
   </div>
   <div class="row" ng-if="region.name">
     <div class="col-md-4"><h5>Focal Region:</h5></div>
-    <div class="col-md-5">{{region.name}}</div>
-    <div class="col clickable" ng-click="zoomToRegion()">
+    <div class="col-md-5"><h5>{{region.name}}</h5></div>
+    <div class="col-md-3 clickable" ng-click="zoomToRegion()">
               <i
                 uib-tooltip="Zoom to {{region.name}} region."
                 tooltip-placement="left"
