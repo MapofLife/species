@@ -91,9 +91,7 @@ angular.module('mol.controllers')
 
       $scope.$watch("species.bounds", function(newValue, oldValue) {
           if(newValue != undefined && !$scope.region.bnds) {
-            $timeout(function () {
-              $scope.fitBounds(newValue);
-            }, 500);
+            $scope.fitBounds(newValue);
           }
       },true);
 
