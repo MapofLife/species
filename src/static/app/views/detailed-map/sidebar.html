@@ -7,10 +7,10 @@
           {{ species.scientificname }}
       </div>
   </div>
-  <div class="row" ng-if="region">
+  <div class="row" ng-if="region.name">
     <div class="col-md-12"><h5>Focal Region</h5></div>
   </div>
-  <div class="row" ng-if="region">
+  <div class="row" ng-if="region.name">
     <div class="col title">{{region.name}}</div>
     <div  class="col clickable" ng-click="zoomToRegion()">
             <i
