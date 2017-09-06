@@ -97,15 +97,19 @@ angular.module('mol.controllers')
 
       $scope.$watch("region.bnds", function(newValue, oldValue) {
           if(newValue != undefined) {
-            var bnds = {southWest:{lat:newValue[1],lng:newValue[0]},
+            $scope.zoomToRegion();
+          }
+      });
+
+      $scope.zoomToRegion() {
+        var bnds = {southWest:{lat:newValue[1],lng:newValue[0]},
               northEast: {lat:newValue[3],lng:newValue[2]}}
             if($scope.region.type==='global'&&$scope.species&&$scope.species.bounds) {
               $scope.fitBounds($scope.species.bounds)
             } else {
               $scope.fitBounds(bnds);
             }
-          }
-      });
+      }
 
 
       $scope.$watch("region", function(n,o) {

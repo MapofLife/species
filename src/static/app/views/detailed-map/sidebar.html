@@ -7,6 +7,16 @@
           {{ species.scientificname }}
       </div>
   </div>
+  <div class="row" ng-if="region">
+    <div class="col-md-12"><h5>Focal Region</h5></div>
+    <div class="col-md-6">{{region.name}}</div>
+    <div  class="col clickable" ng-click="zoomToRegion()">
+            <i
+              uib-tooltip="Zoom map to this data type"
+              tooltip-placement="left"
+              class="clickable fa fa-search"></i>
+        </div>
+  </div>
   <div class="row"><div ng-show="types" class="col-md-12"><h5>Sources</h5></div></div>
   <div class="row">
     <div class="col-md-12" ng-include="'static/app/views/detailed-map/datasets.html'"></div>
