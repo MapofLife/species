@@ -20,7 +20,7 @@
           <img
           style="width:25px;height:25px;"
           class="clickable"
-          ng-src="{{molConfig.base}}static/app/views/detailed-map/img/{{ id }}.png"
+          [src]="static/app/views/detailed-map/img/{{ type.id }}.png"
           popover-placement="left"
           popover-trigger="{{(id=='range')?'mouseenter':'none'}}"
           uib-popover-template="'{{molConfig.base}}static/app/views/detailed-map/legends/'+id+'/index.html'"
@@ -28,10 +28,9 @@
         </div>
         <div class="col feature-ct"  >
           <div class="layer_count clickable" 
-          uib-tooltip="{{type.feature_ct | number}} {{type.title}} features available 
+           md-tooltip="{{type.feature_ct | number}} {{type.title}} features available 
             {{((type.datasets | keys).length > 1)?'across':'in'}} {{ (type.datasets | keys).length }} dataset{{((type.datasets | keys).length > 1)?'s':''}}. "
-          ng-bind-html="type.feature_ct | number"
-          tooltip-placement="left"></div>
+          >{{type.reduce(d,p=> p+=d.no_rows,0) | number}}</div>
         </div>
         <div  class="col clickable" ng-click="fitBounds(type.bounds)">
             <i
@@ -48,8 +47,7 @@
         </div>
         <div uib-collapse="!collapsed">
           <div ng-repeat="dataset in type.datasets">
-            <div class="col"></div>
-            <div class="col"></div>
+            
             <div class="col">
                 <checkbox  class="btn-primary" ng-change="toggleDataset(type)"
                 ng-model="dataset.visible">
