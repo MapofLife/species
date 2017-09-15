@@ -295,34 +295,42 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
     background-color: black;
     color: white;
     padding: 5px 5px 5px 10px !important;
-    width: 150px;
+    width: 200px;
     font-size: 1.1em;
     border-radius: 5px;
 }
-.infoIUCNStatus.Critically.Endangered {
+.infoIUCNStatus.Critically.Endangered, .infoIUCNStatus.CR {
     background-color: #ED3131;
     padding: 5px !important;
 }
-.infoIUCNStatus.Endangered {
+.infoIUCNStatus.Endangered, .infoIUCNStatus.EN {
     background-color: #E8662A;
 }
-.infoIUCNStatus.Extinct.Wild {
+.infoIUCNStatus.Extinct.Wild, .infoIUCNStatus.EW {
     background-color: #000000;
 }
-.infoIUCNStatus.Extinct {
+.infoIUCNStatus.Extinct, .infoIUCNStatus.EX {
     background-color: #000000;
 }
-.infoIUCNStatus.Least.Concern {
+.infoIUCNStatus.Least.Concern, .infoIUCNStatus.LC {
     background-color: #006866;
 }
-.infoIUCNStatus.Near.Threatened {
+.infoIUCNStatus.Near.Threatened, .infoIUCNStatus.NT {
     background-color: #006866;
 }
-.infoIUCNStatus.Vulnerable {
+.infoIUCNStatus.Vulnerable, .infoIUCNStatus.VU {
     background-color: #DC9C27;
 }
 .infoIUCNStatus.Vulnerable.Vulnerable.Vulnerable.Vulnerable {
     background-color: #DC9C27;
+}
+.infoIUCNStatus a,
+.infoIUCNStatus a:hover,
+.infoIUCNStatus a:focus,
+.infoIUCNStatus a:visited {
+    color: #fff;
+    background-color: transparent;
+    display: block;
 }
 
 .tax {

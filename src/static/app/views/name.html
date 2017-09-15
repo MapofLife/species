@@ -16,11 +16,9 @@
             ng-src="//mol.org/static/img/groups/taxa_{{ species.taxa }}.png" /> 
          | {{ (species.family[0]['name'] || species.family[1]['name']) }}
     </div>
-    <div class="infoIUCNStatus"
+    <div class="infoIUCNStatus {{species.redlist}}"
          style="font-size:0.9em; cursor: pointer; cursor: hand;" 
-         onclick="window.open('http://www.iucnredlist.org/','_iucn')"
-         ng-class="species.taxonomy.iucn_red_list_status | iucnStatus"
-         ng-show="species.taxonomy.iucn_red_list_status">
-        {{ (species.taxonomy.iucn_red_list_status | iucnStatus) }}&nbsp;(IUCN&nbsp;2017)
+         ng-show="species.redlist">
+        <a href="{{ species.redlist_link || 'http://www.iucnredlist.org/' }}" target="_blank">{{ (species.redlist | iucnStatus) }}&nbsp;(IUCN&nbsp;2017)</a>
     </div>
 </div>
