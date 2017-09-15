@@ -32,14 +32,29 @@ angular.module('mol', [
 })
 //move this to i8n
 .config(['$translateProvider','molConfig', function($translateProvider,molConfig) {
+
+  // Grab the static files from the CDN
+  $translateProvider.useStaticFilesLoader({
+    prefix: 'https://cdn.mol.org/translations/locale-',
+    suffix: '.json'
+  });
+  
   if(molConfig.lang) {
     $translateProvider.preferredLanguage(molConfig.lang)
   } else {
     $translateProvider.determinePreferredLanguage()
   }
-  $translateProvider.registerAvailableLanguageKeys([
-      'en','fr','es','pt','de','zh' ///should move to meta-tag config or api call
-  ]);
+  $translateProvider.useSanitizeValueStrategy('escapeParameters');
+  $translateProvider.fallbackLanguage('en');
+  // TODO: should move to meta-tag config or api call
+  // 'en','fr','es','pt','de','zh'
+  $translateProvider.registerAvailableLanguageKeys(['en', 'de', 'es', 'fr', 'zh'], {
+    'en_*': 'en',
+    'de_*': 'de',
+    'es_*': 'es',
+    'fr_*': 'fr',
+    'zh_*': 'zh'
+  });
 }])
 .config(['uiGmapGoogleMapApiProvider','$translateProvider',
 	function(uiGmapGoogleMapApiProvider,$translateProvider) {

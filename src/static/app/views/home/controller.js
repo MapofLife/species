@@ -1,9 +1,9 @@
 angular.module("mol.controllers").controller("molHomeCtrl", [
-  "$scope", "$state", "$http", "$translate", "molApi", "molSpeciesList",
-  function ($scope, $state, $http, $translate, molApi, molSpeciesList) {
+  "$rootScope", "$scope", "$state", "$http", "$translate", "molApi", "molSpeciesList",
+  function ($rootScope, $scope, $state, $http, $translate, molApi, molSpeciesList) {
 
   $scope.region = {};
-  $scope.speciesList = molSpeciesList;
+  $scope.speciesList = {};
 
   $scope.searchSpecies = function (term) {
 
@@ -46,4 +46,16 @@ angular.module("mol.controllers").controller("molHomeCtrl", [
       { "scientificname": scientificname.replace(/ /g, '_') }
     );
   }
+
+  $scope.setupHeroSpecies = function() {
+    var lang = $translate.use();
+    var splist = [];
+    angular.forEach(molSpeciesList, function (sp, idx){
+      this.push({ i: sp.i, s: sp.s, c: sp.c[lang] });
+    }, splist);
+    $scope.speciesList = splist;
+  }
+
+  $scope.setupHeroSpecies();
+  $rootScope.$on('$translateChangeSuccess', function (e) { $scope.setupHeroSpecies(); });
 }]);

@@ -144,35 +144,83 @@ angular.module('mol.services',[])
 .factory('molSpeciesList', [function() {
   return [{
     s: "Tockus_deckeni",
-    c: "Von der decken's hornbill",
+    c: {
+      en: "Von der decken's hornbill",
+      de: "Jackson-Toko",
+      es: "Toco Keniata",
+      fr: "Calao De Decken",
+      zh: ""
+    },
     i: "Tockus_deckeni.jpg"
   }, {
     s: "Grus_japonensis",
-    c: "Red-crowned crane",
+    c: {
+      en: "Red-crowned crane",
+      de: "Mandschurenkranich",
+      es: "Grulla Manchú",
+      fr: "Grue Du Japon",
+      zh: "丹顶鹤"
+    },
     i: "Grus_japonensis.jpg"
   }, {
     s: "Atelopus_spumarius",
-    c: "Pebas stubfoot toad",
+    c: {
+      en: "Pebas stubfoot toad",
+      de: "",
+      es: "",
+      fr: "",
+      zh: ""
+    },
     i: "Atelopus_spumarius.jpg"
   }, {
     s: "Phyllomedusa_tomopterna",
-    c: "Tiger-striped leaf frog",
+    c: {
+      en: "Tiger-striped leaf frog",
+      de: "",
+      es: "Rana Lemur Naranja",
+      fr: "",
+      zh: ""
+    },
     i: "Phyllomedusa_tomopterna.jpg"
   }, {
     s: "Danaus_plexippus",
-    c: "Monarch",
+    c: {
+      en: "Monarch",
+      de: "Monarch",
+      es: "Mariposa Monarca",
+      fr: "Monarque",
+      zh: "帝王斑蝶"
+    },
     i: "Danaus_plexippus.jpg"
   }, {
     s: "Varanus_albigularis",
-    c: "White-throated monitor",
+    c: {
+      en: "White-throated monitor",
+      de: "Kapwaran",
+      es: "",
+      fr: "",
+      zh: ""
+    },
     i: "Varanus_albigularis.jpg"
   }, {
     s: "Macaca_fascicularis",
-    c: "Crab eating macaque",
+    c: {
+      en: "Crab eating macaque",
+      de: "Javaneraffe",
+      es: "Macaca Cangrejera",
+      fr: "Macaque Crabier",
+      zh: "食蟹獼猴"
+    },
     i: "Macaca_fascicularis.jpg"
   }, {
     s: "Chelonoidis_carbonaria",
-    c: "Red-footed tortoise",
+    c: {
+      en: "Red-footed tortoise",
+      de: "Köhlerschildkröte",
+      es: "",
+      fr: "Tortue Charbonnière",
+      zh: ""
+    },
     i: "Chelonoidis_carbonaria.jpg"
   }];
 }]);

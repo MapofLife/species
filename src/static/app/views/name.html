@@ -5,8 +5,8 @@
     ng-show="!$state.params.noimage"
     size="120" scientificname="species.scientificname"></mol-species-images>
 
-    <div class="infoCommonName" ng-show="species.common">
-        {{species.common }}
+    <div class="infoCommonName" ng-show="species.commonname">
+        {{species.commonname }}
     </div>
     <div class="infoSciName" ng-show="species.scientificname">
         {{species.scientificname }}
@@ -14,7 +14,7 @@
     <div class="infoFamily" ng-if="species.taxa">
         {{([
           (groups | filter:{taxa:species.taxa})[0].title,
-          (species.taxonomy[molConfig.lang+'_family'] || species.family)]
+          (species.family[0]['name'] || species.family[1]['name'])]
              | filter:'').join(' | ')}}
     </div>
     <div class="infoIUCNStatus"
