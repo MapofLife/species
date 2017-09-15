@@ -12,10 +12,9 @@
         {{species.scientificname }}
     </div>
     <div class="infoFamily" ng-if="species.taxa">
-        {{([
-          (groups | filter:{taxa:species.taxa})[0].title,
-          (species.family[0]['name'] || species.family[1]['name'])]
-             | filter:'').join(' | ')}}
+         <img class="group-icon-sm" 
+            ng-src="//mol.org/static/img/groups/taxa_{{ species.taxa }}.png" /> 
+         | {{ (species.family[0]['name'] || species.family[1]['name']) }}
     </div>
     <div class="infoIUCNStatus"
          style="font-size:0.9em; cursor: pointer; cursor: hand;" 

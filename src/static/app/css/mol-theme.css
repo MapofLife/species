@@ -288,6 +288,9 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
     font-size:1.1em;
     font-weight: 400;
 }
+.group-icon-sm {
+    width: 25px;
+}
 .infoIUCNStatus {
     background-color: black;
     color: white;
