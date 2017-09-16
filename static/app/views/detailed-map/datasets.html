@@ -14,7 +14,7 @@
             </checkbox>
         </div>
         <div class="col title clickable" ><span
-            ng-click="collapsed= !collapsed">{{type.title}}</span>
+            ng-click="collapsed= !collapsed" translate>{{'src_'+type.id}}</span>
         </div>
         <div class="col">
           <img
@@ -27,19 +27,24 @@
           popover-title="{{(type.title | capitalize) + ' key'}}">
         </div>
         <div class="col feature-ct"  >
-          <div class="layer_count clickable" uib-tooltip="{{type.feature_ct | number}} {{type.title}} available to be mapped."
-          ng-bind-html="type.feature_ct | number"></div>
+          <div class="layer_count clickable" 
+          uib-tooltip="{{type.feature_ct | number}} {{type.title}} features available 
+            {{((type.datasets | keys).length > 1)?'across':'in'}} {{ (type.datasets | keys).length }} dataset{{((type.datasets | keys).length > 1)?'s':''}}. "
+          ng-bind-html="type.feature_ct | number"
+          tooltip-placement="left"></div>
         </div>
         <div  class="col clickable" ng-click="fitBounds(type.bounds)">
             <i
               uib-tooltip="Zoom map to this data type"
-
+              tooltip-placement="left"
               class="clickable fa fa-search"></i>
         </div>
         <div
           class="col clickable"
           ng-click="typeMetadata({'id':id,'title':type.title})" width="15px">
-            <i uib-tooltip="Information about this data type" class="fa fa-info"></i>
+            <i uib-tooltip="Information about this data type" 
+               tooltip-placement="left"
+               class="fa fa-info"></i>
         </div>
         <div uib-collapse="!collapsed">
           <div ng-repeat="dataset in type.datasets">
@@ -57,17 +62,22 @@
             </div>
             <div class="col feature-ct ">
               <div ng-show="id !='range'" class="layer_count clickable"
-                uib-tooltip="{{dataset.feature_ct | number }} features available in {{dataset.title}}"
-                ng-bind-html="dataset.feature_ct | number"></div>
+                uib-tooltip="{{dataset.feature_ct | number }} features available in {{dataset.title}}
+                  {{(dataset.feature_ct >= 5000)?' NOTE: Map visualizations are limited to the most recent 5,000 features in this dataset.':'' }}
+                "
+                tooltip-placement="left"
+                ng-bind-html="(dataset.feature_ct | number) + ((dataset.feature_ct >= 5000)?'*':'')"></div>
             </div>
             <div class="col" ng-click="fitBounds(dataset.bounds)" class="clickable">
               <i
                 uib-tooltip="Zoom map to this dataset"
+                tooltip-placement="left"
                 class="clickable fa fa-search"></i>
             </div>
             <div class="col clickable" ng-click="datasetMetadata(dataset)">
               <i
                 uib-tooltip="Information about this dataset."
+                tooltip-placement="left"
                 class="clickable  fa fa-info"></i>
             </div>
           </div>
