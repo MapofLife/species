@@ -1,9 +1,9 @@
 <div class="layouts-map-with-sidebars">
-  <div class="sidebar-container"><div ng-swipe-left="lc=true" ng-swipe-disable-mouse
+  <div ng-swipe-left="lc=true" ng-swipe-disable-mouse
       ng-show="!$state.params.embed||$state.params.sidebar"
       ng-class="{'closed': lc}" class="sidebar-scroll-container left">
     <div ui-view="left-sidebar" class="left" ></div>
-  </div></div>
+  </div>
   <i ng-show="!$state.params.embed||$state.params.sidebar"
     ng-class="{'fa-chevron-right':lc, 'fa-chevron-left':!lc}"
     class="fa fa-lg clickable sidebar-toggle left"
