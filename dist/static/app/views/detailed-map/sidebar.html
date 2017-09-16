@@ -1,24 +1,24 @@
 <div class="sidebar">
   <div class="name" >
-      <div class="infoCommonName" ng-show="species.common">
-          {{ species.common }}
+      <div class="infoCommonName" ng-show="species.commonname">
+          {{ species.commonname }}
       </div>
       <div class="infoSciName" ng-show="species.scientificname">
           {{ species.scientificname }}
       </div>
   </div>
   <div class="row" ng-if="region.name">
-    <div class="col-md-4"><h5>Focal Region:</h5></div>
+    <div class="col-md-4"><h5 translate>focal_region</h5></div>
     <div class="col-md-5"><h5>{{region.name}}</h5></div>
     <div class="col-md-3 clickable" ng-click="zoomToRegion()">
               <i style="float: right; margin: 10px 2px;"
-                uib-tooltip="Zoom to {{region.name}} region."
+                uib-tooltip="Zoom to {{region.name | translate}} region."
                 tooltip-placement="left"
                 class="clickable fa fa-search"></i>
     </div>
       
   </div>
-  <div class="row"><div ng-show="types" class="col-md-12"><h5>Sources</h5></div></div>
+  <div class="row"><div ng-show="types" class="col-md-12"><h5 translate>sources</h5></div></div>
   <div class="row">
     <div class="col-md-12" ng-include="'static/app/views/detailed-map/datasets.html'"></div>
   </div>

@@ -161,14 +161,14 @@
 
     <div class="row content">
         <div class="col-md-6 col-sm-6 col-divider">
-            <h4 class="lead">Search for a species</h4>
+            <h4 class="lead" translate>search_species</h4>
             <div class="form-inline taxa-info">
 
                 <div ng-include="'static/app/views/home/group_selector.html'" 
                     style="position:relative;display:inline"></div>
 
                 <input type="text" class="form-control"
-                    autocomplete="on" placeholder="Search for a species" typeahead-wait-ms="500"
+                    autocomplete="on" placeholder="{{ 'search_species' | translate }}" typeahead-wait-ms="500"
                     ng-model="selected.value" typeahead-no-results="noResults" typeahead-loading="searchingSpecies"
                     uib-typeahead="species.scientificname as species for species in searchSpecies(($viewValue)?$viewValue:'.')"
                     typeahead-on-select="loadSpeciesPage($model)" typeahead-template-url="sp-ac-template.html" />
@@ -192,12 +192,12 @@
         </div>
 
         <div class="col-md-6 col-sm-6">
-            <h4 class="lead">Or pick a random species</h4>
+            <h4 class="lead" translate>pick_random</h4>
             <div class="form-inline taxa-random">
 
                 <!--<div ng-include="'static/app/views/home/group_selector.html'" style="position:relative;display:inline"></div>-->
 
-                <button ng-click="randomSpecies()" class="btn btn-default">Spin the wheel</button>
+                <button ng-click="randomSpecies()" class="btn btn-default" translate>btn_spin_wheel</button>
             </div>
         </div>
     </div>
@@ -206,7 +206,7 @@
 
     <div class="content favourites">
 
-        <h4 class="lead">Or select from our favorites</h4>
+        <h4 class="lead" translate>pick_favourites</h4>
 
         <div class="col-lg-3 col-md-4 col-sm-6 text-center" ng-repeat="sp in speciesList">
             <div class="hero-species" ui-sref="species.overview({scientificname:sp.s})">
