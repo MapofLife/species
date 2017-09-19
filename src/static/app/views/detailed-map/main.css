@@ -81,6 +81,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
     text-decoration: underline;
+    vertical-align: bottom; /* added this since the 'overflow' defn was pushing the text up */
 }
 
 
