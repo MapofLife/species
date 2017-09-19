@@ -124,6 +124,11 @@ angular.module('mol.controllers')
         } 
       },true);
 
+      $rootScope.$on('$translateChangeSuccess', function (e) {
+        $timeout(function () {
+          $window.dispatchEvent(new Event("resize"));
+        }, 500); 
+      });
 
 
 
