@@ -19,6 +19,6 @@
     <div class="infoIUCNStatus {{species.redlist}}"
          style="font-size:0.9em; cursor: pointer; cursor: hand;" 
          ng-show="species.redlist">
-        <a href="{{ species.redlist_link || 'http://www.iucnredlist.org/' }}" target="_blank">{{ (species.redlist | iucnStatus) }}&nbsp;(IUCN&nbsp;2017)</a>
+        <a href="{{ species.redlist_link || 'http://www.iucnredlist.org/' }}" target="_blank">{{ (species.redlist | iucnStatus) }}&nbsp;({{ (species.redlist_citation_short || 'IUCN&nbsp;2017') | replace:"[()]":"" }})</a>
     </div>
 </div>
