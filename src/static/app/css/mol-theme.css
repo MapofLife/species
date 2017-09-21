@@ -161,7 +161,7 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
     margin-left: 10px;
     margin-right: 10px;
 }
-.home .content.favourites h4 {
+.home .content.favourites h4.lead {
     padding-left: 15px;
 }
 
