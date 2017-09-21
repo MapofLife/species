@@ -53,7 +53,7 @@ angular.module('mol.controllers')
               $scope.model.canceller = $q.defer();
 
               
-              if($scope.species) {
+              if($scope.species && $scope.visibleDatasets !== undefined) {
                   if($scope.mapUpdater) {
                     try{
                       $timeout.cancel($scope.mapUpdater);
