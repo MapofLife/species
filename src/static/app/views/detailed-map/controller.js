@@ -279,7 +279,7 @@ angular.module('mol.controllers')
                 
               }).then(
                 function(results) {
-                  if(angular.isDefined(results.data) && results.data.length>0){
+                  if (angular.isDefined(results.data) && results.data.length > 0 && !results.data[0].error) {
                         deferred.resolve( {
                           model: {
                             feature: results.data,
