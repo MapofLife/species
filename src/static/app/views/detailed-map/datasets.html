@@ -35,14 +35,14 @@
         </div>
         <div  class="col clickable" ng-click="fitBounds(type.bounds)">
             <i
-              uib-tooltip="Zoom map to this data type"
+              uib-tooltip="{{ 'info_zoom_data_type' | translate}}"
               tooltip-placement="left"
               class="clickable fa fa-search"></i>
         </div>
         <div
           class="col clickable"
           ng-click="typeMetadata({'id':id,'title':type.title})" width="15px">
-            <i uib-tooltip="Information about this data type" 
+            <i uib-tooltip="{{ 'info_about_data_type' | translate }}" 
                tooltip-placement="left"
                class="fa fa-info"></i>
         </div>
@@ -70,13 +70,13 @@
             </div>
             <div class="col" ng-click="fitBounds(dataset.bounds)" class="clickable">
               <i
-                uib-tooltip="Zoom map to this dataset"
+                uib-tooltip="{{ 'info_zoom_dataset' | translate }}"
                 tooltip-placement="left"
                 class="clickable fa fa-search"></i>
             </div>
             <div class="col clickable" ng-click="datasetMetadata(dataset)">
               <i
-                uib-tooltip="Information about this dataset."
+                uib-tooltip="{{ 'info_about_dataset' | translate }}"
                 tooltip-placement="left"
                 class="clickable  fa fa-info"></i>
             </div>
