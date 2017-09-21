@@ -53,7 +53,6 @@ angular.module('mol.controllers')
               $scope.model.canceller = $q.defer();
 
               
-              $scope.map.removeOverlay(0);
               if($scope.species) {
                   if($scope.mapUpdater) {
                     try{
@@ -75,6 +74,7 @@ angular.module('mol.controllers')
                      "default_uncertainty":20000,
                      "point_limit": ($scope.filters.limit&&$scope.filters.limit!=undefined)?$scope.filters.points:5000,
                    }}).success(function(result, status, headers, config) {
+                        $scope.map.removeOverlay(0);
                         if($scope.species && result.layergroupid) {
 
                           $scope.tilesloaded=false;
@@ -90,7 +90,7 @@ angular.module('mol.controllers')
                                     'carto.mol.org',
                                     result.layergroupid),
                               key: result.layergroupid,
-                              attr: '©2014 Map of Life',
+                              attr: '©2017 Map of Life',
                               name: 'detail',
                               index: 1,
                               opacity: 0.8,
