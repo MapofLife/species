@@ -61,13 +61,16 @@ angular.module('mol.controllers')
   .filter('iucnStatus', function() {
     return function(code) {
       var description = {
-        'CR' : 'Critically Endangered',
-        'EN' : 'Endangered',
-        'EX' : 'Extinct',
-        'EW' : 'Extinct (Wild)',
-        'LC' : 'Least Concern',
-        'NT' : 'Near Threatened',
-        'VU' : 'Vulnerable'
+        'NE': 'Not Evaluated',
+        'DD': 'Data Deficient',
+        'LC': 'Least Concern',
+        'CD': 'Conservation Dependent',
+        'NT': 'Near Threatened',
+        'VU': 'Vulnerable',
+        'EN': 'Endangered',
+        'CR': 'Critically Endangered',
+        'EW': 'Extinct (Wild)',
+        'EX': 'Extinct'
       }
       return (code)?description[code]:undefined
     }
