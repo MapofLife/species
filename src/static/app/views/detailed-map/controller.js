@@ -96,6 +96,11 @@ angular.module('mol.controllers')
                               opacity: 0.8,
                               type: 'detail'
                           },0);
+                          
+                          // Trigger a map resize event since sometimes
+                          // the map is cut off
+                          // TODO: Figure out if there is a better way
+                          $scope.map.resize();
 
                         }});},500);}
 

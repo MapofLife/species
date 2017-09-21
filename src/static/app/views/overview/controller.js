@@ -18,7 +18,6 @@ angular.module('mol.controllers')
                 function(name) {
                   if(name) {
                    
-                      $scope.map.removeOverlay(0);
                       $scope.model.canceller.resolve();
                       $scope.model.canceller = $q.defer();
                       if($scope.mapUpdater) {
@@ -26,6 +25,7 @@ angular.module('mol.controllers')
                           $timeout.cancel($scope.mapUpdater);
                         } catch(e){}};
                       $scope.mapUpdater = $timeout(function(){
+                        $scope.map.removeOverlay(0);
                         $http({
                       "withCredentials":false,
                       "method":"POST",
@@ -50,6 +50,11 @@ angular.module('mol.controllers')
                                   index:1,
                                   type: 'overview'
                               },0);
+                              
+                              // Trigger a map resize event since sometimes
+                              // the map is cut off
+                              // TODO: Figure out if there is a better way
+                              $scope.map.resize();
 
                             }});},500);
 
