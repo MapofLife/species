@@ -1,12 +1,13 @@
 <div class="sidebar">
-  <div class="name" >
+  <!-- <div class="name" >
       <div class="infoCommonName" ng-show="species.commonname">
           {{ species.commonname }}
       </div>
       <div class="infoSciName" ng-show="species.scientificname">
           {{ species.scientificname }}
       </div>
-  </div>
+  </div> -->
+  <div ng-include="'static/app/views/name.html'"></div>
   <div class="row" ng-if="region.name">
     <div class="col-md-4"><h5 translate>focal_region</h5></div>
     <div class="col-md-5"><h5>{{region.name}}</h5></div>
