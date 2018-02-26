@@ -1,7 +1,7 @@
 <div class="layers_container" uib-collapse='!toggles.sidebarVisible'>
   <!--<table class="table layer_table">-->
     <div ng-repeat="(id,type) in types">
-      <div class="type-row">
+      <div class="type-row" ng-init="collapsed=(id=='range')">
         <div class="col">
             <i  ng-click="collapsed= !collapsed" class="fa clickable"
               ng-class="{ 'fa-chevron-right':!collapsed,
