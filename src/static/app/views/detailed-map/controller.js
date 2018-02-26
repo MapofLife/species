@@ -127,10 +127,10 @@ angular.module('mol.controllers')
                     metadata[0]['metadata'].splice(0, 0, {
                       "section": "Detailed",
                       "children": [{
-                        "type": "url",
-                        "id": "species_metadata",
-                        "label": "Detailed species info",
-                        "value": $scope.species.redlist_link || ('http://www.iucnredlist.org/search/external?text='+$scope.species.scientificname.replace(' ','+'))
+                        "type": "text",
+                        "id": "iucn_link",
+                        "label": "",
+                        "value": "For original, detailed IUCN map see - " + $scope.species.redlist_link || ('http://www.iucnredlist.org/search/external?text='+$scope.species.scientificname.replace(' ','+'))
                       }]
                     });
                   }
@@ -386,10 +386,17 @@ angular.module('mol.controllers')
                       angular.copy(layer.bounds));
                 }
 
+                var dsTitle = layer.dataset_title;
+                if (dsTitle.startsWith('IUCN')) {
+                  dsTitle = 'MOL grid of IUCN';
+                } else if (dsTitle.startsWith('BirdLife')) {
+                  dsTitle = 'MOL grid of BirdLife'
+                }
+
                 $scope.types[layer.product_type].datasets[layer.dataset_id] = {
                   "visible":layer.visible,
                   "id" : layer.dataset_id,
-                  "title": layer.dataset_title,
+                  "title": dsTitle,
                   "bounds": layer.bounds,
                   "metadata": undefined,
                   "feature_ct": layer.no_rows,
