@@ -83,9 +83,9 @@ footer {
   transition:all 0.7s ease;
 }
 
-.layouts-map-with-sidebars .sidebar-toggle.right.toggle-closed  {
+/* .layouts-map-with-sidebars .sidebar-toggle.right.toggle-closed  {
   right: 0px;
-}
+} */
 
 .sidebar-toggle {
   position:relative;;

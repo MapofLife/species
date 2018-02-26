@@ -2,7 +2,7 @@
 <html lang="en" ng-app="mol">
   <head>
     <base class="dev" href="http://localhost:9001/"></base>
-    <meta id="mol-asset-base"  class="dev" content="http://localhost:9001/species-dev/"></meta>
+    <meta id="mol-asset-base"  class="dev" content="http://localhost:9001/species-next/"></meta>
     <meta charset="utf-8"></meta>
 
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
@@ -29,6 +29,7 @@
     <link class="dev" rel="stylesheet" href="static/app/css/mol-theme.css"></link>
     <link class="dev" rel="stylesheet" href="static/app/css/layouts.css"></link>
     <link class="dev" rel="stylesheet" href="static/app/views/detailed-map/main.css"></link>
+    <link class="dev" rel="stylesheet" href="static/app/views/habitat-projection/main.css"></link>
     <link class="dev" rel="stylesheet" href="static/app/views/overview/main.css"></link>
     <link class="dev" rel="stylesheet" href="static/app/views/habitat-controls/styles.css"></link>
 
@@ -94,11 +95,13 @@
     <script class="dev" type="text/javascript" src="static/app/views/home/controller.js"></script>
     <script class="dev" type="text/javascript" src="static/app/views/detailed-map/controller.js"></script>
     <script class="dev" type="text/javascript" src="static/app/views/overview/controller.js"></script>
+    <script class="dev" type="text/javascript" src="static/app/views/habitat-projection/controller.js"></script>
     <!--<script class="dev" type="text/javascript" src="static/app/views/habitat-trend/controller.js"></script>
     <script class="dev" type="text/javascript" src="static/app/views/habitat-distribution/controller.js"></script>
     <script class="dev" type="text/javascript" src="static/app/views/reserve-coverage/controller.js"></script>
     <script class="dev" type="text/javascript" src="static/app/views/habitat-controls/controller.js"></script>
     <script class="dev" type="text/javascript" src="static/app/js/regression.js"></script>-->
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
   </head>
   <body><div class="body_wrapper" ui-view="" state="{{ $state.current.name }}"></div></body>
   <script class="delete" src="http://localhost:35729/livereload.js"></script>

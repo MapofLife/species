@@ -62,7 +62,7 @@ angular.module('mol.controllers')
                   "withCredentials":false,
                   "method":"POST",
                   "timeout":$scope.model.canceller,
-                  "url":"https://carto.mol.org/user/mol/api/v1/map/named/detailed-map",
+                  "url":"https://carto.mol.org/user/mol/api/v1/map/named/detailed-map-snapped",
                   "data": {
                      "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
                      "max_year" : ($scope.filters.years)?$scope.year.max:5555555,
@@ -118,10 +118,51 @@ angular.module('mol.controllers')
             }).then(
               function(results) {
                 var modalInstance, metadata = results.data;
-                modalInstance = $modal.open({
+                // if (dataset.id == "704898e7-b945-4721-b201-9286bd00c0a9" || dataset.id == "a7d5a735-22f9-4260-aa31-a4a4e7bf3029") {
+                var dsIdx = (metadata[0]['metadata'][0]['section'] == 'General') ? 0 : 1;
+                var dsTitle = metadata[0]['metadata'][dsIdx]['children'][0]["value"];
+                if (dsTitle.startsWith("IUCN") || dsTitle.startsWith("BirdLife")) {
+                  // Add the IUCN link for detailed species info
+                  if (dsIdx == 0) {
+                    metadata[0]['metadata'].splice(0, 0, {
+                      "section": "Detailed",
+                      "children": [{
+                        "type": "url",
+                        "id": "species_metadata",
+                        "label": "Detailed species info",
+                        "value": $scope.species.redlist_link || ('http://www.iucnredlist.org/search/external?text='+$scope.species.scientificname.replace(' ','+'))
+                      }]
+                    });
+                  }
+
+                  // Add the 'geometry processing' info
+                  angular.forEach(
+                    metadata[0]['metadata'],
+                    function (mobj) {
+                      if (mobj['section'] == "Geospatial") {
+                        var gpIsPresent = false;
+                        for (var i=0; i < mobj['children'].length; i++) {
+                          if (mobj['children'][i]["id"] == "geometry_processing") {
+                            gpIsPresent = true;
+                            break;
+                          }
+                        }
+                        if (!gpIsPresent) {
+                          mobj['children'].push({
+                            "type": "text",
+                            "id": "geometry_processing",
+                            "label": "Grid analysis and representation",
+                            "value": "The source information (maps drawn by individual experts) was reanalyzed and for visual purposes modelled as a hierarchical presence grid. Grid cells vary in size depending on the amount of detail required to characterize a distribution. with a smallest cell size of ca. 765 km2 near the equator. For this type of source information, this minimum grid cell size is smaller than appropriate for quantitative analysis and intended for visualization only (Hurlbert & Jetz  2007. Species richness, hotspots, and the scale dependence of range maps in ecology and conservation. PNAS 104:13384-13389)."
+                          });
+                        }
+                      }
+                    }
+                  );
+                }
+            modalInstance = $modal.open({
                   templateUrl: 'static/app/views/detailed-map/dataset_metadata_modal.html',
                   controller: function($scope, $uibModalInstance) {
-
+                
                       var items =[{"collapsed":false,"items":metadata}];
                       $scope.modal = {
                         "title": dataset.title,

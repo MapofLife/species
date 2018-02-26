@@ -30,7 +30,7 @@ angular.module('mol.controllers')
                       "withCredentials":false,
                       "method":"POST",
                       "timeout": $scope.canceller,
-                      "url":"https://carto.mol.org/user/mol/api/v1/map/named/consensus-map",
+                      "url":"https://carto.mol.org/user/mol/api/v1/map/named/consensus-map-snapped",
                       "data": {
                          "scientificname": name,
                       }}).success(function(result, status, headers, config) {

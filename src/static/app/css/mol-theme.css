@@ -268,6 +268,12 @@ body, caption, th, td, input, textarea, select, option, legend, fieldset {
 
 .name {
   padding: 0.1em 0 1em 0;
+  
+  /* Setting min-height so we have a consistent height. 
+  Otherwise, the "focal region" div is messed up. 
+  TODO: Find a better way when redesigning the UI.
+  */
+  min-height: 152px; 
 }
 .name div {
   padding: 0.1em 0 0.2em 0;

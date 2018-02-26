@@ -181,6 +181,18 @@ angular.module('mol', [
         },
         url: 'map/{0}?{1}'.format(urlparams,queryparams)
       }
+    ).state(
+      'species.habitat-projection',
+      {
+        data: {title : 'Species Habitat Projection'},
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/habitat-projection/sidebar.html",
+            controller: 'molHabitatProjectionCtrl'
+          }
+        },
+        url: 'habitat-projection/{0}?{1}'.format(urlparams,queryparams)
+      }
     );
     /*.state(
       'species.habitat-distribution',
