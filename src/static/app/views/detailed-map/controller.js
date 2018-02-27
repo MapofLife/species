@@ -122,7 +122,17 @@ angular.module('mol.controllers')
                 var dsIdx = (metadata[0]['metadata'][0]['section'] == 'General') ? 0 : 1;
                 var dsTitle = metadata[0]['metadata'][dsIdx]['children'][0]["value"];
                 if (dsTitle.startsWith("IUCN") || dsTitle.startsWith("BirdLife")) {
-                  // Add the IUCN link for detailed species info
+                  // Add the IUCN/BirdLife link for detailed species info
+                  var smurl = $scope.species.redlist_link;
+                  if (!smurl || smurl.length == 0) {
+                    smurl = 'http://www.iucnredlist.org/search/external?text='+$scope.species.scientificname.replace(' ','+');
+                  }
+
+                  var smtext = "For original, detailed IUCN map see - " + smurl ;
+                  if (dsTitle.startsWith("BirdLife")) {
+                    smtext = "For original, detailed BirdLife map see - http://datazone.birdlife.org/species/results?kw="+$scope.species.scientificname.replace(' ','+');
+                  }
+
                   if (dsIdx == 0) {
                     metadata[0]['metadata'].splice(0, 0, {
                       "section": "Detailed",
@@ -130,7 +140,7 @@ angular.module('mol.controllers')
                         "type": "text",
                         "id": "iucn_link",
                         "label": "",
-                        "value": "For original, detailed IUCN map see - " + $scope.species.redlist_link || ('http://www.iucnredlist.org/search/external?text='+$scope.species.scientificname.replace(' ','+'))
+                        "value": smtext
                       }]
                     });
                   }
