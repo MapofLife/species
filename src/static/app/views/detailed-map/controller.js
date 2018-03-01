@@ -397,7 +397,7 @@ angular.module('mol.controllers')
                 }
 
                 var dsTitle = layer.dataset_title;
-                if (dsTitle.startsWith('IUCN')) {
+                if (dsTitle.startsWith('IUCN ')) {
                   dsTitle = 'MOL grid of IUCN';
                 } else if (dsTitle.startsWith('BirdLife')) {
                   dsTitle = 'MOL grid of BirdLife'
