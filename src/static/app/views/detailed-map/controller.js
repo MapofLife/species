@@ -130,7 +130,9 @@ angular.module('mol.controllers')
 
                   var smtext = "For original, detailed IUCN map see - " + smurl ;
                   if (dsTitle.startsWith("BirdLife")) {
-                    smtext = "For original, detailed BirdLife map see - http://datazone.birdlife.org/species/results?kw="+$scope.species.scientificname.replace(' ','+');
+                    smtext = "For original, detailed BirdLife map see http://datazone.birdlife.org/species/results?kw=";
+                    smtext += $scope.species.scientificname.replace(' ','+');
+                    smtext += ", or use http://datazone.birdlife.org/species/search to find species with name changes";
                   }
 
                   metadata[0]['metadata'].splice(0, dsIdx, {
@@ -415,6 +417,11 @@ angular.module('mol.controllers')
                   $scope.types[layer.product_type].feature_ct+=layer.no_rows;
                 } else {
                   $scope.types[layer.product_type].feature_ct++;
+                }
+
+                if (layer.dataset_id == '704898e7-b945-4721-b201-9286bd00c0a9') {
+                  $scope.types[layer.product_type].datasets[layer.dataset_id].visible = false;
+                  $scope.types[layer.product_type].partial = true;
                 }
 
                 $scope.datasets[layer.dataset_id] = layer;
