@@ -133,17 +133,15 @@ angular.module('mol.controllers')
                     smtext = "For original, detailed BirdLife map see - http://datazone.birdlife.org/species/results?kw="+$scope.species.scientificname.replace(' ','+');
                   }
 
-                  if (dsIdx == 0) {
-                    metadata[0]['metadata'].splice(0, 0, {
-                      "section": "Detailed",
-                      "children": [{
-                        "type": "text",
-                        "id": "iucn_link",
-                        "label": "",
-                        "value": smtext
-                      }]
-                    });
-                  }
+                  metadata[0]['metadata'].splice(0, dsIdx, {
+                    "section": "Detailed",
+                    "children": [{
+                      "type": "text",
+                      "id": "iucn_link",
+                      "label": "",
+                      "value": smtext
+                    }]
+                  });
 
                   // Add the 'geometry processing' info
                   angular.forEach(
