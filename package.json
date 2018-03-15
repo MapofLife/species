@@ -5,8 +5,8 @@
   "description": "An application for mapping species distributions",
   "repository": "git@github.com:MapofLife/species.git",
   "devRepository": "git@github.com:MapofLife/species-next.git",
-  "url": "https://mapoflife.github.io/species/",
-  "base": "species",
+  "url": "https://mapoflife.github.io/species-next/",
+  "base": "species-next",
   "license": "MIT",
   "directory": "static/components/",
   "devDependencies": {
