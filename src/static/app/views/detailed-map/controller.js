@@ -448,6 +448,31 @@ angular.module('mol.controllers')
         true
       );
 
+      $scope.regiondatasets = [];
+      $scope.$watch("region", function(n,o) {
+        if(n && n.type !== 'global') {
+          if (n.region_id) {
+            $scope.regiondatasets = [];
+            molApi({
+              "canceller": $scope.canceller,
+              "loading": true,
+              "service": "spatial/regions/datasets",
+              "creds": true,
+              "params":   {
+                "region_id": n.region_id, 
+                "scientificname": $scope.species.scientificname,
+                "product_type": "griddedrangeatlas,localinv,points,range,regionalchecklist"
+              }
+           }).success(function(rds) {
+             angular.forEach(rds, function(ds) {
+              $scope.regiondatasets.push(ds.dataset_id);
+             });
+           });  
+          }
+          
+        } 
+      },true);
+
       $scope.toggleType = function(type, bool) {
         angular.forEach(
           $scope.types[type].datasets,
