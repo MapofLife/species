@@ -9,7 +9,7 @@
   </div> -->
   <div ng-include="'static/app/views/name.html'"></div>
   <div class="row" ng-if="region.name" style="outline: 1px solid lightgray">
-    <div class="col-md-5"><h5><i class="fa fa-map-o" aria-hidden="true"></i> {{ 'focal_region' | translate }}</h5></div>
+    <div class="col-md-5"><h5><i class="fa fa-map-o focal-region" aria-hidden="true"></i> {{ 'focal_region' | translate }}</h5></div>
     <div class="col-md-6"><h5>{{region.name}}</h5></div>
     <div class="col-md-1 clickable" ng-click="zoomToRegion()">
               <i style="float: right; margin: 10px 2px;"
