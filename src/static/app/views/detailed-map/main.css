@@ -89,3 +89,7 @@
 	font-weight:bold;
 	text-align:center
 }
+
+.sidebar i.fa.focal-region {
+  color: red;
+}
