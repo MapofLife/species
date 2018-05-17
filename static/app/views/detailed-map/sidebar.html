@@ -19,7 +19,10 @@
     </div>
       
   </div>
-  <div class="row"><div ng-show="types" class="col-md-12"><h5 translate>sources</h5></div></div>
+  <div class="row">
+    <div ng-show="types" class="col-md-8"><h5 translate>sources</h5></div>
+    <div ng-show="user_datasets.length > 0" class="col-md-4"><h6><i class="fa fa-user" aria-hidden="true"></i> {{ user_datasets.length }} user datasets</h6></div>
+  </div>
   <div class="row">
     <div class="col-md-12" ng-include="'static/app/views/detailed-map/datasets.html'"></div>
   </div>
