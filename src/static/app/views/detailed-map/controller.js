@@ -374,7 +374,8 @@ angular.module('mol.controllers')
             $scope.layers = layers;
             $scope.types = {};
             $scope.datasets = {};
-            $scope.selectedFeatures = {}
+            $scope.selectedFeatures = {};
+            $scope.user_datasets = [];
 
             angular.forEach(
               layers,
@@ -405,6 +406,7 @@ angular.module('mol.controllers')
 
                 $scope.types[layer.product_type].datasets[layer.dataset_id] = {
                   "visible":layer.visible,
+                  "user_dataset":layer.user_dataset,
                   "id" : layer.dataset_id,
                   "title": dsTitle,
                   "bounds": layer.bounds,
@@ -425,6 +427,9 @@ angular.module('mol.controllers')
                 }
 
                 $scope.datasets[layer.dataset_id] = layer;
+                if (layer.user_dataset) {
+                  $scope.user_datasets.push(layer);
+                }
                 $scope.updateDetailMap();
               }
 
