@@ -10,14 +10,20 @@
   <div ng-include="'static/app/views/name.html'"></div>
   <div class="row" ng-if="region.name" style="outline: 1px solid lightgray">
     <div class="col-md-5"><h5><i class="fa fa-map-o focal-region" aria-hidden="true"></i> {{ 'focal_region' | translate }}</h5></div>
-    <div class="col-md-6"><h5>{{region.name}}</h5></div>
+    <div class="col-md-5"><h5>{{region.name}}</h5></div>
     <div class="col-md-1 clickable" ng-click="zoomToRegion()">
-              <i style="float: right; margin: 10px 2px;"
+              <i style="margin: 10px 2px;"
                 uib-tooltip="{{ 'info_zoom_region' | translate}}"
-                tooltip-placement="left"
+                tooltip-placement="bottom-right"
                 class="clickable fa fa-search"></i>
     </div>
-      
+    <div class="col-md-1 clickable" ng-click="zoomToRegion()">
+      <i style="margin: 10px 2px;" 
+       uib-tooltip="{{ 'info_focal_region' | translate}}" 
+       tooltip-placement="bottom-right"
+       class="fa fa-info"></i>
+    </div>
+
   </div>
   <div class="row">
     <div ng-show="types" class="col-md-8"><h5 translate>sources</h5></div>
