@@ -36,7 +36,7 @@ angular.module('mol', [
   // Grab the static files from the CDN
   $translateProvider.useStaticFilesLoader({
     prefix: 'https://cdn.mol.org/translations/locale-',
-    suffix: '.json?201709211500'
+    suffix: '.json?201806041403'
   });
   
   if(molConfig.lang) {
