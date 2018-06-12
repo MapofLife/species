@@ -90,4 +90,20 @@
         </div>
       </div>
     </div>
+    <div ng-if="species.scientificname == 'Accipiter badius'">
+      <div class="type-row">
+        <div class="col"><i class="fa clickable"></i></div>
+        <div class="col"><checkbox class="btn-primary" ng-change="toggleSDM(sdm_datasets)" ng-model="sdm_datasets"></checkbox></div>
+        <div class="col title clickable"><span>SDM</span></div>
+        <div class="col">
+          <img
+          style="width:25px;height:25px;"
+          class="clickable"
+          src="https://cdn.mol.org/static/images/legends/ranges/seasonality-non-breeding.png">
+        </div>
+        <div class="col feature-ct"></div>
+        <div  class="col clickable" ng-click="fitBounds(type.bounds)"><i class="clickable fa fa-search"></i></div>
+        <div class="col clickable" width="15px"><i class="fa fa-info"></i></div>
+      </div>
+    </div>
 </div>
