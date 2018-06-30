@@ -1,0 +1,112 @@
+<div class="sidebar">
+  <div class="name" style="min-height: 100px">
+      <div class="infoCommonName" ng-show="species.commonname">
+          {{ species.commonname }}
+      </div>
+      <div class="infoSciName" ng-show="species.scientificname">
+          {{ species.scientificname }}
+      </div>
+  </div>
+  
+  <div class="row"><div class="type-row">
+    <div class="col-md-3"><h5 translate>Landuse</h5></div>
+    <div class="col-md-9">
+      <select class="form-control selectpicker" 
+        ng-model="model.projectionOpts.landuse">
+        <option value='' translate>Select landuse</option>
+        <option value='globio' translate>GLOBIO</option>
+        <option value='luh' translate>LUH2</option>
+      </select>
+    </div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+  
+  <div class="row"><div class="type-row">
+    <div class="col-md-3"><h5 translate>Landuse Scale</h5></div>
+    <div class="col-md-9">
+      <select class="form-control selectpicker" 
+        ng-model="model.projectionOpts.luscale">
+        <option value='' translate>Select scale</option>
+        <option value='1km' ng-hide="model.projectionOpts.landuse=='luh'">1km</option>
+        <option value='025deg'>0.25deg</option>
+      </select>
+    </div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+  
+  <div class="row" ng-show="model.projectionOpts.landuse=='luh'"><div class="type-row">
+      <div class="col-md-3"><h5 translate>LUH Landuse Methods</h5></div>
+      <div class="col-md-9">
+        <select class="form-control selectpicker" 
+          ng-model="model.projectionOpts.lumethod">
+          <option value='' translate>Select method</option>
+          <option value='aim'>AIM</option>
+          <option value='image'>IMAGE</option>
+          <option value='magpie'>MAGPIE</option>
+          <option value='message'>MESSAGE</option>
+        </select>
+      </div>
+    </div></div>
+  
+    <div class="row">&nbsp;</div>
+      <div class="row"><div class="type-row">
+    <div class="col-md-3"><h5 translate>Decade</h5></div>
+    <div class="col-md-9">
+      <select class="form-control selectpicker" 
+        ng-model="model.projectionOpts.decade" 
+        ng-options="opt for opt in decades[model.projectionOpts.landuse]">
+        <option value='' translate>Select decade</option>
+      </select>
+    </div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+  
+  <div class="row"><div class="type-row">
+    <div class="col-md-3"><h5 translate>Scenario</h5></div>
+    <div class="col-md-9">
+      <select class="form-control selectpicker" 
+        ng-model="model.projectionOpts.scenario" 
+        ng-options="opt.code as opt.name for opt in scenarios">
+        <option value='' translate>Select scenario</option>
+      </select>
+    </div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+
+  <div class="row"><div class="type-row">
+    <div class="col-md-3">&nbsp;</div>
+    <div class="col-md-9"><button class="btn btn-primary" 
+        ng-class="{'disabled': !(model.projectionOpts.decade && model.projectionOpts.scenario)}" 
+        ng-click="getHabitatProjection()">
+        Get habitat projection
+    </button> &nbsp; &nbsp;
+    <i class="fa fa-question-circle fa-lg" uib-tooltip="Projections following Powers &amp; Jetz (submitted MS)" tooltip-placement="bottom"></i></div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+
+  <div class="row"><div class="type-row">
+    <div class="col-md-12">
+      <div id="habitat-projection-chart" style="width: 400px; height: 300px"></div>
+    </div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+
+  <div class="row" ng-show="mapAvailable"><div class="type-row">
+    <div class="col-md-2"></div>
+    <div class="col-md-8">
+      <div><strong>Legend</strong></div>
+      <div style="height: 10px; background: linear-gradient(90deg, #0000ff00, #0000ffAA);"></div>
+      <div>
+        <span>0</span>
+        <span style="float: right;">100%</span>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div></div>
+</div>
