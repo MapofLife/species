@@ -13,6 +13,10 @@
   <!-- <div ui-view="habitat-controls"></div>
   <div ng-include="'static/app/views/range-metrics.html'"></div> -->
 
+  <div ng-if="loadingData">
+    <h4><i class="fa fa-refresh fa-spin fa-1x fa-fw"></i> Generating trends...</h4>
+  </div>
+
   <div ng-show="habtrends">
 
     <div class="row">&nbsp;</div>
@@ -46,11 +50,16 @@
       <div class="col-md-1"></div>
       <div class="col-md-10">
         <div>% change in suitable habitat</div>
-        <div style="height: 10px; background: linear-gradient(90deg, #ff0000, #0000ff, #ffff00);"></div>
-        <div>
-          <span>Loss (100%)</span>
-          <span style="padding-left: 15%;">no-change</span>
-          <span style="float: right;">Gain (100%)</span>
+        <!-- <div style="height: 10px; background: linear-gradient(90deg, #ff0000, #0000ff, #ffff00);"></div> -->
+        <div style="height: 50px;" class="row">
+          <div class="col-sm-4" style="height: 100%; background: linear-gradient(to bottom, rgba(204,0,0, 0.01), rgba(204,0,0, 0.43), rgba(204,0,0, 0.90));"></div>
+          <div class="col-sm-4" style="height: 100%; background: linear-gradient(to bottom, rgba(0,0,204, 0.01), rgba(0,0,204, 0.43), rgba(0,0,204, 0.90));"></div>
+          <div class="col-sm-4" style="height: 100%; background: linear-gradient(to bottom, rgba(204,204,0, 0.01), rgba(204,204,0, 0.43), rgba(204,204,0, 0.90));"></div>
+        </div>
+        <div class="row">
+          <div class="col-sm-4" style="text-align: center">Loss</div>
+          <div class="col-sm-4" style="text-align: center">No-change</div>
+          <div class="col-sm-4" style="text-align: center">Gain</div>
         </div>
       </div>
       <div class="col-md-1"></div>
