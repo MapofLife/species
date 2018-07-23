@@ -1,0 +1,18 @@
+.make-vertical {
+    -webkit-transform: rotate(-90deg);	
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+
+    padding: 20px 0 0 0;
+    margin: 35px 0 0 0;
+    height: 50% !important;
+    /* line-height: 15px; */
+}
+div.trends { height: 150px; }
+div.trends div { height: 100%; }
+
+.legend-colours {
+    background: linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255, 0)) no-repeat border-box, linear-gradient(to right, rgba(255,0,0,1), rgba(0,0,255, 1), rgba(255,255,0, 1)) no-repeat border-box
+}

@@ -1,0 +1,14 @@
+[state^="species.habitat-projection"] .type-row .type-row {
+  width: 100%;
+  padding: 5px;
+  white-space: nowrap;
+}
+
+[state^="species.habitat-projection"] .type-row .row {
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+[state^="species.habitat-projection"] select.form-control.selectpicker {
+  max-width: 250px;
+}

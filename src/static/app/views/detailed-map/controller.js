@@ -95,8 +95,8 @@ angular.module('mol.controllers')
                               index: 1,
                               opacity: 0.8,
                               type: 'detail'
-                          },0);
-                          
+                          },1);
+
                           // Trigger a map resize event since sometimes
                           // the map is cut off
                           // TODO: Figure out if there is a better way
@@ -452,6 +452,67 @@ angular.module('mol.controllers')
         },
         true
       );
+
+      $scope.sdm_datasets = false;
+      $scope.toggleSDM = function(show) {
+        $scope.sdm_datasets = show;
+        if (show) {
+
+          molApi({
+              "canceller": $scope.canceller,
+              "loading": true,
+              "service": "species/indicators/rasters/map",
+              "creds": true,
+              "params":   {
+                "scientificname": $scope.species.scientificname
+              }
+          }).success(function(data) {
+            var sdm_tile_url = data.map.tile_url;
+            if (sdm_tile_url.length > 0) {
+              console.log("sdm_tile_url: ", sdm_tile_url);
+              $scope.map.setOverlay({
+                tile_url: sdm_tile_url,
+                grid_url: "",
+                key: '832bbf7e822d8ad024271105a0e92450',
+                attr: '©2018 Map of Life',
+                name: 'SDM',
+                index: 0,
+                opacity: 0.6,
+                type: 'sdm'
+              }, 0);
+            }
+          }); 
+
+          // var sdm_tile_url = "";
+          // var sdm_tile_url_tmpl = "https://earthengine.googleapis.com/map/{0}/{z}/{x}/{y}?token={1}";
+          // if ($scope.species.scientificname == 'Accipiter badius') {
+          //   sdm_tile_url = sdm_tile_url_tmpl.format('832bbf7e822d8ad024271105a0e92450', 'eedbb0991bd798786e4b6c433cc39e74');
+          // } else if ($scope.species.scientificname == 'Eremopterix leucotis') {
+          //   sdm_tile_url = sdm_tile_url_tmpl.format('d0c5c281c75c4b244d1c2149be0873e2', '7d1a71e6ea3b2f591c633197bd5d8d26');
+          // } else if ($scope.species.scientificname == 'Hyliota australis') {
+          //   sdm_tile_url = sdm_tile_url_tmpl.format('3894875ef19d6ade59ecdafc870ccf0e', '51ab481fb41358b9d5e18bed99dd9e06');
+          // } else {
+          //   console.log("No species?: ", $scope.species.scientificname);
+          // }
+          // if (sdm_tile_url.length > 0) {
+          //   console.log("sdm_tile_url: ", sdm_tile_url);
+          //   $scope.map.setOverlay({
+          //     tile_url: sdm_tile_url,
+          //     grid_url: "",
+          //     key: '832bbf7e822d8ad024271105a0e92450',
+          //     attr: '©2018 Map of Life',
+          //     name: 'SDM',
+          //     index: 0,
+          //     opacity: 0.6,
+          //     type: 'sdm'
+          //   }, 0);
+          // }
+        } else {
+          $scope.map.removeOverlay(0);
+        }
+      }
+
+
 
       $scope.regiondatasets = [];
       $scope.$watch("region", function(n,o) {

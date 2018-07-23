@@ -1,5 +1,92 @@
 <div class="sidebar">
-  <div ng-include="'static/app/views/name.html'"></div>
-  <div ui-view="habitat-controls"></div>
-  <div ng-include="'static/app/views/range-metrics.html'"></div>
+  <!-- <div ng-include="'static/app/views/name.html'"></div> -->
+
+  <div class="name" style="min-height: 100px">
+      <div class="infoCommonName" ng-show="species.commonname">
+          {{ species.commonname }}
+      </div>
+      <div class="infoSciName" ng-show="species.scientificname">
+          {{ species.scientificname }}
+      </div>
+  </div>
+
+  <!-- <div ui-view="habitat-controls"></div>
+  <div ng-include="'static/app/views/range-metrics.html'"></div> -->
+
+  <div ng-if="loadingData">
+    <h4><i class="fa fa-refresh fa-spin fa-1x fa-fw"></i> Generating trends...</h4>
+  </div>
+
+  <div ng-show="habtrends">
+
+    <div class="row">&nbsp;</div>
+    <div class="row"><div class="type-row">
+      <div class="col-md-4"><strong translate>Map overlay</strong></div>
+      <div class="col-md-8">
+        <select class="form-control selectpicker" style="max-width: 90%;" 
+          ng-model="selected.trend" 
+          ng-options="opt as opt.title for opt in habtrends.trends">
+          <option value='' translate>Select map overlay</option>
+        </select>
+      </div>
+    </div></div>
+
+    <!-- legend -->
+    <div class="row">&nbsp;</div>
+    <div class="row"><div class="col-md-12"><strong>Legend</strong></div></div>
+    <div class="row"><div class="type-row trends">
+        <!-- <div class="col-sm-0"></div> -->
+        <div class="col-sm-3 make-vertical">% initial habitat suitability</div>
+        <div class="col-sm-8 legend-colours"></div>
+        <div class="col-sm-1"></div>
+    </div></div>
+    <div class="row">
+      <div class="col-md-3">&nbsp;</div>
+      <div class="col-md-3">Loss</div>
+      <div class="col-md-4">No-change</div>
+      <div class="col-md-2">Gain</div>
+      <!-- <div class="col-md-1">&nbsp;</div> -->
+    </div>
+  
+
+    <!-- elevation -->
+    <div class="row">&nbsp;</div>
+    <div class="row"><div class="type-row">
+      <div class="col-md-12">
+        <strong translate>Suitable elevation:</strong>
+        <span>{{ habtrends.metadata.properties.elev_min || -500 }} to {{ habtrends.metadata.properties.elev_max || 8500 }} meters</span>
+      </div>
+    </div></div>
+
+    <!-- tree cover -->
+    <div class="row">&nbsp;</div>
+    <div class="row"><div class="type-row">
+      <div class="col-md-12">
+        <strong translate>Suitable tree cover:</strong>
+        <span>{{ habtrends.metadata.properties.treecover_min || 0 }} to {{ habtrends.metadata.properties.treecover_max || 100 }}%</span>
+      </div>
+    </div></div>
+
+    <!-- landcover values -->
+    <div class="row">&nbsp;</div>
+    <div class="row"><div class="type-row">
+      <div class="col-md-12">
+        
+        <table class="table table-bordered" ng-show="habtrends.landCoverClasses">
+          <tr>
+            <th><strong>Land cover</strong></th>
+            <th><strong>Percent suitable</strong></th>
+          </tr>
+          <tr ng-repeat="row in habtrends.landCoverClasses">
+            <td>{{ row.className }}</td>
+            <td>{{ row.pctSuitable }}</td>
+          </tr>
+        </table>
+        
+      </div>
+    </div></div>
+
+
+  </div>
+
 </div>

@@ -1,0 +1,93 @@
+<div class="sidebar">
+  <div class="name" style="min-height: 100px">
+      <div class="infoCommonName" ng-show="species.commonname">
+          {{ species.commonname }}
+      </div>
+      <div class="infoSciName" ng-show="species.scientificname">
+          {{ species.scientificname }}
+      </div>
+  </div>
+  
+  <div class="row"><div class="col-md-12"><h5>Shared Socio‐Economic Pathway</h5></div></div>
+  <div class="row"><div class="type-row">
+    <div class="col-md-12">
+      <select class="form-control selectpicker" 
+        ng-model="model.projectionOpts.lumethod">
+        <option value='image'>SSP 1 (RCP 2.6)</option>
+        <option value='message'>SSP 2 (RCP 4.5)</option>
+        <option value='aim'>SSP 3 (RCP 7.0)</option>
+        <option value='magpie'>SSP 5 (RCP 8.5)</option>
+      </select>
+    </div>
+  </div></div>
+  
+    <div class="row">&nbsp;</div>
+
+    <div class="row"><div class="col-md-12"><h5>Projection Year (Map)</h5></div></div>
+    <div class="row"><div class="type-row">
+    <div class="col-md-12">
+      <select class="form-control selectpicker" 
+        ng-model="model.projectionOpts.decade" 
+        ng-options="opt for opt in decades[model.projectionOpts.landuse]">
+        <!-- <option value='' translate>Select decade</option> -->
+      </select>
+    </div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+  
+  <div class="row"><div class="col-md-12"><h5>Habitat Regain Assumption</h5></div></div>
+  <div class="row"><div class="type-row">
+    <div class="col-md-12">
+      <!-- <select class="form-control selectpicker" 
+        ng-model="model.projectionOpts.scenario" 
+        ng-options="opt.code as opt.name for opt in scenarios">
+        <option value='' translate>Select regain assumption</option>
+      </select> -->
+      <div class="btn-group">
+        <label class="btn btn-primary" ng-model="model.projectionOpts.scenario" uib-btn-radio="'scenario1'">No-regain</label>
+        <label class="btn btn-primary" ng-model="model.projectionOpts.scenario" uib-btn-radio="'scenario3'">Regain</label>
+      </div>
+    </div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+
+  <div class="row"><div class="type-row">
+    <!-- <div class="col-md-3">&nbsp;</div> -->
+    <div class="col-md-12"><button class="btn btn-primary" 
+        ng-class="{'disabled': !(model.projectionOpts.decade && model.projectionOpts.scenario) || loadingData}" 
+        ng-click="getHabitatProjection()">
+        Get habitat projection
+    </button> &nbsp; &nbsp;
+    <i class="fa fa-question-circle fa-lg" uib-popover-html="habProjTooltip" popover-trigger="outsideClick" popover-placement="bottom"></i></div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+
+  <div ng-if="loadingData">
+    <h4><i class="fa fa-refresh fa-spin fa-1x fa-fw"></i> Generating projection...</h4>
+  </div>
+
+  <div class="row"><div class="type-row">
+    <div class="col-md-12">
+      <div id="habitat-projection-chart" style="width: 400px; height: 300px"></div>
+    </div>
+  </div></div>
+
+  <div class="row">&nbsp;</div>
+
+  <div class="row" ng-show="mapAvailable"><div class="col-md-12"><h5>Legend</h5></div></div>
+  <div class="row" ng-show="mapAvailable"><div class="type-row">
+    <div class="col-md-1"></div>
+    <div class="col-md-10">
+      <div>% suitable habitat</div>
+      <div style="height: 10px; background: linear-gradient(90deg, #0000ff00, #0000ffAA);"></div>
+      <div>
+        <span>0</span>
+        <span style="float: right;">100%</span>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div></div>
+</div>

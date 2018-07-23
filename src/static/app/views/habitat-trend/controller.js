@@ -1,6 +1,131 @@
 'use strict';
 angular.module('mol.controllers')
 .controller('molHabitatTrendCtrl',
+    ['$scope', '$state', '$timeout', '$http', '$filter', 'molApi', 
+    function($scope, $state, $timeout, $http, $filter, molApi) {
+
+      $scope.loadingData = true;
+      $scope.habtrends = undefined;
+      $scope.selected = {
+        trend: {}
+      };
+
+      $scope.getHabitatTrend = function() {
+        $scope.habtrends = undefined;
+        // molApi({
+        //   "service": "species/indicators/habitat-trends/map",
+        //   "params": { scientificname: $state.params.scientificname.replace('_', ' ') },
+        //   "canceller": $scope.model.canceller,
+        //   "loading": true
+        // }).then(function (results) {
+        //     console.log("got results: ", results);
+        //     if (results && results.trends) {
+        //       $scope.habtrends = results;
+        //     }
+        // });
+
+
+        var spturl = "https://api.mol.org/1.x/species/indicators/habitat-trends/map?scientificname="+$state.params.scientificname.replace('_', ' ');
+        return $http({
+          "withCredentials": false,
+          "method": "GET",
+          "url": spturl
+        }).then(function(result, status, headers, config) {
+          if (result && result.data) {
+            $scope.habtrends = result.data;
+
+            // Update the landcover values for display
+            var lcvals = $scope.habtrends.metadata.properties.esa_landcover.split(',').map(function(c) {
+              return [c.split(':')[0], c.split(':')[1]];
+            });
+            $scope.habtrends.landCoverClasses = [];
+            angular.forEach(lcvals, function(v, i) {
+              $scope.habtrends.landCoverClasses.push({
+                classValue: parseInt(v[0]),
+                className: ESA_CLASS_NAMES[v[0]],
+                pctSuitable: parseFloat(v[1])*100
+              });
+            });
+          }
+
+          $scope.loadingData = false;
+        });
+
+      };
+
+      $scope.$watch("selected.trend", function(n,o) {
+        if(n) {
+          if ($scope.mapUpdater) {
+            try {
+              $timeout.cancel($scope.mapUpdater);
+            } catch (e) { }
+          }
+          $scope.mapUpdater = $timeout(function () {
+            $scope.map.removeOverlay(0);
+            $scope.tilesloaded = false;
+            $scope.map.setOverlay({
+              tile_url: $scope.selected.trend.tile_url,
+              key: $scope.selected.trend.id,
+              attr: '©2018 Map of Life',
+              name: 'habitat-trend',
+              index: 1,
+              opacity: 1.0,
+              type: 'habitat-trend'
+            }, 0);
+
+            // Trigger a map resize event since sometimes
+            // the map is cut off
+            // TODO: Figure out if there is a better way
+            $scope.map.resize();
+          }, 500);
+        }
+      }, true);
+
+      var ESA_CLASS_NAMES = {
+        '10':'Cropland, rainfed',
+        '11': 'Herbaceous cover',
+        '12':	'Tree or shrub cover',
+        '20':	'Cropland, irrigated or post-flooding',
+        '30':	'Mosaic cropland (>50%) / natural vegetation (tree, shrub, herbaceous cover) (<50%)',
+        '40':	'Mosaic natural vegetation (tree, shrub, herbaceous cover) (>50%) / cropland (<50%)',
+        '50':	'Tree cover, broadleaved, evergreen, closed to open (>15%)',
+        '60':	'Tree cover, broadleaved, deciduous, closed to open (>15%)',
+        '61':	'Tree cover, broadleaved, deciduous, closed (>40%)',
+        '62':	'Tree cover, broadleaved, deciduous, open (15-40%)',
+        '70':	'Tree cover, needleleaved, evergreen, closed to open (>15%)',
+        '71':	'Tree cover, needleleaved, evergreen, closed (>40%)',
+        '72':	'Tree cover, needleleaved, evergreen, open (15-40%)',
+        '80':	'Tree cover, needleleaved, deciduous, closed to open (>15%)',
+        '81':	'Tree cover, needleleaved, deciduous, closed (>40%)',
+        '82':	'Tree cover, needleleaved, deciduous, open (15-40%)',
+        '90': 'Tree cover, mixed leaf type (broadleaved and needleleaved)',
+        '100': 'Mosaic tree and shrub (>50%) / herbaceous cover (<50%)',
+        '110': 'Mosaic herbaceous cover (>50%) / tree and shrub (<50%)',
+        '120': 'Shrubland',
+        '121': 'Shrubland evergreen',
+        '122': 'Shrubland deciduous',
+        '130': 'Grassland',
+        '140': 'Lichens and mosses',
+        '150': 'Sparse vegetation (tree, shrub, herbaceous cover) (<15%)',
+        '152': 'Sparse shrub (<15%)',
+        '153': 'Sparse herbaceous cover (<15%)',
+        '160': 'Tree cover, flooded, fresh or brakish water',
+        '170': 'Tree cover, flooded, saline water',
+        '180': 'Shrub or herbaceous cover, flooded, fresh/saline/brakish water',
+        '190': 'Urban areas',
+        '200': 'Bare areas',
+        '201': 'Consolidated bare areas',
+        '202': 'Unconsolidated bare areas',
+        '210': 'Water bodies',
+        '220': 'Permanent snow and ice'
+      };
+
+      $scope.getHabitatTrend();
+
+
+
+    }])
+.controller('molHabitatTrendCtrlOld',
     ['$scope', '$state','$filter', 'molHabitatTrendSvc',
       'molHabitatTrendChartOptions', 'molFormatSuitabilityPrefs',
 
