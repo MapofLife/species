@@ -69,7 +69,25 @@
     <h4><i class="fa fa-refresh fa-spin fa-1x fa-fw"></i> Generating projection...</h4>
   </div>
 
-  <div class="row"><div class="type-row">
+  <!-- elevation -->
+  <!-- <div class="row">&nbsp;</div> -->
+  <div class="row" ng-if="model.projectionOpts.metadata"><div class="type-row">
+    <div class="col-md-12">
+      <strong translate>Suitable elevation:</strong>
+      <span>{{ model.projectionOpts.metadata.elev_min || -500 }} to {{ model.projectionOpts.metadata.elev_max || 8500 }} meters</span>
+    </div>
+  </div></div>
+
+  <!-- tree cover -->
+  <!-- <div class="row">&nbsp;</div> -->
+  <div class="row" ng-if="model.projectionOpts.metadata"><div class="type-row">
+    <div class="col-md-12">
+      <strong translate>Suitable tree cover:</strong>
+      <span>{{ model.projectionOpts.metadata.treecover_min || 0 }} to {{ model.projectionOpts.metadata.treecover_max || 100 }}%</span>
+    </div>
+  </div></div>
+
+<div class="row"><div class="type-row">
     <div class="col-md-12">
       <div id="habitat-projection-chart" style="width: 400px; height: 300px"></div>
     </div>
