@@ -45,6 +45,17 @@ angular.module('mol.controllers')
         }, 
         */
 
+        $scope.landuse_categories = [{
+          "code": 5, "name": "Forest"
+        }, {
+          "code": 15, "name": "Non-Forest"
+        }, {
+          "code": 14, "name": "Managed Land"
+        }, {
+          "code": 13, "name": "Urban"
+        }, {
+          "code": 12, "name": "Crop"
+        }];
         $scope.scenarios = [{
           code: 'scenario1',
           name: 'No-regain'
@@ -58,7 +69,8 @@ angular.module('mol.controllers')
           luscale: '025deg',
           lumethod: 'message',
           decade: 2015,
-          scenario: 'scenario1'
+          scenario: 'scenario1',
+          metadata: undefined
         };
         $scope.mapUpdater = undefined;
         $scope.isChartReady = false;
@@ -68,6 +80,7 @@ angular.module('mol.controllers')
           if ($scope.model.projectionOpts.decade && $scope.model.projectionOpts.scenario) {
             $scope.mapAvailable = false; 
             $scope.loadingData = true;
+            $scope.model.projectionOpts.metadata = undefined;
             
             molApi({
               "service": "species/indicators/habitat-projection/map",
@@ -78,6 +91,7 @@ angular.module('mol.controllers')
                 if (results && results.data) {
                   loadProjectionMap(results.data.map);
                   loadProjectionChart(results.data.chart)
+                  $scope.model.projectionOpts.metadata = results.data.metadata;
                 }
                 $scope.loadingData = false;
             });
