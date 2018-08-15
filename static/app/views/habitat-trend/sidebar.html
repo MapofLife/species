@@ -47,6 +47,14 @@
       <div class="col-md-2">Gain</div>
       <!-- <div class="col-md-1">&nbsp;</div> -->
     </div>
+
+
+    <div class="row"><div class="type-row">
+      <div class="col-md-12">
+        <div id="habitat-trend-chart" style="width: 400px; height: 300px"></div>
+      </div>
+    </div></div>
+  
   
 
     <!-- elevation -->
@@ -69,7 +77,11 @@
 
     <!-- landcover values -->
     <div class="row">&nbsp;</div>
-    <div class="row"><div class="type-row">
+    <button type="button" class="btn btn-default" ng-click="lcCollapse = !lcCollapse">
+      Toggle land cover suitability
+      <span class="glyphicon" ng-class="{'glyphicon-chevron-right': lcCollapse, 'glyphicon-chevron-down': !lcCollapse}" aria-hidden="true"></span>
+    </button>
+    <div ng-init="lcCollapse=true" uib-collapse="lcCollapse" class="row"><div class="type-row">
       <div class="col-md-12">
         
         <table class="table table-bordered" ng-show="habtrends.landCoverClasses">
