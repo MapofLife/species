@@ -5,6 +5,7 @@ angular.module('mol.controllers')
     function($scope, $state, $timeout, $http, $filter, molApi) {
 
       $scope.loadingData = true;
+      $scope.isChartReady = false;
       $scope.habtrends = undefined;
       $scope.selected = {
         trend: {}
@@ -46,12 +47,52 @@ angular.module('mol.controllers')
                 pctSuitable: parseFloat(v[1])*100
               });
             });
+
+            loadTrendChart();
           }
 
           $scope.loadingData = false;
         });
 
       };
+
+      function loadTrendChart() {
+        if ($scope.isChartReady) {
+          // var data = google.visualization.arrayToDataTable($scope.habtrends.data);  
+          var data = new google.visualization.DataTable();
+          data.addColumn('string', 'year');
+          data.addColumn('number', 'estcntryrs');
+          data.addColumn({id:'estcntryrs_l95', type:'number', role:'interval'});
+          data.addColumn({id:'estcntryrs_u95', type:'number', role:'interval'});
+
+          var options = {
+            title: 'Suitable Habitat Trend',
+            width: 400,
+            height: 300,
+            curveType: 'function', // uncomment for a curve line
+            series: [{lineWidth: 0, enableInteractivity: false}],
+            intervals: { 'style':'area'},
+            legend: 'none',
+            hAxis: { title: 'Year', slantedText: true }
+          };
+          
+          angular.forEach($scope.habtrends.data, function(vals, idx) {
+            if (idx > 0) {
+              // data.addRow(vals);
+              data.addRow([vals[0].toString(), vals[1], vals[2], vals[3]]);
+            }
+          });
+
+          var chart = new google.visualization.LineChart(document.getElementById('habitat-trend-chart'));
+          chart.draw(data, options);
+
+        } else {
+          console.log('Chart is not ready yet. We should reload!');
+        }
+      }
+      function chartReady() {
+        $scope.isChartReady = true;
+      }
 
       $scope.$watch("selected.trend", function(n,o) {
         if(n) {
@@ -121,6 +162,9 @@ angular.module('mol.controllers')
       };
 
       $scope.getHabitatTrend();
+
+      google.charts.load('current', { 'packages': ['corechart'] });
+      google.charts.setOnLoadCallback(chartReady);
 
 
 
