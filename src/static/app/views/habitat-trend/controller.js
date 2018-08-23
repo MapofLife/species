@@ -34,7 +34,10 @@ angular.module('mol.controllers')
         }).then(function(result, status, headers, config) {
           if (result && result.data) {
             $scope.habtrends = result.data;
-
+            
+            // Remove 'expert_esa_only' and 'expert_treecover_only' trend maps
+            $scope.habtrends.trends = $filter('omit')(result.data.trends, "id.indexOf('_only') > -1");
+            
             // Update the landcover values for display
             var lcvals = $scope.habtrends.metadata.properties.esa_landcover.split(',').map(function(c) {
               return [c.split(':')[0], c.split(':')[1]];
@@ -49,6 +52,13 @@ angular.module('mol.controllers')
             });
 
             loadTrendChart();
+
+
+            // Select the first trend
+            $timeout(function() {
+              $scope.selected.trend = result.data.trends[0];
+            }, 500);
+
           }
 
           $scope.loadingData = false;
