@@ -48,10 +48,14 @@
     </div>
 
 
-    <div class="row"><div class="type-row">
+    <div class="row"><div class="type-row" ng-show="habtrends.data.length > 1">
       <div class="col-md-12">
         <div id="habitat-trend-chart" style="width: 400px; height: 300px"></div>
       </div>
+    </div>
+    <div class="pull-right" style="margin-right: 20px;">
+      <button class="btn btn-xs btn-default" ng-click="viewHabitatTrendChart()">View</button>
+      <button class="btn btn-xs btn-default" ng-click="downloadHabitatTrendChart()">Download</button>
     </div></div>
   
   

@@ -66,42 +66,88 @@ angular.module('mol.controllers')
 
       };
 
+      var habTrendChart = undefined;
+      var chartData = undefined;
       function loadTrendChart() {
-        if ($scope.isChartReady) {
+        habTrendChart = undefined;
+        chartData = undefined;
+        if ($scope.isChartReady && $scope.habtrends.data.length > 1) {
           // var data = google.visualization.arrayToDataTable($scope.habtrends.data);  
           var data = new google.visualization.DataTable();
-          data.addColumn('string', 'year');
+          data.addColumn('number', 'year');
           data.addColumn('number', 'estcntryrs');
           data.addColumn({id:'estcntryrs_l95', type:'number', role:'interval'});
           data.addColumn({id:'estcntryrs_u95', type:'number', role:'interval'});
 
-          var options = {
-            title: 'Suitable Habitat Trend',
-            width: 400,
-            height: 300,
-            curveType: 'function', // uncomment for a curve line
-            series: [{lineWidth: 0, enableInteractivity: false}],
-            intervals: { 'style':'area'},
-            legend: 'none',
-            hAxis: { title: 'Year', slantedText: true }
-          };
-          
+          var options = getChartOption(450, 300);
+
           angular.forEach($scope.habtrends.data, function(vals, idx) {
             if (idx > 0) {
-              // data.addRow(vals);
-              data.addRow([vals[0].toString(), vals[1], vals[2], vals[3]]);
+              data.addRow(vals);
             }
           });
 
-          var chart = new google.visualization.LineChart(document.getElementById('habitat-trend-chart'));
-          chart.draw(data, options);
-
+          habTrendChart = new google.visualization.LineChart(document.getElementById('habitat-trend-chart'));
+          habTrendChart.draw(data, options);
+          chartData = data;
         } else {
           console.log('Chart is not ready yet. We should reload!');
         }
       }
       function chartReady() {
         $scope.isChartReady = true;
+      }
+      function getChartOption(width, height) {
+        var options = {
+          // title: 'Habitat suitable range km²', 
+          width: width,
+          height: height,
+          curveType: 'function', // uncomment for a curve line
+          series: [{lineWidth: 0, enableInteractivity: false}],
+          intervals: { 'style':'area'},
+          legend: 'none',
+          vAxis: { title: 'Habitat suitable range km²\n\n\n\n' },  // A newline hack to make sure the label doesn't overlap with the values
+          hAxis: { title: 'Year', format: '' }
+        };
+
+        // Add a bit of a buffer to the y-axis which sometimes seems to happen
+        // Right now, it might be when the difference is under 1000km2
+        var startValue = $scope.habtrends.data[1][1];
+        var endValue = $scope.habtrends.data[16][1];
+        var valueDiff = (endValue - startValue);
+        // Sometimes the max/final value is lower than the min
+        valueDiff = (valueDiff < 0) ? valueDiff * -1 : valueDiff; 
+        var minYPadding = (valueDiff > 1e3) ? startValue : ( startValue - (startValue * .06) );
+        if (valueDiff < 1e3) {
+          options.vAxis['viewWindow'] = {min: minYPadding};
+        }
+        
+        return options;
+      }
+      $scope.viewHabitatTrendChart = function() {
+        habTrendChart.draw(chartData, getChartOption(650, 500));
+        window.open(habTrendChart.getImageURI());
+        habTrendChart.draw(chartData, getChartOption(450, 300));
+      }
+      $scope.downloadHabitatTrendChart = function() {
+        // window.open(habTrendChart.getImageURI());
+        habTrendChart.draw(chartData, getChartOption(650, 500));
+        var chartURI = habTrendChart.getImageURI();
+        habTrendChart.draw(chartData, getChartOption(450, 300));
+        var filename = 'Suitable_habitat_trend_' + $state.params.scientificname.replace(' ', '_') + '.png';
+        var link = document.createElement("a");
+        link.setAttribute("href", chartURI);
+        if (link.download !== undefined) { // feature detection
+          // Browsers that support HTML5 download attribute
+          link.setAttribute("download", filename);
+        } else {
+          link.setAttribute("target", "_blank");
+        }
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
       }
 
       $scope.$watch("selected.trend", function(n,o) {
