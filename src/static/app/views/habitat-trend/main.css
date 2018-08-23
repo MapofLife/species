@@ -6,11 +6,13 @@
     transform: rotate(-90deg);
 
     padding: 20px 0 0 0;
-    margin: 35px 0 0 0;
+    margin: 28px 0 0 0;
     height: 50% !important;
-    /* line-height: 15px; */
+    line-height: 15px;
+
+    font-size: 9pt;
 }
-div.trends { height: 150px; }
+div.trends { height: 75px; }
 div.trends div { height: 100%; }
 
 .legend-colours {
