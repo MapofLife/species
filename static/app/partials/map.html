@@ -16,12 +16,12 @@
     options="map.options"
     control="map.control"
     pan="true">
-    <ui-gmap-map-type 
-      refresh="map.overlayMapTypes[0].overlay" 
-      options="map.overlayMapTypes[0]"></ui-gmap-map-type>
-    <ui-gmap-map-type 
-      refresh="map.overlayMapTypes[0].overlay"
-      options="map.overlayMapTypes[1]"></ui-gmap-map-type>
+    <ui-gmap-map-type
+        options="mt"
+        show="mt.show"
+        refresh="mt.refresh"
+        ng-repeat="mt in map.overlayMapTypes">
+    </ui-gmap-map-type>
     <ui-gmap-window
         show="map.infowindow.show"
         coords="map.infowindow.coords"
