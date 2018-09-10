@@ -7,10 +7,10 @@ angular.module('mol.controllers')
   .controller('molDetailMapCtrl',
   	[  '$compile',
       '$window','$http','$uibModal','$scope','$state', '$filter',
-      '$timeout','$q','molApi',
+      '$timeout','$q','molApi','molHummingbirdsList',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $q,  molApi) {
+          $timeout, $q,  molApi, molHummingbirdsList) {
 
 
 
@@ -23,7 +23,8 @@ angular.module('mol.controllers')
               uncertainty: true,
               years: true,
               limit: true,
-              points: 5000
+              points: 5000,
+              threshold: 9999
             };
             $scope.toggles = {sidebarVisible: true, featuresActive:false, looking: false}
             $scope.mapUpdater  = undefined;
@@ -31,6 +32,7 @@ angular.module('mol.controllers')
 
             $scope.visibleDatasets = undefined;
 
+            $scope.sdmLayer = undefined;
 
             $scope.$watch('uncertainty',function(newValue,oldValue){
               if(newValue){
@@ -52,7 +54,7 @@ angular.module('mol.controllers')
               $scope.model.canceller.resolve();
               $scope.model.canceller = $q.defer();
 
-              
+
               if($scope.species && $scope.visibleDatasets !== undefined) {
                   if($scope.mapUpdater) {
                     try{
@@ -69,40 +71,49 @@ angular.module('mol.controllers')
                      "min_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.min:-5555555,
                      "max_uncertainty": ($scope.filters.uncertainty)?$scope.uncertainty.max:5555555,
                      "scientificname": $scope.species.scientificname,
-                     "datasets": $scope.visibleDatasets,
+                     "datasets": ($scope.visibleDatasets.indexOf("sdm") > -1)?$scope.visibleDatasets.replace(",sdm","").replace("sdm",""):$scope.visibleDatasets,
                      "null_years":($scope.filters.years)?$scope.year.nulls.toString():true.toString(),
                      "default_uncertainty":20000,
                      "point_limit": ($scope.filters.limit&&$scope.filters.limit!=undefined)?$scope.filters.points:5000,
                    }}).success(function(result, status, headers, config) {
-                        $scope.map.removeOverlay(0);
+                        $scope.map.removeOverlay(1);
+                        // $scope.map.clearOverlays();
                         if($scope.species && result.layergroupid) {
 
                           $scope.tilesloaded=false;
-                          $scope.map.setOverlay({
-                              tile_url: ""+
-                                "https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
-                                  .format('carto.mol.org',
+                          // Adding a timeout since there seems to be a race issue
+                          // with removing and setting overlays
+                          // TODO: Figure out if there is a better way without timeout. Add Promises.
+                          $timeout(function(){
+                            $scope.map.setOverlay({
+                                tile_url: ""+
+                                  "https://{0}/mol/api/v1/map/{1}/{z}/{x}/{y}.png"
+                                    .format('carto.mol.org',
+  
+                                      result.layergroupid),
+                                grid_url: ""+
+                                  "https://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
+                                    .format(
+                                      'carto.mol.org',
+                                      result.layergroupid),
+                                key: result.layergroupid,
+                                attr: '©2018 Map of Life',
+                                name: 'detail',
+                                index: 1,
+                                opacity: 0.8,
+                                type: 'detail'
+                            },1);
+                            }, 500);
 
-                                    result.layergroupid),
-                              grid_url: ""+
-                                "https://{0}/mol/api/v1/map/{1}/0/{z}/{x}/{y}.grid.json"
-                                  .format(
-                                    'carto.mol.org',
-                                    result.layergroupid),
-                              key: result.layergroupid,
-                              attr: '©2017 Map of Life',
-                              name: 'detail',
-                              index: 1,
-                              opacity: 0.8,
-                              type: 'detail'
-                          },1);
+                          $scope.toggleSDM(($scope.visibleDatasets.indexOf("sdm") > -1));
 
                           // Trigger a map resize event since sometimes
                           // the map is cut off
                           // TODO: Figure out if there is a better way
                           $scope.map.resize();
-
-                        }});},500);}
+                          
+                        }});},500);
+                    }
 
           }
 
@@ -117,6 +128,9 @@ angular.module('mol.controllers')
               "loading":true
             }).then(
               function(results) {
+                // No metadata available
+                if (results.data[0].metadata == undefined) return;
+
                 var modalInstance, metadata = results.data;
                 // if (dataset.id == "704898e7-b945-4721-b201-9286bd00c0a9" || dataset.id == "a7d5a735-22f9-4260-aa31-a4a4e7bf3029") {
                 var dsIdx = (metadata[0]['metadata'][0]['section'] == 'General') ? 0 : 1;
@@ -371,6 +385,23 @@ angular.module('mol.controllers')
            function(layers) {
 
             if(layers == undefined) return;
+
+            $scope.sdmLayer = addSpeciesSDMLayer();
+            if ($scope.sdmLayer !== undefined) {
+              // find the range layer and add it's bounds to the SDM layer
+              var rl = layers.filter(function(l) {
+                return l.product_type == 'range' && l.visible == true && l.user_dataset == false && l.public == true;
+              });
+              rl = (rl && rl.length > 0) ? rl[0] : undefined;
+              if (rl) {
+                $scope.sdmLayer.bounds = rl.bounds;
+              }
+
+              // add the initial threshold filter
+              $scope.filters.threshold = $scope.sdmLayer.filters.threshold[0];
+              layers.push($scope.sdmLayer);
+            }
+
             $scope.layers = layers;
             $scope.types = {};
             $scope.datasets = {};
@@ -387,7 +418,7 @@ angular.module('mol.controllers')
                     "id": layer.product_type,
                     "title":layer.type_title,
                     "bounds": layer.bounds,
-                    "visible": (layer.product_type!='regionalchecklist'),
+                    "visible": (layer.product_type!='regionalchecklist' && layer.product_type!='sdm'),
                     "feature_ct": 0,
                     "datasets":{}};
                 } else {
@@ -441,6 +472,32 @@ angular.module('mol.controllers')
           });
       }
 
+      function addSpeciesSDMLayer() {
+        var spinfo = molHummingbirdsList($scope.species.scientificname);
+
+        // molHummingbirdsList($scope.species.scientificname).then(function(data) {
+        //   console.log("Did we get a species: ", data);
+        // });
+
+        if (spinfo) { // ($scope.species.scientificname == 'Abeillia abeillei')
+          return {
+            "user_dataset": false,
+            "product_type": "sdm",
+            "type_title": "SDM",
+            "bounds": undefined,
+            "no_rows": 1,
+            "visible": false,
+            "dataset_id": "sdm",
+            "public": true,
+            "dataset_title": "Best predicted SDM",
+            "filters": {
+              "threshold": [spinfo.th05, spinfo.th10]
+            }
+          };
+        }
+        return undefined;
+      }
+
 
       $scope.$watch(
         "types",
@@ -464,12 +521,12 @@ angular.module('mol.controllers')
               "service": "species/indicators/rasters/map",
               "creds": true,
               "params":   {
-                "scientificname": $scope.species.scientificname
+                "scientificname": $scope.species.scientificname,
+                "threshold": $scope.filters.threshold  // 2.27004065559037e-07
               }
           }).success(function(data) {
             var sdm_tile_url = data.map.tile_url;
             if (sdm_tile_url.length > 0) {
-              console.log("sdm_tile_url: ", sdm_tile_url);
               $scope.map.setOverlay({
                 tile_url: sdm_tile_url,
                 grid_url: "",
@@ -482,31 +539,6 @@ angular.module('mol.controllers')
               }, 0);
             }
           }); 
-
-          // var sdm_tile_url = "";
-          // var sdm_tile_url_tmpl = "https://earthengine.googleapis.com/map/{0}/{z}/{x}/{y}?token={1}";
-          // if ($scope.species.scientificname == 'Accipiter badius') {
-          //   sdm_tile_url = sdm_tile_url_tmpl.format('832bbf7e822d8ad024271105a0e92450', 'eedbb0991bd798786e4b6c433cc39e74');
-          // } else if ($scope.species.scientificname == 'Eremopterix leucotis') {
-          //   sdm_tile_url = sdm_tile_url_tmpl.format('d0c5c281c75c4b244d1c2149be0873e2', '7d1a71e6ea3b2f591c633197bd5d8d26');
-          // } else if ($scope.species.scientificname == 'Hyliota australis') {
-          //   sdm_tile_url = sdm_tile_url_tmpl.format('3894875ef19d6ade59ecdafc870ccf0e', '51ab481fb41358b9d5e18bed99dd9e06');
-          // } else {
-          //   console.log("No species?: ", $scope.species.scientificname);
-          // }
-          // if (sdm_tile_url.length > 0) {
-          //   console.log("sdm_tile_url: ", sdm_tile_url);
-          //   $scope.map.setOverlay({
-          //     tile_url: sdm_tile_url,
-          //     grid_url: "",
-          //     key: '832bbf7e822d8ad024271105a0e92450',
-          //     attr: '©2018 Map of Life',
-          //     name: 'SDM',
-          //     index: 0,
-          //     opacity: 0.6,
-          //     type: 'sdm'
-          //   }, 0);
-          // }
         } else {
           $scope.map.removeOverlay(0);
         }
