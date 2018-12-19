@@ -181,7 +181,8 @@ angular.module('mol', [
         },
         url: 'map/{0}?{1}'.format(urlparams,queryparams)
       }
-    ).state(
+    )
+    .state(
       'species.habitat-projection',
       {
         data: {title : 'Species Habitat Projection'},
@@ -192,6 +193,19 @@ angular.module('mol', [
           }
         },
         url: 'habitat-projection/{0}?{1}'.format(urlparams,queryparams)
+      }
+    )
+    .state(
+      'species.climatehabitat',
+      {
+        data: {title : 'Species Climate Habitat Projection'},
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/climatehabitat/sidebar.html",
+            controller: 'molClimateHabitatProjectionCtrl'
+          }
+        },
+        url: 'climatehabitat/{0}?{1}'.format(urlparams,queryparams)
       }
     )
     .state(
