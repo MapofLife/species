@@ -59,7 +59,7 @@ angular.module('mol', [
 .config(['uiGmapGoogleMapApiProvider','$translateProvider',
 	function(uiGmapGoogleMapApiProvider,$translateProvider) {
     uiGmapGoogleMapApiProvider.configure({
-        key: 'AIzaSyABlkTTWW1KD6TrmFF_X6pjWrFMGgmpp9g',
+        key: 'AIzaSyCOnD2Wo8hKmE52uuMJn6ZKcS6WfrNSo9w',
         version: '3.x', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization',
         language: $translateProvider.preferredLanguage()
