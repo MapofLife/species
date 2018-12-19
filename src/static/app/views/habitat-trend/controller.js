@@ -51,17 +51,28 @@ angular.module('mol.controllers')
               });
             });
 
-            loadTrendChart();
+            // TODO: Figure out why we need to add a delay to display the chart.
+            // Without the delay, the chart options don't seem to get applied properly
+            // loadTrendChart();
 
 
             // Select the first trend
             $timeout(function() {
               $scope.selected.trend = result.data.trends[0];
+              loadTrendChart();
             }, 500);
 
           }
 
           $scope.loadingData = false;
+        }, function(err) {
+          $scope.loadingData = false;
+          
+          if (err.status == 401) {
+            $scope.messages = "You need to be authenticated to do that";
+          } else {
+            $scope.messages = 'There was a problem with your request. Please try again or <a href="https://mol.org/contact-us">contact us</a>.';
+          }
         });
 
       };
@@ -74,7 +85,7 @@ angular.module('mol.controllers')
         if ($scope.isChartReady && $scope.habtrends.data.length > 1) {
           // var data = google.visualization.arrayToDataTable($scope.habtrends.data);  
           var data = new google.visualization.DataTable();
-          data.addColumn('number', 'year');
+          data.addColumn('date', 'year');
           data.addColumn('number', 'estcntryrs');
           data.addColumn({id:'estcntryrs_l95', type:'number', role:'interval'});
           data.addColumn({id:'estcntryrs_u95', type:'number', role:'interval'});
@@ -83,7 +94,8 @@ angular.module('mol.controllers')
 
           angular.forEach($scope.habtrends.data, function(vals, idx) {
             if (idx > 0) {
-              data.addRow(vals);
+              // data.addRow(vals);
+              data.addRow([new Date(vals[0], 1, 1), vals[1], vals[2], vals[3]]);
             }
           });
 
@@ -107,7 +119,7 @@ angular.module('mol.controllers')
           intervals: { 'style':'area'},
           legend: 'none',
           vAxis: { title: 'Habitat suitable range km²\n\n\n\n' },  // A newline hack to make sure the label doesn't overlap with the values
-          hAxis: { title: 'Year', format: '' }
+          hAxis: { title: 'Year', format: 'Y' }
         };
 
         // Add a bit of a buffer to the y-axis which sometimes seems to happen
