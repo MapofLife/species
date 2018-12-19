@@ -60,7 +60,7 @@ angular.module('mol', [
 	function(uiGmapGoogleMapApiProvider,$translateProvider) {
     uiGmapGoogleMapApiProvider.configure({
         key: 'AIzaSyCOnD2Wo8hKmE52uuMJn6ZKcS6WfrNSo9w',
-        version: '3.x', //defaults to latest 3.X anyhow
+        version: '3.33', //defaults to latest 3.X anyhow
         libraries: 'weather,geometry,visualization',
         language: $translateProvider.preferredLanguage()
 
@@ -193,19 +193,6 @@ angular.module('mol', [
           }
         },
         url: 'habitat-projection/{0}?{1}'.format(urlparams,queryparams)
-      }
-    )
-    .state(
-      'species.climatehabitat',
-      {
-        data: {title : 'Species Climate Habitat Projection'},
-        views: {
-          "left-sidebar@species" :{
-            templateUrl: "static/app/views/climatehabitat/sidebar.html",
-            controller: 'molClimateHabitatProjectionCtrl'
-          }
-        },
-        url: 'climatehabitat/{0}?{1}'.format(urlparams,queryparams)
       }
     )
     .state(
