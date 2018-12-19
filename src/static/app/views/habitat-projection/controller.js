@@ -90,7 +90,14 @@ angular.module('mol.controllers')
             }).then(function (results) {
                 if (results && results.data) {
                   loadProjectionMap(results.data.map);
-                  loadProjectionChart(results.data.chart)
+                  
+                  // TODO: Figure out why we need to add a delay to display the chart.
+                  // Without the delay, the chart options don't seem to get applied properly
+                  // loadProjectionChart(results.data.chart)
+                  $timeout(function() {
+                    loadProjectionChart(results.data.chart);
+                  }, 500);
+      
                   $scope.model.projectionOpts.metadata = results.data.metadata;
                 }
                 $scope.loadingData = false;
@@ -129,20 +136,21 @@ angular.module('mol.controllers')
         function loadProjectionChart(chartObject) {
           if ($scope.isChartReady) {
             var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Year');
+            data.addColumn('date', 'Year');
             data.addColumn('number', 'Regain');
             data.addColumn('number', 'No-regain');
 
             var options = {
               title: 'Suitable Habitat Trend',
               // curveType: 'function', // uncomment for a curve line
-              legend: { position: 'bottom' },
-              hAxis: { title: 'Year' },
+              // legend: { position: 'bottom' },
+              legend: 'none',
+              hAxis: { title: 'Year', format: 'Y' },
               vAxis: { title: 'Sum Area (km²)' }
             };
             
             angular.forEach($scope.decades[$scope.model.projectionOpts.landuse], function(decade) {
-              data.addRow([decade.toString(), chartObject.features[0].properties[decade], chartObject.features[1].properties[decade]]);
+              data.addRow([new Date(decade, 1, 1), chartObject.features[0].properties[decade], chartObject.features[1].properties[decade]]);
             });
 
             var chart = new google.visualization.LineChart(document.getElementById('habitat-projection-chart'));
