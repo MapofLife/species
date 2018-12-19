@@ -82,4 +82,16 @@ angular.module('mol.filters', []).
     return Object.keys(object);
   } 
  }                
+])
+.filter("datasetNames", [ function(){
+ return function(name){
+    if (name == 'src_alienchecklist') {
+      return 'Alien checklists'
+    }
+    if (name == 'src_sdm') {
+      return 'Distribution models'
+    }
+    return name;
+  } 
+ }                
 ]);

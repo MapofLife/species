@@ -64,7 +64,7 @@ angular.module('mol.controllers')
                   "withCredentials":false,
                   "method":"POST",
                   "timeout":$scope.model.canceller,
-                  "url":"https://carto.mol.org/user/mol/api/v1/map/named/detailed-map-snapped",
+                  "url":"https://carto.mol.org/user/mol/api/v1/map/named/detailed-map-snapped-dev",
                   "data": {
                      "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
                      "max_year" : ($scope.filters.years)?$scope.year.max:5555555,
@@ -418,7 +418,7 @@ angular.module('mol.controllers')
                     "id": layer.product_type,
                     "title":layer.type_title,
                     "bounds": layer.bounds,
-                    "visible": (layer.product_type!='regionalchecklist' && layer.product_type!='sdm'),
+                    "visible": (layer.product_type!='regionalchecklist' && layer.product_type!='alienchecklist' && layer.product_type!='sdm'),
                     "feature_ct": 0,
                     "datasets":{}};
                 } else {
