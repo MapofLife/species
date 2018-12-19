@@ -16,6 +16,9 @@
   <div ng-if="loadingData">
     <h4><i class="fa fa-refresh fa-spin fa-1x fa-fw"></i> Generating trends...</h4>
   </div>
+  <div ng-if="messages">
+    <p class="lead" ng-bind-html="messages"></p>
+  </div>
 
   <div ng-show="habtrends">
 
