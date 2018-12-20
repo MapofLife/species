@@ -122,17 +122,17 @@ angular.module('mol.controllers')
           hAxis: { title: 'Year', format: 'Y' }
         };
 
-        // Add a bit of a buffer to the y-axis which sometimes seems to happen
-        // Right now, it might be when the difference is under 1000km2
-        var startValue = $scope.habtrends.data[1][1];
-        var endValue = $scope.habtrends.data[16][1];
-        var valueDiff = (endValue - startValue);
-        // Sometimes the max/final value is lower than the min
-        valueDiff = (valueDiff < 0) ? valueDiff * -1 : valueDiff; 
-        var minYPadding = (valueDiff > 1e3) ? startValue : ( startValue - (startValue * .06) );
-        if (valueDiff < 1e3) {
-          options.vAxis['viewWindow'] = {min: minYPadding};
-        }
+        // // Add a bit of a buffer to the y-axis which sometimes seems to happen
+        // // Right now, it might be when the difference is under 1000km2
+        // var startValue = $scope.habtrends.data[1][1];
+        // var endValue = $scope.habtrends.data[16][1];
+        // var valueDiff = (endValue - startValue);
+        // // Sometimes the max/final value is lower than the min
+        // valueDiff = (valueDiff < 0) ? valueDiff * -1 : valueDiff; 
+        // var minYPadding = (valueDiff > 1e3) ? startValue : ( startValue - (startValue * .06) );
+        // if (valueDiff < 1e3) {
+        //   options.vAxis['viewWindow'] = {min: minYPadding};
+        // }
         
         return options;
       }
