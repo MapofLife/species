@@ -127,9 +127,14 @@
     </style>
 <div class="container content home">
 
-        <h1>Climate Change Species Habitat Projections</h1>
+        <h1>Landcover Species Habitat Projections</h1>
         <div class="row content">
-            <h4 class="lead">Quick info about climate change species habitat projection</h4>
+            <p class="lead">
+                Projections of suitable habitat within current range for different shared socioeconomic pathways and habitat regain assumptions 
+            </p>
+            <p class="lead">
+                (for details see Powers & Jetz in review)
+            </p>
         </div>
 
         <hr />
@@ -137,7 +142,7 @@
         <div class="content favourites">
     
             <div class="col-lg-3 col-md-4 col-sm-6 text-center" ng-repeat="sp in speciesList">
-                <div class="hero-species" ui-sref="species.projection-climchange({scientificname:sp.s})">
+                <div class="hero-species" ui-sref="species.projection-landcover({scientificname:sp.s})">
                     <div class="hero-card">
                         <div class="hero-header">
                             <img class="img-center center-block img-responsive" ng-src="{{ sp.i }}" alt="{{ sp.c }}" style="" />
