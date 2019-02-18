@@ -9,10 +9,12 @@ angular.module('mol.controllers')
 
         
         $scope.loadingData = false;
-        var tooltipText = "Projections of suitable habitat within current range for different ";
-        tooltipText += "shared socioeconomic pathways and habitat regain assumptions ";
+        var tooltipText = "Powers &amp; Jetz (2019): Global habitat loss and extinction risk ";
+        tooltipText += "of terrestrial vertebrates under future land- use change scenarios. ";
         tooltipText += "<br /> ";
-        tooltipText += "(for details see Powers &amp; Jetz in review)";
+        tooltipText += "Nature Climate Change.";
+        tooltipText += "<br /> ";
+        tooltipText += "Click <a href='https://mol.org/species/projection/landuse'>here</a> for more info.";
         $scope.habProjTooltip = $sce.trustAsHtml(tooltipText);
         // $scope.decades = [2010, 2020, 2030, 2040, 2050];
         $scope.decades = {
