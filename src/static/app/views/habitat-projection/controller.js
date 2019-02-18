@@ -168,6 +168,11 @@ angular.module('mol.controllers')
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(chartReady);
 
-        $timeout(function() {$scope.getHabitatProjection()}, 500);
+        $scope.$watch("$parent.species",function(n,o) {
+          if(n){
+            $scope.model.projectionOpts.scientificname = n.scientificname;
+            $scope.getHabitatProjection();
+          }
+        });
 
   }]);

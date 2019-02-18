@@ -1,7 +1,7 @@
 angular.module('mol.controllers')
 .controller('molProjectionCtrl', 
-    ['$scope',
-    function($scope) {
+    ['$scope', '$state',
+    function($scope, $state) {
 
       $scope.speciesList = {};
 
@@ -47,13 +47,6 @@ angular.module('mol.controllers')
         i: "https://lh3.googleusercontent.com/8gNXTCEgTbSpRLOPB0oDzcvI4U7GXyB5ZaF7qHfLLIBPjFx7xvkk-3R1abFELQ-F_ljlrRnWmrGPHLcJoestqCQ=s512-c"
       }];
 
-      $scope.loadSpeciesPage = function(scientificname){
-        $state.transitionTo(
-          "species.overview",
-          { "scientificname": scientificname.replace(/ /g, '_') }
-        );
-      }
-    
       $scope.setupHeroSpecies = function() {
         var lang = 'en';
         var splist = [];
@@ -64,4 +57,13 @@ angular.module('mol.controllers')
       }
     
       $scope.setupHeroSpecies();
+
+      $scope.$watch("$parent.species", function(n, o) {
+        if(n != undefined) {
+          $state.transitionTo( 
+            'species.projection-landuse', 
+            {"scientificname": n.scientificname.replace(/ /g, '_')}
+          );
+        }
+    });
 }]);

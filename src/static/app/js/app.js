@@ -176,7 +176,10 @@ angular.module('mol', [
       {
         data: {title : 'Species Habitat Projection: Landuse'},
         views: {
-          "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
+          "@" :{
+            templateUrl: "static/app/layouts/base-scrolling.html", 
+            controller: 'molSpeciesCtrl'
+          },
           "@species.projection.landuse" : {
             templateUrl: "static/app/views/projection/landuse/main.html",
             controller: 'molProjectionCtrl'
