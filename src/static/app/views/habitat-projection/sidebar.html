@@ -1,12 +1,5 @@
 <div class="sidebar">
-  <div class="name" style="min-height: 100px">
-      <div class="infoCommonName" ng-show="species.commonname">
-          {{ species.commonname }}
-      </div>
-      <div class="infoSciName" ng-show="species.scientificname">
-          {{ species.scientificname }}
-      </div>
-  </div>
+  <div ng-include="'static/app/views/name.html'"></div>
   
   <div class="row"><div class="col-md-12"><h5>Projection Year (Map)</h5></div></div>
   <div class="row"><div class="type-row">
