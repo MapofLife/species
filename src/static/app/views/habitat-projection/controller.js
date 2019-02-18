@@ -168,4 +168,6 @@ angular.module('mol.controllers')
         google.charts.load('current', { 'packages': ['corechart'] });
         google.charts.setOnLoadCallback(chartReady);
 
+        $timeout(function() {$scope.getHabitatProjection()}, 500);
+
   }]);

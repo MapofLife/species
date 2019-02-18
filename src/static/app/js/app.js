@@ -86,8 +86,8 @@ angular.module('mol', [
       }
     });
 
-}]).config(['molConfig','$sceDelegateProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider',
-  function(molConfig,$sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider) {
+}]).config(['molConfig','$sceDelegateProvider','$stateProvider', '$urlRouterProvider', '$locationProvider', '$httpProvider', '$urlMatcherFactoryProvider',
+  function(molConfig,$sceDelegateProvider,$stateProvider, $urlRouterProvider, $locationProvider, $httpProvider, $urlMatcherFactoryProvider) {
 
   $httpProvider.interceptors.push('molBaseIntercept');
 
@@ -109,6 +109,7 @@ angular.module('mol', [
 
   $httpProvider.defaults.useXDomain = true;
   $httpProvider.defaults.withCredentials = false;
+  $urlMatcherFactoryProvider.strictMode(false);
   $urlRouterProvider.otherwise(molConfig.url);
 
   $stateProvider
@@ -157,6 +158,74 @@ angular.module('mol', [
       }
     )
     .state(
+      'species.projection',
+      {
+        data: {title : 'Species Habitat Projection'},
+        views: {
+          "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
+          "@species.projection" : {
+            templateUrl: "static/app/views/projection/landuse/main.html",
+            controller: 'molProjectionCtrl'
+          }
+        },
+        url: 'projection?{0}'.format(queryparams)
+      }
+    )
+    .state(
+      'species.projection.landuse',
+      {
+        data: {title : 'Species Habitat Projection: Landuse'},
+        views: {
+          "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
+          "@species.projection.landuse" : {
+            templateUrl: "static/app/views/projection/landuse/main.html",
+            controller: 'molProjectionCtrl'
+          }
+        },
+        url: '/landuse?{0}'.format(queryparams)
+      }
+    )
+    .state(
+      'species.projection.climate',
+      {
+        data: {title : 'Species Habitat Projection: Climate Change'},
+        views: {
+          "@" :{templateUrl: "static/app/layouts/base-scrolling.html"},
+          "@species.projection.climate" : {
+            templateUrl: "static/app/views/projection/climate/main.html",
+            controller: 'molProjectionCtrl'
+          }
+        },
+        url: '/climate?{0}'.format(queryparams)
+      }
+    )
+    .state(
+      'species.projection-landuse',
+      {
+        data: {title : 'Species Habitat Projection: Landuse'},
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/habitat-projection/sidebar.html",
+            controller: 'molHabitatProjectionCtrl'
+          }
+        },
+        url: 'projection/landuse/{0}?{1}'.format(urlparams,queryparams)
+      }
+    )
+    .state(
+      'species.projection-climate',
+      {
+        data: {title : 'Species Habitat Projection: Climate Change'},
+        views: {
+          "left-sidebar@species" :{
+            templateUrl: "static/app/views/climatehabitat/sidebar.html",
+            controller: 'molClimateHabitatProjectionCtrl'
+          }
+        },
+        url: 'projection/climate/{0}?{1}'.format(urlparams,queryparams)
+      }
+    )
+    .state(
       'species.overview',
       {
         data: {title : 'Species Overview'},
@@ -180,32 +249,6 @@ angular.module('mol', [
           }
         },
         url: 'map/{0}?{1}'.format(urlparams,queryparams)
-      }
-    )
-    .state(
-      'species.habitat-projection',
-      {
-        data: {title : 'Species Habitat Projection'},
-        views: {
-          "left-sidebar@species" :{
-            templateUrl: "static/app/views/habitat-projection/sidebar.html",
-            controller: 'molHabitatProjectionCtrl'
-          }
-        },
-        url: 'habitat-projection/{0}?{1}'.format(urlparams,queryparams)
-      }
-    )
-    .state(
-      'species.climatehabitat',
-      {
-        data: {title : 'Species Climate Habitat Projection'},
-        views: {
-          "left-sidebar@species" :{
-            templateUrl: "static/app/views/climatehabitat/sidebar.html",
-            controller: 'molClimateHabitatProjectionCtrl'
-          }
-        },
-        url: 'climatehabitat/{0}?{1}'.format(urlparams,queryparams)
       }
     )
     .state(
