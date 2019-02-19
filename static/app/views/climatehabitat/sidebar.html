@@ -12,28 +12,28 @@
   <div class="row"><div class="type-row">
     <div class="col-md-12">
       <select class="form-control selectpicker" 
-        ng-model="model.projectionOpts.lumethod">
-        <option value=''>None</option>
-        <option value='ssp1'>SSP 1 (RCP 2.6)</option>
-        <option value='ssp2'>SSP 2 (RCP 4.5)</option>
-        <option value='ssp3'>SSP 3 (RCP 7.0)</option>
-        <option value='ssp5'>SSP 5 (RCP 8.5)</option>
+        ng-model="model.projectionOpts.method">
+        <option value='expert'>Expert map</option>
+        <option value='best'>2015 Best guess</option>
+        <option value='ssp1_rcp26'>SSP 1 (RCP 2.6)</option>
+        <option value='ssp2_rcp45'>SSP 2 (RCP 4.5)</option>
+        <option value='ssp3_rcp60'>SSP 3 (RCP 7.0)</option>
+        <option value='ssp5_rcp85'>SSP 5 (RCP 8.5)</option>
       </select>
     </div>
   </div></div>
   
-    <div class="row">&nbsp;</div>
+  <div class="row">&nbsp;</div>
 
+  <span ng-if="model.projectionOpts.method != 'expert' && model.projectionOpts.method != 'best'">
   <div class="row"><div class="col-md-12"><h5>Climate</h5></div></div>
   <div class="row"><div class="type-row">
     <div class="col-md-12">
       <select class="form-control selectpicker" 
-        ng-model="model.projectionOpts.clim">
-        <option value=''>None</option>
-        <option value='rcp26'>SSP 1 (RCP 2.6)</option>
-        <option value='rcp45'>SSP 2 (RCP 4.5)</option>
-        <option value='rcp60'>SSP 3 (RCP 7.0)</option>
-        <option value='rcp85'>SSP 5 (RCP 8.5)</option>
+        ng-model="model.projectionOpts.class">
+        <option value='lu_clim'>Climate and landuse</option>
+        <option value='nolu'>Climate only</option>
+        <option value='noclim'>Landuse only</option>
       </select>
     </div>
   </div></div>
@@ -45,7 +45,7 @@
     <div class="col-md-12">
       <select class="form-control selectpicker" 
         ng-model="model.projectionOpts.decade" 
-        ng-options="opt for opt in decades[model.projectionOpts.landuse]">
+        ng-options="opt for opt in decades">
         <!-- <option value='' translate>Select decade</option> -->
       </select>
     </div>
@@ -62,23 +62,25 @@
         <option value='' translate>Select regain assumption</option>
       </select> -->
       <div class="btn-group">
-        <label class="btn btn-primary" ng-model="model.projectionOpts.scenario" uib-btn-radio="'scenario1'">No-regain</label>
-        <label class="btn btn-primary" ng-model="model.projectionOpts.scenario" uib-btn-radio="'scenario3'">Regain</label>
+        <label class="btn btn-primary" ng-model="model.projectionOpts.scenario" uib-btn-radio="'noregain'">No-regain</label>
+        <label class="btn btn-primary" ng-model="model.projectionOpts.scenario" uib-btn-radio="'regain'">Regain</label>
       </div>
     </div>
   </div></div>
+  </span>
 
   <div class="row">&nbsp;</div>
 
   <div class="row"><div class="type-row">
     <!-- <div class="col-md-3">&nbsp;</div> -->
     <div class="col-md-12"><button class="btn btn-success" 
-        ng-class="{'disabled': !(model.projectionOpts.decade && model.projectionOpts.scenario) || loadingData}" 
+        ng-class="{'disabled': loadingData}" 
         ng-click="getHabitatProjection()">
         Get habitat projection
     </button> &nbsp; &nbsp;
     <i class="fa fa-question-circle fa-lg" uib-popover-html="habProjTooltip" popover-trigger="outsideClick" popover-placement="bottom"></i></div>
   </div></div>
+  <h5 id="loadingBand"></h5>
 
   <div class="row">&nbsp;</div>
 
