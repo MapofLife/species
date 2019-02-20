@@ -29,6 +29,8 @@ angular.module('mol.controllers')
           decades: [2015, 2020, 2030, 2040, 2050, 2060, 2070],
           methods: ['AIM', 'IMAGE', 'MAGPIE', 'MESSAGE']
         }];
+
+        $scope.projectionAvailable = false;
         /* 
         {
           id: 'globio_1km',
@@ -79,6 +81,14 @@ angular.module('mol.controllers')
         $scope.mapAvailable = false;
 
         $scope.getHabitatProjection = function() {
+
+          if ($scope.$parent.species.taxa != 'birds' && $scope.$parent.species.taxa != 'mammals' && $scope.$parent.species.taxa != 'amphibians') {
+            $scope.projectionAvailable = false;
+            return;
+          }
+
+          $scope.projectionAvailable = true;
+
           if ($scope.model.projectionOpts.decade && $scope.model.projectionOpts.scenario) {
             $scope.mapAvailable = false; 
             $scope.loadingData = true;
@@ -91,6 +101,12 @@ angular.module('mol.controllers')
               "loading": true
             }).then(function (results) {
                 if (results && results.data) {
+                  
+                  if (results.data.length > 0 && results.data[0].error) {
+                    $scope.projectionAvailable = false;
+                    return
+                  }
+
                   loadProjectionMap(results.data.map);
                   
                   // TODO: Figure out why we need to add a delay to display the chart.

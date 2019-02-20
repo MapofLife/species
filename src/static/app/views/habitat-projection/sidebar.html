@@ -1,6 +1,13 @@
 <div class="sidebar">
   <div ng-include="'static/app/views/name.html'"></div>
-  
+
+  <div ng-if="!projectionAvailable">
+    <div class="row">&nbsp;</div>
+    <h4><i class="fa fa-exclamation-triangle"></i> Habitat projection not available for this species</h4>
+    <p>Please try a few of our <a ui-sref="species.projection.landuse($state.params)" ui-sref-opts="{absolute: true}">favourite species</a>.</p>
+  </div>
+
+  <span ng-if="projectionAvailable">
   <div class="row"><div class="col-md-12"><h5>Projection Year (Map)</h5></div></div>
   <div class="row"><div class="type-row">
   <div class="col-md-12">
@@ -61,6 +68,8 @@
   <div ng-if="loadingData">
     <h4><i class="fa fa-refresh fa-spin fa-1x fa-fw"></i> Generating projection...</h4>
   </div>
+
+  </span>
 
   <!-- elevation -->
   <!-- <div class="row">&nbsp;</div> -->
