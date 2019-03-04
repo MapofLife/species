@@ -21,7 +21,7 @@
 
 <div class="row">&nbsp;</div>
 
-<div class="row" ng-if="model.projectionOpts.decade != 2015"><div class="col-md-12"><h5>Shared Socio‐Economic Pathway</h5></div></div>
+<div class="row" ng-if="model.projectionOpts.decade != 2015"><div class="col-md-12"><h5>Shared Socio‐Economic Pathway (SSP)</h5></div></div>
   <div class="row" ng-if="model.projectionOpts.decade != 2015"><div class="type-row">
     <div class="col-md-12">
       <select class="form-control selectpicker" 
@@ -107,6 +107,9 @@
     <div class="col-md-12">
       <div id="habitat-projection-chart" style="width: 400px; height: 300px"></div>
     </div>
+  </div>
+  <div class="pull-right" style="margin-right: 20px;">
+    <button class="btn btn-xs btn-default" ng-click="viewChart()">View</button>
   </div></div>
 
   <div class="row">&nbsp;</div>

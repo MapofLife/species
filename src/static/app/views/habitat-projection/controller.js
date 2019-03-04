@@ -29,6 +29,12 @@ angular.module('mol.controllers')
           decades: [2015, 2020, 2030, 2040, 2050, 2060, 2070],
           methods: ['AIM', 'IMAGE', 'MAGPIE', 'MESSAGE']
         }];
+        var luh_methods = {
+          'image': 'SSP 1',
+          'message': 'SSP 2',
+          'aim': 'SSP 3',
+          'magpie': 'SSP 5',
+        };
 
         $scope.projectionAvailable = false;
         /* 
@@ -151,36 +157,59 @@ angular.module('mol.controllers')
           }, 500);
         }
 
+        var projChart = undefined;
+        var chartData = undefined;
         function loadProjectionChart(chartObject) {
+          projChart = undefined;
+          chartData = undefined;
           if ($scope.isChartReady) {
             var data = new google.visualization.DataTable();
             data.addColumn('date', 'Year');
             data.addColumn('number', 'Regain');
             data.addColumn('number', 'No-regain');
 
-            var options = {
-              title: 'Suitable Habitat Trend',
-              // curveType: 'function', // uncomment for a curve line
-              // legend: { position: 'bottom' },
-              legend: 'none',
-              hAxis: { title: 'Year', format: 'Y' },
-              vAxis: { title: 'Sum Area (km²)' }
-            };
+            var options = getChartOption(450, 300);
             
             angular.forEach($scope.decades[$scope.model.projectionOpts.landuse], function(decade) {
               data.addRow([new Date(decade, 1, 1), chartObject.features[0].properties[decade], chartObject.features[1].properties[decade]]);
             });
 
-            var chart = new google.visualization.LineChart(document.getElementById('habitat-projection-chart'));
-            chart.draw(data, options);
-
+            projChart = new google.visualization.LineChart(document.getElementById('habitat-projection-chart'));
+            projChart.draw(data, options);
+            chartData = data;
           } else {
             console.log('Chart is not ready yet. We should reload!');
           }
         }
 
+        $scope.viewChart = function() {
+          var opts = getChartOption(650, 500);
+          projChart.draw(chartData, opts);
+          var x = window.open();
+          x.document.open();
+          x.document.title = "Map of Life: " + opts.title;
+          x.document.write("<title>Map of Life: " + opts.title + "</title>");
+          x.document.write("<iframe width='650' height='500' src='" + projChart.getImageURI() + "'></iframe>");
+          x.document.close();
+          projChart.draw(chartData, getChartOption(450, 300));
+        }
+
         function chartReady() {
           $scope.isChartReady = true;
+        }
+        function getChartOption(width, height) {
+          var title = $scope.model.projectionOpts.scientificname + ' projection under ' + luh_methods[$scope.model.projectionOpts.lumethod];
+          var options = {
+            title: title,
+            width: width,
+            height: height,
+            // curveType: 'function', // uncomment for a curve line
+            legend: { position: 'bottom' },
+            hAxis: { title: 'Year', format: 'Y' },
+            vAxis: { title: 'Habitat-suitable range (km²)' }
+          };
+  
+          return options;
         }
 
         google.charts.load('current', { 'packages': ['corechart'] });
