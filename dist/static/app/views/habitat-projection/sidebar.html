@@ -1,13 +1,13 @@
 <div class="sidebar">
-  <div class="name" style="min-height: 100px">
-      <div class="infoCommonName" ng-show="species.commonname">
-          {{ species.commonname }}
-      </div>
-      <div class="infoSciName" ng-show="species.scientificname">
-          {{ species.scientificname }}
-      </div>
+  <div ng-include="'static/app/views/name.html'"></div>
+
+  <div ng-if="!projectionAvailable">
+    <div class="row">&nbsp;</div>
+    <h4><i class="fa fa-exclamation-triangle"></i> Habitat projection not available for this species</h4>
+    <p>Please try a few of our <a ui-sref="species.projection.landuse($state.params)" ui-sref-opts="{absolute: true}">favourite species</a>.</p>
   </div>
-  
+
+  <span ng-if="projectionAvailable">
   <div class="row"><div class="col-md-12"><h5>Projection Year (Map)</h5></div></div>
   <div class="row"><div class="type-row">
   <div class="col-md-12">
@@ -21,7 +21,7 @@
 
 <div class="row">&nbsp;</div>
 
-<div class="row" ng-if="model.projectionOpts.decade != 2015"><div class="col-md-12"><h5>Shared Socio‐Economic Pathway</h5></div></div>
+<div class="row" ng-if="model.projectionOpts.decade != 2015"><div class="col-md-12"><h5>Shared Socio‐Economic Pathway (SSP)</h5></div></div>
   <div class="row" ng-if="model.projectionOpts.decade != 2015"><div class="type-row">
     <div class="col-md-12">
       <select class="form-control selectpicker" 
@@ -69,6 +69,8 @@
     <h4><i class="fa fa-refresh fa-spin fa-1x fa-fw"></i> Generating projection...</h4>
   </div>
 
+  </span>
+
   <!-- elevation -->
   <!-- <div class="row">&nbsp;</div> -->
   <div class="row" ng-if="model.projectionOpts.metadata"><div class="type-row">
@@ -105,6 +107,9 @@
     <div class="col-md-12">
       <div id="habitat-projection-chart" style="width: 400px; height: 300px"></div>
     </div>
+  </div>
+  <div class="pull-right" style="margin-right: 20px;">
+    <button class="btn btn-xs btn-default" ng-click="viewChart()">View</button>
   </div></div>
 
   <div class="row">&nbsp;</div>
