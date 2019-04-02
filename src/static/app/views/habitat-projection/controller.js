@@ -2,10 +2,10 @@ angular.module('mol.controllers')
   .controller('molHabitatProjectionCtrl',
   	[  '$compile',
       '$window','$http','$uibModal','$scope','$state', '$filter',
-      '$timeout','$q','$sce','molApi',
+      '$timeout','$q','$sce','molApi','molConfig',
    		function(
          $compile, $window, $http, $modal, $scope, $state, $filter,
-          $timeout, $q, $sce, molApi) {
+          $timeout, $q, $sce, molApi, molConfig) {
 
         
         $scope.loadingData = false;
@@ -14,7 +14,8 @@ angular.module('mol.controllers')
         tooltipText += "<br /> ";
         tooltipText += "Nature Climate Change.";
         tooltipText += "<br /> ";
-        tooltipText += "Click <a href='https://mol.org/species/projection/landuse'>here</a> for more info.";
+        tooltipText += "Click <a href='https://mol.org" + molConfig.url + "projection/landuse'>here</a> for more info.";
+        tooltipText = tooltipText.replace("{lang}", molConfig.lang);
         $scope.habProjTooltip = $sce.trustAsHtml(tooltipText);
         // $scope.decades = [2010, 2020, 2030, 2040, 2050];
         $scope.decades = {
