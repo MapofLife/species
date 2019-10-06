@@ -44,7 +44,7 @@
       limit="filters.points"></points-histogram>-->
 
       <!-- SDM filters -->
-      <div ng-if="sdmLayer && (visibleDatasets.indexOf('sdm') > -1)">
+      <div ng-if="sdmLayer && (visibleDatasets.indexOf('sdm') > -1) && filters.threshold">
         <h5>SDM Filters</h5>
         <div class="btn-group">
           <label class="btn btn-xs btn-info" ng-model="filters.threshold" ng-repeat="th in sdmLayer.filters.threshold" uib-btn-radio="th">{{ th }}</label>
