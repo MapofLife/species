@@ -418,7 +418,7 @@ angular.module('mol.controllers')
                     "id": layer.product_type,
                     "title":layer.type_title,
                     "bounds": layer.bounds,
-                    "visible": (layer.product_type!='regionalchecklist' && layer.product_type!='alienchecklist' && layer.product_type!='sdm'),
+                    "visible": (layer.visible==true && layer.product_type!='alienchecklist' && layer.product_type!='sdm'),
                     "feature_ct": 0,
                     "datasets":{}};
                 } else {
@@ -491,7 +491,7 @@ angular.module('mol.controllers')
             "public": true,
             "dataset_title": "Best predicted SDM",
             "filters": {
-              "threshold": [spinfo.th05, spinfo.th10]
+              "threshold": (spinfo.th05) ? [spinfo.th05, spinfo.th10] : []
             }
           };
         }
