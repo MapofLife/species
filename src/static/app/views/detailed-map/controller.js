@@ -64,7 +64,7 @@ angular.module('mol.controllers')
                   "withCredentials":false,
                   "method":"POST",
                   "timeout":$scope.model.canceller,
-                  "url":"https://carto.mol.org/user/mol/api/v1/map/named/detailed-map-snapped-dev",
+                  "url":"https://carto.mol.org/user/mol/api/v1/map/named/detailed-map-snapped-dev-all",
                   "data": {
                      "min_year" : ($scope.filters.years)?$scope.year.min:-5555555,
                      "max_year" : ($scope.filters.years)?$scope.year.max:5555555,
