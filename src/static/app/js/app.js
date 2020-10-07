@@ -104,7 +104,9 @@ angular.module('mol', [
     'http*://127.0.0.1:9001/**',
     'http*://*mol.org/**',
     'http*://api.mol.org/**',
-    'http*://mapoflife.github.io/**'
+    'http*://mapoflife.github.io/**',
+    'http*://*api-2-x-dot-map-of-life.appspot.com/**',
+    'http*://127.0.0.1:8000/**',
   ]);
 
   $httpProvider.defaults.useXDomain = true;

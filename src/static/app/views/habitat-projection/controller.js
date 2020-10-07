@@ -89,10 +89,10 @@ angular.module('mol.controllers')
 
         $scope.getHabitatProjection = function() {
 
-          if ($scope.$parent.species.taxa != 'birds' && $scope.$parent.species.taxa != 'mammals' && $scope.$parent.species.taxa != 'amphibians') {
-            $scope.projectionAvailable = false;
-            return;
-          }
+          // if ($scope.$parent.species.taxa != 'birds' && $scope.$parent.species.taxa != 'mammals' && $scope.$parent.species.taxa != 'amphibians') {
+          //   $scope.projectionAvailable = false;
+          //   return;
+          // }
 
           $scope.projectionAvailable = true;
 
@@ -102,6 +102,8 @@ angular.module('mol.controllers')
             $scope.model.projectionOpts.metadata = undefined;
             
             molApi({
+              "url": "dev-dot-api-2-x-dot-map-of-life.appspot.com",
+              "version": "2.x",
               "service": "species/indicators/habitat-projection/map",
               "params": $scope.model.projectionOpts,
               "canceller": $scope.model.canceller,

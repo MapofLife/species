@@ -518,6 +518,8 @@ angular.module('mol.controllers')
           molApi({
               "canceller": $scope.canceller,
               "loading": true,
+              "url": "dev-dot-api-2-x-dot-map-of-life.appspot.com",
+              "version": "2.x",
               "service": "species/indicators/rasters/map",
               "creds": true,
               "params":   {
