@@ -217,3 +217,18 @@ a.map-link:hover {
 .partials-map a:link {
   padding: 0;
 }
+
+.v2-tease {
+  display: block;
+  padding: 15px 20px !important;
+  font-weight: 700;
+  color: #fff !important;
+  text-align: center;
+  background-color: #07387e;
+}
+
+.v2-tease:focus, .v2-tease:hover {
+  color: #fff;
+  text-decoration: none;
+  background-color: #062d66;
+}
