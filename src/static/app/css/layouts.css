@@ -224,11 +224,11 @@ a.map-link:hover {
   font-weight: 700;
   color: #fff !important;
   text-align: center;
-  background-color: #07387e;
+  background-color: #e86e1d;
 }
 
 .v2-tease:focus, .v2-tease:hover {
   color: #fff;
   text-decoration: none;
-  background-color: #062d66;
+  background-color: #07387e;
 }
