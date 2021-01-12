@@ -26,7 +26,7 @@ angular.module('mol.controllers')
         // });
 
 
-        var spturl = "https://api.mol.org/1.x/species/indicators/habitat-trends/map?scientificname="+$state.params.scientificname.replace('_', ' ');
+        var spturl = "https://dev-dot-api-2-x-dot-map-of-life.appspot.com/2.x/species/indicators/habitat-trends/map?scientificname="+$state.params.scientificname.replace('_', ' ');
         return $http({
           "withCredentials": false,
           "method": "GET",
@@ -303,6 +303,8 @@ angular.module('mol.controllers')
               return [angular.copy(config)];
           }
           return molApi({
+           "url": "dev-dot-api-2-x-dot-map-of-life.appspot.com",
+           "version": "2.x",
            "service" : "species/indicators/habitat-trend/stats",
            "version": "0.x",
            "params" : prefs,
