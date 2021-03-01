@@ -20,7 +20,7 @@ angular.module('mol', [
   'percentage', 'km2', 'imageHelpers'
 ])
 .constant('molConfig',{
-    "module" : "species", //module name (used in routing)
+    "module" : "species-classic", //module name (used in routing)
     "api" : "1.x",
     "protocol" : "https",
     //"api_host" : "localhost:8080",

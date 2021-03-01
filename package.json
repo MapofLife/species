@@ -3,10 +3,10 @@
   "private": true,
   "version": "0.0.0",
   "description": "An application for mapping species distributions",
-  "repository": "git@github.com:MapofLife/species.git",
+  "repository": "git@github.com:MapofLife/species-classic.git",
   "devRepository": "git@github.com:MapofLife/species-dev.git",
-  "url": "https://mapoflife.github.io/species/",
-  "base": "species",
+  "url": "https://mapoflife.github.io/species-classic/",
+  "base": "species-classic",
   "license": "MIT",
   "directory": "static/components/",
   "devDependencies": {
